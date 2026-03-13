@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Exelon | Agent Script — Interaction Pop</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --exelon-navy:    #003366;
+    --exelon-blue:    #005DAA;
+    --exelon-sky:     #0099CC;
+    --exelon-gold:    #F5A800;
+    --exelon-amber:   #E07B00;
+    --exelon-red:     #CC2200;
+    --exelon-green:   #007A47;
+    --surface:        #F4F6FA;
+    --surface-card:   #FFFFFF;
+    --border:         #D0D9E8;
+    --text-primary:   #0D1B2E;
+    --text-secondary: #4A607A;
+    --text-muted:     #8A9BB0;
+    --sms-bg:         #EAF4FB;
+    --sms-border:     #0099CC;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--surface);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  header {
+    background: var(--exelon-navy);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    height: 56px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.35);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    width: 36px; height: 36px;
+    background: var(--exelon-gold);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--exelon-navy);
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: .4px;
+  }
+
+  .logo-sub {
+    font-size: 10px;
+    font-weight: 300;
+    opacity: .65;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .agent-badge {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 24px;
+    padding: 4px 12px 4px 6px;
+    font-size: 12px;
+  }
+
+  .agent-avatar {
+    width: 26px; height: 26px;
+    background: var(--exelon-sky);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600;
+    font-size: 11px;
+    color: #fff;
+  }
+
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #3DDB72;
+    margin-right: -4px;
+    box-shadow: 0 0 0 2px rgba(61,219,114,.3);
+    animation: pulse-green 2s infinite;
+  }
+
+  @keyframes pulse-green {
+    0%,100%{ box-shadow: 0 0 0 2px rgba(61,219,114,.3); }
+    50%{ box-shadow: 0 0 0 5px rgba(61,219,114,.1); }
+  }
+
+  .clock {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    opacity: .8;
+  }
+
+  /* ── SCENARIO TABS ──────────────────────────────────── */
+  .tab-bar {
+    background: var(--exelon-navy);
+    border-bottom: 3px solid var(--exelon-gold);
+    display: flex;
+    padding: 0 28px;
+    gap: 4px;
+  }
+
+  .tab-btn {
+    padding: 10px 22px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,.6);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    display: flex; align-items: center; gap: 8px;
+    transition: color .2s, border-color .2s;
+    letter-spacing: .3px;
+  }
+
+  .tab-btn:hover { color: rgba(255,255,255,.9); }
+
+  .tab-btn.active {
+    color: #fff;
+    border-bottom-color: var(--exelon-gold);
+  }
+
+  .tab-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 20px;
+    letter-spacing: .5px;
+  }
+
+  .tab-badge.voice {
+    background: rgba(204,34,0,.25);
+    color: #FF8077;
+  }
+
+  .tab-badge.sms {
+    background: rgba(0,153,204,.25);
+    color: #5ECFEF;
+  }
+
+  /* ── MAIN LAYOUT ────────────────────────────────────── */
+  main {
+    flex: 1;
+    display: flex;
+    gap: 0;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 20px;
+    gap: 20px;
+  }
+
+  /* ── LEFT: CUSTOMER CONTEXT ─────────────────────────── */
+  .context-panel {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .panel-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,51,102,.07);
+  }
+
+  .card-header {
+    background: var(--exelon-navy);
+    color: #fff;
+    padding: 9px 14px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-body {
+    padding: 14px;
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 6px 0;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 12.5px;
+    gap: 8px;
+  }
+
+  .info-row:last-child { border-bottom: none; }
+
+  .info-label {
+    color: var(--text-muted);
+    font-weight: 500;
+    flex-shrink: 0;
+    font-size: 11.5px;
+  }
+
+  .info-value {
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: right;
+    font-size: 12px;
+  }
+
+  .info-value.alert { color: var(--exelon-red); }
+  .info-value.warn  { color: var(--exelon-amber); }
+  .info-value.ok    { color: var(--exelon-green); }
+
+  .alert-banner {
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 12px;
+    display: flex;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .alert-banner.red {
+    background: #FFF0EE;
+    border-left: 4px solid var(--exelon-red);
+    color: #7A1500;
+  }
+
+  .alert-banner.amber {
+    background: #FFF8EE;
+    border-left: 4px solid var(--exelon-amber);
+    color: #7A4000;
+  }
+
+  .alert-banner.blue {
+    background: #EEF7FF;
+    border-left: 4px solid var(--exelon-blue);
+    color: #003366;
+  }
+
+  .alert-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .4px;
+  }
+
+  .pill.outage   { background: #FDECEA; color: var(--exelon-red); }
+  .pill.delinq   { background: #FFF3E0; color: var(--exelon-amber); }
+  .pill.sms-ch   { background: var(--sms-bg); color: #005DAA; }
+  .pill.voice-ch { background: #FDECEA; color: var(--exelon-red); }
+
+  /* ── CENTER: SCRIPT ─────────────────────────────────── */
+  .script-panel {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .scenario-header {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 1px 4px rgba(0,51,102,.07);
+  }
+
+  .scenario-icon {
+    width: 52px; height: 52px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .scenario-icon.voice { background: #FDECEA; }
+  .scenario-icon.sms   { background: var(--sms-bg); }
+
+  .scenario-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--exelon-navy);
+    line-height: 1.2;
+  }
+
+  .scenario-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .meta-dot { color: var(--border); }
+
+  /* script steps */
+  .step-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .step {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,51,102,.05);
+    transition: box-shadow .2s;
+  }
+
+  .step:hover { box-shadow: 0 3px 14px rgba(0,51,102,.12); }
+
+  .step-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .step-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--exelon-navy);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .step-num.done {
+    background: var(--exelon-green);
+  }
+
+  .step-label {
+    flex: 1;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .step-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: .5px;
+  }
+
+  .step-tag.required { background: #FDECEA; color: var(--exelon-red); }
+  .step-tag.optional { background: #EEF7FF; color: var(--exelon-blue); }
+  .step-tag.system   { background: #F0F4FF; color: #445588; }
+  .step-tag.empathy  { background: #FFF8EE; color: var(--exelon-amber); }
+
+  .step-chevron {
+    font-size: 12px;
+    color: var(--text-muted);
+    transition: transform .25s;
+  }
+
+  .step.open .step-chevron { transform: rotate(180deg); }
+
+  .step-body {
+    display: none;
+    padding: 0 16px 16px 56px;
+    border-top: 1px solid #EEF2F8;
+  }
+
+  .step.open .step-body { display: block; }
+
+  .script-block {
+    background: #F8F9FD;
+    border-left: 4px solid var(--exelon-blue);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    margin: 12px 0 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text-primary);
+    font-style: italic;
+    position: relative;
+  }
+
+  .script-block::before {
+    content: '"';
+    font-family: 'Source Serif 4', serif;
+    font-size: 36px;
+    color: var(--exelon-blue);
+    opacity: .25;
+    position: absolute;
+    top: -4px;
+    left: 10px;
+  }
+
+  .script-block.sms-variant {
+    border-left-color: var(--sms-border);
+    background: var(--sms-bg);
+  }
+
+  .script-block.sms-variant::before {
+    color: var(--sms-border);
+  }
+
+  .note-block {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  .note-block strong { color: var(--text-primary); }
+
+  .checklist {
+    list-style: none;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .checklist li::before {
+    content: '☐';
+    flex-shrink: 0;
+    font-size: 15px;
+    color: var(--exelon-blue);
+    margin-top: -1px;
+  }
+
+  .branch-block {
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    font-size: 12.5px;
+  }
+
+  .branch-label {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .branch-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 5px;
+    line-height: 1.5;
+  }
+
+  .branch-key {
+    font-weight: 700;
+    color: var(--exelon-navy);
+    flex-shrink: 0;
+    min-width: 60px;
+  }
+
+  /* arrange payment widget */
+  .payment-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .form-field label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .form-field input, .form-field select {
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    font-size: 13px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--text-primary);
+    background: #fff;
+    outline: none;
+    transition: border-color .2s;
+  }
+
+  .form-field input:focus, .form-field select:focus {
+    border-color: var(--exelon-blue);
+    box-shadow: 0 0 0 3px rgba(0,93,170,.12);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+    letter-spacing: .3px;
+  }
+
+  .btn:active { transform: translateY(1px); }
+
+  .btn-primary {
+    background: var(--exelon-blue);
+    color: #fff;
+  }
+
+  .btn-primary:hover { background: var(--exelon-navy); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--exelon-blue);
+    border: 1px solid var(--exelon-blue);
+  }
+
+  .btn-secondary:hover { background: #EEF7FF; }
+
+  .btn-success {
+    background: var(--exelon-green);
+    color: #fff;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* ── RIGHT: TOOLS ──────────────────────────────────── */
+  .tools-panel {
+    width: 240px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .tool-btn {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+    text-align: left;
+    width: 100%;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+
+  .tool-btn:hover {
+    border-color: var(--exelon-blue);
+    box-shadow: 0 2px 10px rgba(0,93,170,.1);
+  }
+
+  .tool-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .tool-icon.blue  { background: #EEF7FF; }
+  .tool-icon.amber { background: #FFF8EE; }
+  .tool-icon.red   { background: #FDECEA; }
+  .tool-icon.green { background: #EDFAF4; }
+  .tool-icon.gray  { background: #F3F4F8; }
+
+  .tool-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .tool-desc {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  /* SMS thread preview */
+  .sms-thread {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .sms-messages {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+  }
+
+  .sms-msg {
+    max-width: 85%;
+    padding: 8px 11px;
+    border-radius: 12px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .sms-msg.inbound {
+    background: #EAEEF5;
+    color: var(--text-primary);
+    border-bottom-left-radius: 3px;
+    align-self: flex-start;
+  }
+
+  .sms-msg.outbound {
+    background: var(--exelon-blue);
+    color: #fff;
+    border-bottom-right-radius: 3px;
+    align-self: flex-end;
+  }
+
+  .sms-msg.outbound a { color: #AADCFF; }
+
+  .sms-compose {
+    border-top: 1px solid var(--border);
+    padding: 8px;
+    display: flex;
+    gap: 6px;
+  }
+
+  .sms-input {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    outline: none;
+    resize: none;
+  }
+
+  .sms-input:focus { border-color: var(--sms-border); }
+
+  .sms-send {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--exelon-blue);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    align-self: flex-end;
+  }
+
+  /* ── OUTAGE MAP MOCK ─────────────────────────────────── */
+  .outage-map {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .map-placeholder {
+    background: linear-gradient(135deg, #0A1E3C 0%, #0D3260 50%, #0A1E3C 100%);
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .outage-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--exelon-red);
+    opacity: .8;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%,100% { opacity: .8; }
+    50% { opacity: .3; }
+  }
+
+  .map-label {
+    position: relative;
+    z-index: 2;
+    color: rgba(255,255,255,.9);
+    font-size: 11px;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .map-stat {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--exelon-gold);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .map-footer {
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .map-footer strong { color: var(--exelon-red); }
+
+  /* ── WRAP / DISPOSITION ─────────────────────────────── */
+  .dispo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .dispo-btn {
+    padding: 7px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: center;
+    transition: all .15s;
+  }
+
+  .dispo-btn:hover {
+    border-color: var(--exelon-blue);
+    color: var(--exelon-blue);
+    background: #EEF7FF;
+  }
+
+  .dispo-btn.selected {
+    border-color: var(--exelon-blue);
+    background: var(--exelon-blue);
+    color: #fff;
+  }
+
+  /* ── HIDDEN PANELS ─────────────────────────────────── */
+  .scenario-panel { display: none; }
+  .scenario-panel.active { display: contents; }
+
+  /* ── TIMER ─────────────────────────────────────────── */
+  .live-timer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--exelon-red);
+    font-weight: 600;
+  }
+
+  .progress-bar-wrap {
+    background: #EEF2F8;
+    border-radius: 20px;
+    height: 5px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: var(--exelon-blue);
+    border-radius: 20px;
+    transition: width .5s;
+  }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    main { flex-direction: column; }
+    .context-panel, .tools-panel { width: 100%; }
+  }
+
+  .separator { height: 1px; background: var(--border); margin: 4px 0; }
+  .mt-2 { margin-top: 8px; }
+  .mt-3 { margin-top: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header>
+  <div class="logo-area">
+    <div class="logo-mark">Ex</div>
+    <div>
+      <div class="logo-text">Exelon</div>
+      <div class="logo-sub">Agent Desktop — Interaction Script</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="agent-badge">
+      <div class="agent-avatar">JT</div>
+      <span>Jordan Taylor</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div class="status-dot"></div>
+      <span style="font-size:12px;opacity:.7;">Available</span>
+    </div>
+    <div class="clock" id="clockDisplay">--:--:--</div>
+  </div>
+</header>
+
+<!-- ═══════════════ SCENARIO TABS ═══════════════ -->
+<div class="tab-bar">
+  <button class="tab-btn active" id="tabVoice" onclick="switchScenario('voice')">
+    <span>📞</span>
+    Storm Outage — Voice
+    <span class="tab-badge voice">LIVE CALL</span>
+  </button>
+  <button class="tab-btn" id="tabSMS" onclick="switchScenario('sms')">
+    <span>💬</span>
+    Billing / Delinquent — SMS
+    <span class="tab-badge sms">SMS</span>
+  </button>
+</div>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main>
+
+  <!-- ══ LEFT PANEL ══════════════════════════════════════ -->
+  <div class="context-panel">
+
+    <!-- Customer Info -->
+    <div class="panel-card">
+      <div class="card-header">
+        Customer Account
+        <span id="channelPill" class="pill voice-ch">📞 Voice</span>
+      </div>
+      <div class="card-body">
+        <div id="customerVoice">
+          <div class="info-row">
+            <span class="info-label">Name</span>
+            <span class="info-value">Andre Agassi</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Account #</span>
+            <span class="info-value" style="font-family:'IBM Plex Mono',monospace;font-size:11px;">7742-8831-002</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Utility</span>
+            <span class="info-value">ComEd</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Address</span>
+            <span class="info-value">12843 W Wakefield Dr<br/>Beach Park, IL 60083</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Phone</span>
+            <span class="info-value">847-877-7819</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email</span>
+            <span class="info-value" style="font-size:11px;">cameron.menna@genesys.com</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Acct Status</span>
+            <span class="info-value ok">Active — Current</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Tier</span>
+            <span class="info-value">Residential</span>
+          </div>
+        </div>
+        <div id="customerSMS" style="display:none;">
+          <div class="info-row">
+            <span class="info-label">Name</span>
+            <span class="info-value">Andre Agassi</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Account #</span>
+            <span class="info-value" style="font-family:'IBM Plex Mono',monospace;font-size:11px;">4419-0056-117</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Utility</span>
+            <span class="info-value">BGE</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Address</span>
+            <span class="info-value">12843 W Wakefield Dr<br/>Beach Park, IL 60083</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Mobile</span>
+            <span class="info-value">847-877-7819</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email</span>
+            <span class="info-value" style="font-size:11px;">cameron.menna@genesys.com</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Acct Status</span>
+            <span class="info-value alert">⚠ Delinquent</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Balance Due</span>
+            <span class="info-value alert">$347.82</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Past Due</span>
+            <span class="info-value warn">$183.40 (62 days)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Disconn. Risk</span>
+            <span class="info-value alert">High — 14 days</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Situation Alert -->
+    <div id="alertVoice" class="alert-banner red">
+      <span class="alert-icon">⚡</span>
+      <div><strong>Active Outage:</strong> Major storm event. ~28,400 customers affected. ETR: 11:30 PM tonight. Do not commit to specific repair times — follow scripted ETR language.</div>
+    </div>
+    <div id="alertSMS" class="alert-banner amber" style="display:none;">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Delinquency Alert:</strong> Account is 62 days past due. Disconnection notice issued. Payment arrangement eligibility: YES. Up to 6-month plan available.</div>
+    </div>
+
+    <!-- Call Timer / Interaction Timer -->
+    <div class="panel-card">
+      <div class="card-header">Interaction Timer</div>
+      <div class="card-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:11.5px;color:var(--text-muted);" id="timerLabel">Call Duration</span>
+          <span class="live-timer" id="timerDisplay">0:00</span>
+        </div>
+        <div class="progress-bar-wrap mt-2">
+          <div class="progress-bar" id="progressBar" style="width:0%"></div>
+        </div>
+        <div style="font-size:10.5px;color:var(--text-muted);margin-top:5px;" id="timerNote">Target handle time: 4:30</div>
+      </div>
+    </div>
+
+    <!-- Wrap / Disposition -->
+    <div class="panel-card">
+      <div class="card-header">Wrap / Disposition</div>
+      <div class="card-body">
+        <div id="dispoVoice">
+          <div class="dispo-grid">
+            <div class="dispo-btn" onclick="selectDispo(this)">Outage — Reported</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">Outage — Status</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">Safety Concern</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">Life Support</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">Transfer — Field</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">Escalation</div>
+          </div>
+        </div>
+        <div id="dispoSMS" style="display:none;">
+          <div class="dispo-grid">
+            <div class="dispo-btn" onclick="selectDispo(this)">Arrangement Set</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">Promise to Pay</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">Payment Taken</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">Refused — Escalate</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">No Response</div>
+            <div class="dispo-btn" onclick="selectDispo(this)">Disconn. Deferred</div>
+          </div>
+        </div>
+        <button class="btn btn-primary mt-3" style="width:100%;" onclick="wrapInteraction()">✓ Complete &amp; Wrap</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ CENTER: SCRIPT ════════════════════════════════ -->
+  <div class="script-panel">
+
+    <!-- SCENARIO 1: VOICE / STORM OUTAGE -->
+    <div id="voiceScenario" class="scenario-panel active">
+
+      <div class="scenario-header">
+        <div class="scenario-icon voice">⚡</div>
+        <div style="flex:1;">
+          <div class="scenario-title">Storm Outage — Inbound Voice</div>
+          <div class="scenario-meta">
+            <span class="pill outage">OUTAGE ACTIVE</span>
+            <span class="meta-dot">·</span>
+            ComEd Service Territory
+            <span class="meta-dot">·</span>
+            ~28,400 Customers Impacted
+            <span class="meta-dot">·</span>
+            ETR: 11:30 PM CT
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:10px;color:var(--text-muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:2px;">Script ID</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--exelon-navy);">OUT-STORM-01</div>
+        </div>
+      </div>
+
+      <div class="step-list">
+
+        <!-- STEP 1 -->
+        <div class="step open" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">1</div>
+            <div class="step-label">Opening Greeting &amp; Authentication</div>
+            <span class="step-tag required">Required</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block">
+              "Thank you for calling Exelon — this is [<em>your name</em>] with ComEd Customer Care. I understand this may be a stressful time. May I please get your name and the service address or account number for your location?"
+            </div>
+            <div class="note-block">
+              <strong>Auth note:</strong> Verify name + address OR name + last 4 of SSN. Do <em>not</em> require both during declared storm events — policy waiver is active.
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">2</div>
+            <div class="step-label">Empathy Statement &amp; Situation Acknowledgment</div>
+            <span class="step-tag empathy">Empathy</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block">
+              "Ms. [<em>Agassi</em>], I'm truly sorry you're without power, especially given the severe weather we've had today. I want to assure you that our crews are working around the clock — your safety is our top priority."
+            </div>
+            <div class="note-block">
+              Use the customer's name. Avoid saying "I understand how you feel" — instead mirror the specific hardship (cold weather, medical equipment, food spoilage, etc.) if the customer mentions it.
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">3</div>
+            <div class="step-label">Outage Confirmation &amp; ETR Delivery</div>
+            <span class="step-tag required">Required</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block">
+              "I can confirm there is an active outage affecting your area — this is part of the widespread storm damage impacting thousands of customers across our service territory. Our current estimated restoration time for your area is <strong>by 11:30 PM tonight</strong>, though crews are working hard and we hope to restore power sooner."
+            </div>
+            <div class="alert-banner amber mt-2">
+              <span class="alert-icon">⚠️</span>
+              <div><strong>Do not guarantee</strong> a specific time. Always use "by" or "estimated." If the customer presses for an exact time, say: <em>"I want to be transparent — restoration depends on the extent of damage our crews find on-site, and I don't want to give you a time I can't stand behind."</em></div>
+            </div>
+            <div class="note-block mt-2">
+              <strong>Outage details on screen:</strong> Cause — High winds / downed lines. Affected: 28,400 customers. Crew dispatch status: Active. Crew count: 240+ field technicians.
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">4</div>
+            <div class="step-label">Safety Screening</div>
+            <span class="step-tag required">Required</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block">
+              "Before we continue, I want to ask a couple of important safety questions. Are there any downed power lines or sparking wires near your home or property? And do you or anyone in your household depend on electrically powered medical equipment?"
+            </div>
+            <div class="branch-block">
+              <div class="branch-label">Branch Logic</div>
+              <div class="branch-item">
+                <span class="branch-key">Downed line →</span>
+                <span>Instruct customer to stay back at least 30 feet. Do NOT approach. Call 911 immediately. Escalate to Priority Outage queue. Log safety concern.</span>
+              </div>
+              <div class="branch-item">
+                <span class="branch-key">Medical need →</span>
+                <span>Flag account as Life Support. Offer priority ETR update via callback. Transfer to Medical Baseline team if warranted.</span>
+              </div>
+              <div class="branch-item">
+                <span class="branch-key">No concerns →</span>
+                <span>Continue to Step 5.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">5</div>
+            <div class="step-label">Outage Report Confirmation &amp; Self-Service</div>
+            <span class="step-tag system">System</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block">
+              "I've confirmed your outage is already on file — you don't need to take any further action to report it. I'd like to make sure you have a couple of easy ways to track progress: you can text <strong>OUT</strong> to <strong>26633</strong> for automated updates, or visit comed.com/outages for our live outage map."
+            </div>
+            <ul class="checklist">
+              <li>Outage logged in system — confirm on screen (auto-populated)</li>
+              <li>Offer text notification enrollment if not already enrolled</li>
+              <li>Offer outage map link via text/email if customer requests</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">6</div>
+            <div class="step-label">Food Spoilage / Comfort Resources</div>
+            <span class="step-tag optional">Optional</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block">
+              "I also want you to know that if this outage extends beyond four hours, you may be eligible to submit a claim for food spoilage or other losses. I can note that on your account and provide you the claim number once power is restored."
+            </div>
+            <div class="note-block">
+              <strong>Cooling/Warming Center referrals:</strong> If customer expresses distress about extreme temperatures, use the Resource Lookup tool on your right panel to provide nearest ComEd-affiliated shelter location.
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">7</div>
+            <div class="step-label">Closing &amp; Callback Offer</div>
+            <span class="step-tag required">Required</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block">
+              "Mr. Agassi, I want to make sure you're taken care of. Is there anything else I can help you with before I let you go? I'll make sure your account notes reflect everything we've discussed today. Please don't hesitate to call us back — we're here 24/7 throughout this event."
+            </div>
+            <div class="note-block">
+              <strong>Proactive callback:</strong> If customer seems elderly, distressed, or mentions medical needs — offer a proactive callback when power is restored. Log as a Restoration Callback in system.
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-success" onclick="markStepDone(this)">✓ Call Complete</button>
+              <button class="btn btn-secondary">📋 Log Callback</button>
+              <button class="btn btn-secondary">🔀 Transfer</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SCENARIO 2: SMS / BILLING DELINQUENT -->
+    <div id="smsScenario" class="scenario-panel">
+
+      <div class="scenario-header">
+        <div class="scenario-icon sms">💬</div>
+        <div style="flex:1;">
+          <div class="scenario-title">Delinquent Account — SMS Interaction</div>
+          <div class="scenario-meta">
+            <span class="pill delinq">⚠ DELINQUENT</span>
+            <span class="meta-dot">·</span>
+            BGE — Baltimore, MD
+            <span class="meta-dot">·</span>
+            $347.82 Balance
+            <span class="meta-dot">·</span>
+            62 Days Past Due
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:10px;color:var(--text-muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:2px;">Script ID</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--exelon-navy);">BILL-DEL-SMS-01</div>
+        </div>
+      </div>
+
+      <div class="step-list">
+
+        <!-- STEP 1 SMS -->
+        <div class="step open" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">1</div>
+            <div class="step-label">Opening Message — Identity &amp; Purpose</div>
+            <span class="step-tag required">Required</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block sms-variant">
+              BGE: Hi Mr. Agassi, this is BGE Customer Care. We're reaching out about your account ending in -117. Your balance of $347.82 is past due and your service may be at risk. Reply <strong>HELP</strong> for options or <strong>STOP</strong> to unsubscribe. Msg &amp; data rates may apply.
+            </div>
+            <div class="note-block">
+              <strong>TCPA Compliance:</strong> All outbound SMS must include opt-out language ("Reply STOP to unsubscribe") and must not be sent between 9 PM – 8 AM local time. This message was pre-approved by Legal &amp; Compliance.
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 SMS -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">2</div>
+            <div class="step-label">Customer Responds — Acknowledge &amp; Empathize</div>
+            <span class="step-tag empathy">Empathy</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block sms-variant">
+              BGE: Thank you for reaching out, Mr. Agassi. We understand that managing energy costs can be challenging. We're here to help you find a solution that keeps your service on. Can you share a little about your current situation?
+            </div>
+            <div class="branch-block mt-2">
+              <div class="branch-label">Expected Customer Responses</div>
+              <div class="branch-item">
+                <span class="branch-key">Lost job →</span>
+                <span>Acknowledge hardship. Offer LIHEAP referral + payment arrangement. Note in account.</span>
+              </div>
+              <div class="branch-item">
+                <span class="branch-key">Disputes bill →</span>
+                <span>Apologize for confusion. Do not argue. Say: "I'd like to have a billing specialist review this with you." Offer callback or escalate.</span>
+              </div>
+              <div class="branch-item">
+                <span class="branch-key">Ready to pay →</span>
+                <span>Jump directly to Step 4 — Payment Arrangement.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 SMS -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">3</div>
+            <div class="step-label">Present Payment Arrangement Options</div>
+            <span class="step-tag required">Required</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block sms-variant">
+              BGE: We want to work with you. Here are your payment arrangement options for the $347.82 balance:<br/><br/>
+              📅 Option A: Pay $115.94 today + 2 equal monthly installments<br/>
+              📅 Option B: Pay $57.97 today + 5 equal monthly installments<br/>
+              📅 Option C: Pay full balance today — no installments needed<br/><br/>
+              Reply A, B, or C to select an option, or reply AGENT to speak with someone.
+            </div>
+            <div class="alert-banner blue mt-2">
+              <span class="alert-icon">ℹ️</span>
+              <div><strong>Eligibility confirmed:</strong> This account qualifies for up to a 6-month arrangement. First payment required within 5 business days to hold arrangement. If customer selects an option, proceed to confirm and lock it in the billing system.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 SMS -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">4</div>
+            <div class="step-label">Payment Arrangement Setup</div>
+            <span class="step-tag system">System</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block sms-variant">
+              BGE: Great choice, Mr. Washington. I'm setting up your payment arrangement now. Your first payment of $[AMOUNT] is due by [DATE]. You'll receive a confirmation text once it's finalized. Would you like to set up AutoPay to make future payments easier?
+            </div>
+            <div class="note-block mt-2"><strong>Complete the arrangement in the billing system:</strong></div>
+            <div class="payment-form mt-2">
+              <div class="form-field">
+                <label>Arrangement Plan</label>
+                <select>
+                  <option>Option A — 3 months</option>
+                  <option>Option B — 6 months</option>
+                  <option>Option C — Full pay</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>First Payment Amount</label>
+                <input type="text" value="$115.94" />
+              </div>
+              <div class="form-field">
+                <label>Due Date (First Payment)</label>
+                <input type="text" value="03/18/2026" />
+              </div>
+              <div class="form-field">
+                <label>Payment Method</label>
+                <select>
+                  <option>Link via SMS</option>
+                  <option>Agent-assisted card</option>
+                  <option>ACH / Bank</option>
+                </select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-primary" onclick="confirmArrangement()">💾 Confirm &amp; Lock Arrangement</button>
+              <button class="btn btn-secondary">Send Payment Link via SMS</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5 SMS -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">5</div>
+            <div class="step-label">Assistance Programs — LIHEAP / Budget Billing</div>
+            <span class="step-tag optional">Optional</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block sms-variant">
+              BGE: You may also qualify for energy assistance programs that can reduce your bill going forward. Would you like information on the Maryland Energy Assistance Program (MEAP) or our Budget Billing option that evens out your monthly payments?
+            </div>
+            <ul class="checklist">
+              <li>LIHEAP / MEAP — refer to state program portal if customer confirms interest</li>
+              <li>Budget Billing — enrolls customer in levelized payment; note in account</li>
+              <li>Low Income Rate Assistance — check eligibility flag in system before offering</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 6 SMS -->
+        <div class="step" onclick="toggleStep(this)">
+          <div class="step-top">
+            <div class="step-num">6</div>
+            <div class="step-label">Closing Confirmation &amp; Next Steps</div>
+            <span class="step-tag required">Required</span>
+            <span class="step-chevron">▼</span>
+          </div>
+          <div class="step-body">
+            <div class="script-block sms-variant">
+              BGE: Your arrangement is confirmed, Mr. Agassi. You'll receive a confirmation SMS within the next few minutes with all the details. Missing a payment may affect your arrangement, so please reach out early if you need to adjust. Thank you for working with us — we're here to help. Reply HELP anytime.
+            </div>
+            <div class="note-block">
+              <strong>Required system actions:</strong> Log arrangement type, amounts, due dates. Set disconnection hold. Flag for follow-up if first payment not received by due date. Send confirmation SMS via automated system.
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-success" onclick="markStepDone(this)">✓ Interaction Complete</button>
+              <button class="btn btn-secondary">📤 Send Confirmation SMS</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ RIGHT PANEL: TOOLS ══════════════════════════════ -->
+  <div class="tools-panel">
+
+    <!-- Outage Map (voice only) -->
+    <div id="outageMapTool">
+      <div class="outage-map">
+        <div class="card-header" style="background:var(--exelon-navy);color:#fff;padding:9px 14px;font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;">Live Outage Map — ComEd</div>
+        <div class="map-placeholder">
+          <div class="map-grid"></div>
+          <div class="outage-dot" style="width:18px;height:18px;top:35%;left:45%;"></div>
+          <div class="outage-dot" style="width:12px;height:12px;top:50%;left:55%;animation-delay:.4s;"></div>
+          <div class="outage-dot" style="width:10px;height:10px;top:28%;left:38%;animation-delay:.8s;"></div>
+          <div class="outage-dot" style="width:14px;height:14px;top:60%;left:42%;animation-delay:.2s;"></div>
+          <div class="outage-dot" style="width:8px;height:8px;top:44%;left:62%;animation-delay:1s;"></div>
+          <div class="map-label">
+            <span class="map-stat">28,400</span>
+            Customers Without Power
+          </div>
+        </div>
+        <div class="map-footer">
+          <span>ETR: <strong>11:30 PM</strong></span>
+          <span>Updated: 2 min ago</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SMS Thread (sms only) -->
+    <div id="smsThreadTool" style="display:none;">
+      <div class="sms-thread">
+        <div class="card-header" style="background:var(--exelon-navy);color:#fff;padding:9px 14px;font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;">
+          SMS Thread — 847-877-7819
+        </div>
+        <div class="sms-messages" id="smsMessages">
+          <div class="sms-msg outbound">BGE: Hi Mr. Agassi, this is BGE Customer Care. Your account ending in -117 has a past-due balance of $347.82. Reply HELP for options or STOP to unsubscribe.</div>
+          <div class="sms-msg inbound">can u help me set up payments i cant pay it all right now</div>
+          <div class="sms-msg outbound">BGE: Absolutely, we're happy to help. We have payment arrangements available. I'll send your options now.</div>
+        </div>
+        <div class="sms-compose">
+          <textarea class="sms-input" rows="2" id="smsInputBox" placeholder="Type response..."></textarea>
+          <button class="sms-send" onclick="sendSMS()">➤</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Tools -->
+    <div class="panel-card">
+      <div class="card-header">Quick Tools</div>
+      <div class="card-body" style="padding:10px;display:flex;flex-direction:column;gap:6px;">
+
+        <button class="tool-btn" onclick="toolAlert('Account History opened')">
+          <div class="tool-icon blue">📋</div>
+          <div>
+            <div class="tool-label">Account History</div>
+            <div class="tool-desc">Last 12 months of activity</div>
+          </div>
+        </button>
+
+        <button class="tool-btn" onclick="toolAlert('Outage lookup launched')">
+          <div class="tool-icon red">⚡</div>
+          <div>
+            <div class="tool-label">Outage Lookup</div>
+            <div class="tool-desc">Search by address or acct</div>
+          </div>
+        </button>
+
+        <button class="tool-btn" onclick="toolAlert('Assistance programs panel opened')">
+          <div class="tool-icon green">🤝</div>
+          <div>
+            <div class="tool-label">Assistance Programs</div>
+            <div class="tool-desc">LIHEAP, MEAP, LIRA</div>
+          </div>
+        </button>
+
+        <button class="tool-btn" onclick="toolAlert('Knowledge Base opened')">
+          <div class="tool-icon amber">📖</div>
+          <div>
+            <div class="tool-label">Knowledge Base</div>
+            <div class="tool-desc">Policies &amp; procedures</div>
+          </div>
+        </button>
+
+        <button class="tool-btn" onclick="toolAlert('Supervisor escalation initiated')">
+          <div class="tool-icon gray">📞</div>
+          <div>
+            <div class="tool-label">Escalate to Supervisor</div>
+            <div class="tool-desc">Warm transfer available</div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Compliance Reminders -->
+    <div class="panel-card">
+      <div class="card-header" style="background:#7A1500;">⚖️ &nbsp;Compliance Reminders</div>
+      <div class="card-body" style="padding:10px;">
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+          <li style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--exelon-red);">■</span> <span id="comp1">Do not guarantee restoration times</span></li>
+          <li style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--exelon-red);">■</span> <span id="comp2">Record call per state law (MD/IL)</span></li>
+          <li style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--exelon-red);">■</span> <span id="comp3">TCPA: No SMS 9PM–8AM local time</span></li>
+          <li style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--exelon-red);">■</span> Verify identity before account changes</li>
+          <li style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--exelon-red);">■</span> Log all interactions before wrapping</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clockDisplay').textContent =
+      now.toLocaleTimeString('en-US', { hour12: false });
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Timer
+  let timerSeconds = 0;
+  let timerRunning = true;
+  const targets = { voice: 270, sms: 360 }; // 4:30, 6:00
+  let currentTarget = targets.voice;
+
+  setInterval(() => {
+    if (!timerRunning) return;
+    timerSeconds++;
+    const m = Math.floor(timerSeconds / 60);
+    const s = timerSeconds % 60;
+    document.getElementById('timerDisplay').textContent = m + ':' + String(s).padStart(2, '0');
+    const pct = Math.min((timerSeconds / currentTarget) * 100, 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressBar').style.background =
+      pct > 90 ? 'var(--exelon-red)' : pct > 70 ? 'var(--exelon-amber)' : 'var(--exelon-blue)';
+  }, 1000);
+
+  // Scenario Switch
+  function switchScenario(s) {
+    const isVoice = s === 'voice';
+
+    document.getElementById('tabVoice').classList.toggle('active', isVoice);
+    document.getElementById('tabSMS').classList.toggle('active', !isVoice);
+
+    // panels
+    document.getElementById('voiceScenario').classList.toggle('active', isVoice);
+    document.getElementById('smsScenario').classList.toggle('active', !isVoice);
+
+    // customer info
+    document.getElementById('customerVoice').style.display = isVoice ? '' : 'none';
+    document.getElementById('customerSMS').style.display = isVoice ? 'none' : '';
+
+    // alerts
+    document.getElementById('alertVoice').style.display = isVoice ? '' : 'none';
+    document.getElementById('alertSMS').style.display = isVoice ? 'none' : '';
+
+    // dispo
+    document.getElementById('dispoVoice').style.display = isVoice ? '' : 'none';
+    document.getElementById('dispoSMS').style.display = isVoice ? 'none' : '';
+
+    // tools
+    document.getElementById('outageMapTool').style.display = isVoice ? '' : 'none';
+    document.getElementById('smsThreadTool').style.display = isVoice ? 'none' : '';
+
+    // channel pill
+    const pill = document.getElementById('channelPill');
+    pill.className = 'pill ' + (isVoice ? 'voice-ch' : 'sms-ch');
+    pill.textContent = isVoice ? '📞 Voice' : '💬 SMS';
+
+    // timer label
+    document.getElementById('timerLabel').textContent = isVoice ? 'Call Duration' : 'Interaction Duration';
+    document.getElementById('timerNote').textContent = isVoice ? 'Target handle time: 4:30' : 'Target handle time: 6:00';
+    currentTarget = isVoice ? targets.voice : targets.sms;
+    timerSeconds = 0;
+
+    // compliance
+    if (isVoice) {
+      document.getElementById('comp1').textContent = 'Do not guarantee restoration times';
+      document.getElementById('comp2').textContent = 'Record call per state law (IL)';
+      document.getElementById('comp3').textContent = 'Escalate downed lines to 911';
+    } else {
+      document.getElementById('comp1').textContent = 'TCPA: No SMS 9PM–8AM local';
+      document.getElementById('comp2').textContent = 'Include STOP opt-out in every SMS';
+      document.getElementById('comp3').textContent = 'Do not share full acct # via SMS';
+    }
+  }
+
+  // Toggle Steps
+  function toggleStep(el) {
+    el.classList.toggle('open');
+  }
+
+  // Dispo selection
+  function selectDispo(el) {
+    const siblings = el.parentElement.querySelectorAll('.dispo-btn');
+    siblings.forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Wrap
+  function wrapInteraction() {
+    timerRunning = false;
+    const selected = document.querySelector('.dispo-btn.selected');
+    if (!selected) {
+      alert('Please select a disposition code before wrapping.');
+      return;
+    }
+    alert('Interaction wrapped with disposition: "' + selected.textContent + '"\n\nAccount notes saved. Timer stopped at ' + document.getElementById('timerDisplay').textContent);
+  }
+
+  // Tool alert
+  function toolAlert(msg) {
+    alert('🔧 ' + msg + '\n\n[This would open the ' + msg.split(' ')[0].toLowerCase() + ' panel in the full agent desktop integration.]');
+  }
+
+  // Confirm arrangement
+  function confirmArrangement() {
+    alert('✅ Payment arrangement locked in billing system.\n\nConfirmation SMS will be sent to 847-877-7819.\nDisconnection hold set for 14 days.\nFollow-up task created for 03/19/2026.');
+  }
+
+  // Mark step done
+  function markStepDone(btn) {
+    btn.textContent = '✓ Completed';
+    btn.disabled = true;
+    btn.style.opacity = '.7';
+  }
+
+  // SMS send
+  function sendSMS() {
+    const input = document.getElementById('smsInputBox');
+    const text = input.value.trim();
+    if (!text) return;
+    const msgs = document.getElementById('smsMessages');
+    const div = document.createElement('div');
+    div.className = 'sms-msg outbound';
+    div.textContent = 'BGE: ' + text;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    input.value = '';
+  }
+</script>
+</body>
+</html>
