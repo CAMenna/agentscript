@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallagher Bassett — Agent Screen Pop</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f5f7;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* Top bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .call-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: #e6f9f0;
+      color: #1a7a4a;
+      border: 0.5px solid #a3d9bb;
+      font-weight: 500;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #1a7a4a;
+      animation: pulse 1.4s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    /* Cards */
+    .card {
+      background: #ffffff;
+      border: 0.5px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 14px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 0.5px solid #e8e8e8;
+    }
+
+    .card-header-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #777;
+    }
+
+    /* Verified badge */
+    .verified-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #e6f9f0;
+      color: #1a7a4a;
+      border: 0.5px solid #a3d9bb;
+    }
+
+    /* Caller row */
+    .caller-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #dbeafe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e4fa8;
+      flex-shrink: 0;
+      border: 1.5px solid #bfdbfe;
+    }
+
+    .caller-name {
+      font-size: 19px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .caller-sub {
+      font-size: 13px;
+      color: #666;
+      margin-top: 3px;
+    }
+
+    /* Profile grid */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 24px;
+    }
+
+    .field-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      border-bottom: 0.5px solid #f0f0f0;
+    }
+
+    .field-row:last-child { border-bottom: none; }
+
+    .field-label {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .field-value {
+      font-size: 13px;
+      color: #111;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* Metric tiles */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .metric-tile {
+      background: #f7f8fa;
+      border: 0.5px solid #e4e4e4;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 5px;
+    }
+
+    .metric-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .metric-value-sm {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+      margin-top: 2px;
+    }
+
+    .metric-sub {
+      font-size: 11px;
+      color: #999;
+      margin-top: 3px;
+    }
+
+    /* Claims */
+    .claim-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 0.5px solid #f0f0f0;
+    }
+
+    .claim-row:last-of-type { border-bottom: none; }
+
+    .claim-id {
+      font-size: 13px;
+      font-weight: 600;
+      color: #185FA5;
+    }
+
+    .claim-type {
+      font-size: 12px;
+      color: #777;
+      margin-top: 2px;
+    }
+
+    .claim-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .claim-date {
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    /* Status pills */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .pill-open {
+      background: #dbeafe;
+      color: #1e4fa8;
+    }
+
+    .pill-pending {
+      background: #fef3c7;
+      color: #92570a;
+    }
+
+    /* Note box */
+    .note-box {
+      background: #fef9ec;
+      border: 0.5px solid #f5d87a;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #7a5c10;
+      line-height: 1.6;
+      margin-top: 12px;
+    }
+
+    /* Action buttons */
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .action-btn {
+      font-size: 12px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 0.5px solid #ccc;
+      background: #fff;
+      color: #222;
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      transition: background 0.15s;
+    }
+
+    .action-btn:hover { background: #f0f2f5; }
+
+    /* Divider line */
+    .icon-svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 540px) {
+      .profile-grid { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 44" style="height:38px; width:auto;" aria-label="Gallagher Bassett">
+      <rect x="0" y="4" width="16" height="16" rx="2" fill="#003DA5"/>
+      <rect x="0" y="24" width="16" height="16" rx="2" fill="#003DA5"/>
+      <rect x="18" y="4" width="10" height="16" rx="2" fill="#003DA5" opacity="0.55"/>
+      <rect x="18" y="24" width="10" height="16" rx="2" fill="#003DA5" opacity="0.3"/>
+      <text x="36" y="17" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#003DA5" letter-spacing="0.5">GALLAGHER</text>
+      <text x="36" y="33" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#003DA5" letter-spacing="0.5">BASSETT</text>
+      <text x="36" y="43" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#5f7fa8" letter-spacing="1.2">GUIDE. GUARD. GO BEYOND.</text>
+    </svg>
+    <div class="call-badge">
+      <div class="dot"></div>
+      <span>Live call &nbsp;—&nbsp; <span id="timer">00:00</span></span>
+    </div>
+  </div>
+
+  <!-- Caller Identity -->
+  <div class="card">
+    <div class="card-header">
+      <svg class="icon-svg" viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="7" r="3.5" stroke="#888" stroke-width="1.2"/>
+        <path d="M3.5 17c0-3.314 2.91-6 6.5-6s6.5 2.686 6.5 6" stroke="#888" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <span class="card-header-label">Caller identity</span>
+      <span class="verified-badge">✓ Verified</span>
+    </div>
+    <div class="caller-row">
+      <div class="avatar">RS</div>
+      <div>
+        <div class="caller-name">Rick Sanchez</div>
+        <div class="caller-sub">Claimant &nbsp;·&nbsp; ANI: 847-877-7819 &nbsp;·&nbsp; Chicago, IL</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Claimant Profile -->
+  <div class="card">
+    <div class="card-header">
+      <svg class="icon-svg" viewBox="0 0 20 20" fill="none">
+        <rect x="3" y="4" width="14" height="13" rx="2" stroke="#888" stroke-width="1.2"/>
+        <path d="M7 2v4M13 2v4M3 9h14" stroke="#888" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <span class="card-header-label">Claimant profile</span>
+    </div>
+    <div class="profile-grid">
+      <div>
+        <div class="field-row"><span class="field-label">Date of birth</span><span class="field-value">Jun 22, 1978</span></div>
+        <div class="field-row"><span class="field-label">Claimant ID</span><span class="field-value">CLM-0051394</span></div>
+        <div class="field-row"><span class="field-label">Employer / client</span><span class="field-value">Midwest Logistics Inc.</span></div>
+      </div>
+      <div>
+        <div class="field-row"><span class="field-label">Phone on file</span><span class="field-value">847-877-7819</span></div>
+        <div class="field-row"><span class="field-label">Email</span><span class="field-value">r.sanchez@email.com</span></div>
+        <div class="field-row"><span class="field-label">Preferred language</span><span class="field-value">English / Spanish</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metric tiles -->
+  <div class="metric-grid">
+    <div class="metric-tile">
+      <div class="metric-label">Active claims</div>
+      <div class="metric-value">2</div>
+      <div class="metric-sub">1 open &nbsp;·&nbsp; 1 pending</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Last contact</div>
+      <div class="metric-value">9 days ago</div>
+      <div class="metric-sub">Mar 23, 2026</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Coverage type</div>
+      <div class="metric-value-sm" style="margin-top:6px;">Auto &amp; Home</div>
+      <div class="metric-sub">2 active policies</div>
+    </div>
+  </div>
+
+  <!-- Associated Claims -->
+  <div class="card">
+    <div class="card-header">
+      <svg class="icon-svg" viewBox="0 0 20 20" fill="none">
+        <path d="M10 3L12.5 8l5.5.8-4 3.9.9 5.5L10 15.5l-4.9 2.7.9-5.5L2 8.8 7.5 8z" stroke="#888" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <span class="card-header-label">Associated claims</span>
+    </div>
+
+    <div class="claim-row">
+      <div>
+        <div class="claim-id">AL-2026-00341</div>
+        <div class="claim-type">Auto Liability — Vehicle collision</div>
+      </div>
+      <div class="claim-right">
+        <span class="pill pill-open">Open</span>
+        <div class="claim-date">Opened Jan 12, 2026</div>
+      </div>
+    </div>
+
+    <div class="claim-row">
+      <div>
+        <div class="claim-id">HP-2025-08812</div>
+        <div class="claim-type">Home / Property — Water damage</div>
+      </div>
+      <div class="claim-right">
+        <span class="pill pill-pending">Pending review</span>
+        <div class="claim-date">Opened Oct 3, 2025</div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      ⚠ Note: AL-2026-00341 has a scheduled adjuster inspection on April 8, 2026. If caller references vehicle or repair status, refer to assigned Resolution Manager: Sarah Kwan &nbsp;·&nbsp; ext. 4421.
+    </div>
+  </div>
+
+  <!-- Routing & Actions -->
+  <div class="card">
+    <div class="card-header">
+      <svg class="icon-svg" viewBox="0 0 20 20" fill="none">
+        <path d="M3 6h14M3 10h9M3 14h6" stroke="#888" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <span class="card-header-label">Routing &amp; actions</span>
+    </div>
+    <div class="action-row">
+      <button class="action-btn">Draft call note</button>
+      <button class="action-btn">Adjuster guidance</button>
+      <button class="action-btn">Explain GBGO</button>
+      <button class="action-btn">Escalation steps</button>
+      <button class="action-btn">Transfer call</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let seconds = 0;
+  const timerEl = document.getElementById('timer');
+  setInterval(() => {
+    seconds++;
+    const s = seconds % 60;
+    const m = Math.floor(seconds / 60);
+    timerEl.textContent =
+      String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }, 1000);
+</script>
+</body>
+</html>
