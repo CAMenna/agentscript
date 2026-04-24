@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centene-Fidelis — Claims Call Script</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #F4F5F7; color: #1a1a1a; font-size: 14px; }
+
+  .header {
+    background: #003087;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+    border-bottom: 3px solid #00857C;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-logo { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 30px; height: 30px; background: #00857C; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 11px; color: #fff; letter-spacing: -0.5px; }
+  .logo-text { color: #fff; font-size: 15px; font-weight: 600; }
+  .logo-sub { color: rgba(255,255,255,0.5); font-size: 10px; margin-top: 1px; }
+  .call-badge { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 5px 12px; font-size: 12px; color: #fff; }
+  .call-dot { width: 7px; height: 7px; border-radius: 50%; background: #4CAF50; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+  .agent-info { color: rgba(255,255,255,0.6); font-size: 12px; }
+
+  .main-layout { display: grid; grid-template-columns: 1fr 280px; gap: 14px; padding: 14px; max-width: 1280px; margin: 0 auto; }
+
+  .section-label { font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: #888; margin-bottom: 7px; }
+
+  .card { background: #fff; border: 1px solid #E2E5EA; border-radius: 10px; overflow: hidden; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+
+  .card-header-strip { background: #003087; padding: 8px 16px; display: flex; align-items: center; gap: 10px; }
+  .step-num { width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; font-weight: 600; flex-shrink: 0; }
+  .step-title { color: #fff; font-size: 13px; font-weight: 600; }
+  .card-body { padding: 12px 16px; }
+
+  .script-block { background: #0C447C; border-left: 3px solid #378ADD; border-radius: 0 6px 6px 0; padding: 9px 13px; margin-bottom: 8px; }
+  .script-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #85B7EB; margin-bottom: 4px; }
+  .script-text { font-size: 13px; color: #ffffff; line-height: 1.55; }
+
+  .member-block { background: #F4F5F7; border-left: 3px solid #C5CAD3; border-radius: 0 6px 6px 0; padding: 9px 13px; margin-bottom: 8px; }
+  .member-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #888; margin-bottom: 4px; }
+  .member-text { font-size: 13px; color: #555; font-style: italic; line-height: 1.5; }
+
+  .system-block { background: #FAEEDA; border-left: 3px solid #F5A623; border-radius: 0 6px 6px 0; padding: 9px 13px; margin-bottom: 8px; }
+  .system-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #7A5010; margin-bottom: 4px; }
+  .system-text { font-size: 12px; color: #7A5010; line-height: 1.5; }
+
+  .alert-block { background: #FDEEEE; border-left: 3px solid #C0392B; border-radius: 0 6px 6px 0; padding: 9px 13px; margin-bottom: 8px; font-size: 12px; color: #C0392B; line-height: 1.45; font-weight: 500; }
+
+  /* Collapsible */
+  .collapsible-wrap { margin-bottom: 12px; }
+
+  .collapsible-trigger {
+    width: 100%;
+    background: #00857C;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background 0.15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .collapsible-trigger:hover { background: #006D65; }
+  .collapsible-trigger.open { border-radius: 10px 10px 0 0; }
+  .collapsible-trigger-left { display: flex; align-items: center; gap: 10px; }
+  .collapsible-icon { width: 22px; height: 22px; border-radius: 5px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .collapsible-title { color: #fff; font-size: 13px; font-weight: 600; }
+  .collapsible-subtitle { color: rgba(255,255,255,0.6); font-size: 10px; margin-top: 1px; }
+  .chevron { color: rgba(255,255,255,0.85); font-size: 13px; transition: transform 0.2s ease; display: inline-block; }
+  .chevron.open { transform: rotate(180deg); }
+
+  .collapsible-body {
+    background: #fff;
+    border: 1px solid #E2E5EA;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 16px 18px;
+    display: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  }
+  .collapsible-body.open { display: block; }
+
+  .appeal-fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .appeal-field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 6px;
+  }
+  .appeal-field input,
+  .appeal-field select {
+    width: 100%;
+    padding: 8px 11px;
+    border: 1px solid #D0D5DE;
+    border-radius: 7px;
+    background: #fff;
+    font-size: 13px;
+    color: #1a1a1a;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: auto;
+  }
+  .appeal-field input:focus,
+  .appeal-field select:focus {
+    border-color: #00857C;
+    box-shadow: 0 0 0 3px rgba(0,133,124,0.12);
+  }
+  .appeal-field input::placeholder { color: #aaa; }
+
+  /* Sidebar */
+  .member-avatar { width: 40px; height: 40px; border-radius: 50%; background: #E6F1FB; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: #003087; margin-bottom: 10px; }
+  .member-name-lg { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
+  .member-sub-text { font-size: 12px; color: #777; margin-bottom: 10px; }
+  .auth-badge { display: inline-flex; align-items: center; gap: 5px; background: #E1F5EE; border: 1px solid #9FE1CB; border-radius: 12px; padding: 3px 10px; font-size: 11px; color: #2E7D32; font-weight: 600; margin-bottom: 12px; }
+
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table tr td { padding: 5px 0; font-size: 12px; border-bottom: 1px solid #F0F1F3; vertical-align: top; }
+  .info-table tr:last-child td { border-bottom: none; }
+  .info-table td:first-child { color: #777; width: 42%; }
+  .info-table td:last-child { color: #1a1a1a; text-align: right; font-weight: 500; }
+
+  .sidebar-section-header { font-size: 10px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: #888; padding: 8px 16px 5px; border-bottom: 1px solid #F0F1F3; background: #FAFAFA; }
+
+  .claim-box { background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 8px; padding: 11px 13px; margin-bottom: 5px; }
+  .claim-amount { font-size: 20px; font-weight: 700; color: #003087; margin-bottom: 2px; }
+  .claim-desc { font-size: 12px; color: #0057A8; margin-bottom: 8px; }
+  .claim-denied { display: inline-flex; align-items: center; gap: 4px; background: #FDEEEE; border-radius: 10px; padding: 3px 9px; font-size: 11px; color: #C0392B; font-weight: 600; }
+
+  .cost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; padding: 11px 14px; }
+  .cost-cell { background: #F4F5F7; border-radius: 7px; padding: 8px 10px; }
+  .cost-cell-label { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-weight: 600; }
+  .cost-cell-value { font-size: 15px; font-weight: 700; color: #1a1a1a; }
+  .cost-cell-sub { font-size: 10px; color: #777; margin-top: 2px; }
+
+  .expectation-box { margin: 10px 16px 12px; background: #FAEEDA; border: 1px solid #FAC775; border-radius: 8px; padding: 10px 12px; }
+  .exp-title { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: #7A5010; margin-bottom: 7px; }
+  .exp-row { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #7A5010; margin-bottom: 5px; line-height: 1.45; }
+  .exp-row:last-child { margin-bottom: 0; }
+  .exp-dot { width: 6px; height: 6px; border-radius: 50%; background: #F5A623; flex-shrink: 0; margin-top: 4px; }
+
+  .action-btn { display: block; width: 100%; padding: 8px 13px; border: 1px solid #E2E5EA; border-radius: 7px; background: #fff; font-size: 12px; color: #333; cursor: pointer; margin-bottom: 7px; text-align: left; transition: background 0.12s; }
+  .action-btn:hover { background: #F4F5F7; }
+  .action-btn:last-child { margin-bottom: 0; }
+
+  .footer-bar { background: #003087; padding: 8px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.45); border-top: 1px solid rgba(255,255,255,0.1); }
+
+  @media print {
+    .header { position: relative; }
+    .action-btn { display: none; }
+    .collapsible-body { display: block !important; border-radius: 0 0 10px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">
+    <div class="logo-mark">CF</div>
+    <div>
+      <div class="logo-text">Centene-Fidelis</div>
+      <div class="logo-sub">Claims &amp; Member Services</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="call-badge"><div class="call-dot"></div>Live Call — 847-877-7819</div>
+    <div class="agent-info">Agent: Cameron Menna &nbsp;|&nbsp; Queue: Claims</div>
+  </div>
+</div>
+
+<div class="main-layout">
+
+  <!-- SCRIPT COLUMN -->
+  <div>
+
+    <!-- Collapsible: Claim Appeal Detail -->
+    <div class="collapsible-wrap">
+      <button class="collapsible-trigger" id="appealTrigger" onclick="toggleAppeal()">
+        <div class="collapsible-trigger-left">
+          <div class="collapsible-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <rect x="1" y="1" width="4.5" height="4.5" rx="1" fill="white"/>
+              <rect x="6.5" y="1" width="4.5" height="4.5" rx="1" fill="white" opacity="0.55"/>
+              <rect x="1" y="6.5" width="4.5" height="4.5" rx="1" fill="white" opacity="0.55"/>
+              <rect x="6.5" y="6.5" width="4.5" height="4.5" rx="1" fill="white" opacity="0.25"/>
+            </svg>
+          </div>
+          <div>
+            <div class="collapsible-title">Claim Appeal Detail</div>
+            <div class="collapsible-subtitle">Click to expand and enter appeal information</div>
+          </div>
+        </div>
+        <span class="chevron" id="appealChevron">&#9660;</span>
+      </button>
+      <div class="collapsible-body" id="appealBody">
+        <div class="appeal-fields-grid">
+          <div class="appeal-field">
+            <label>Out-of-Network Reason</label>
+            <input type="text" placeholder="e.g. No in-network availability">
+          </div>
+          <div class="appeal-field">
+            <label>Multiple Providers Contacted</label>
+            <select>
+              <option value="" disabled selected>Select...</option>
+              <option>Yes</option>
+              <option>No</option>
+              <option>Unknown</option>
+            </select>
+          </div>
+          <div class="appeal-field">
+            <label>Date of Service</label>
+            <input type="date">
+          </div>
+          <div class="appeal-field">
+            <label>Best Contact Method</label>
+            <select>
+              <option value="" disabled selected>Select...</option>
+              <option>Phone</option>
+              <option>Text</option>
+              <option>Email</option>
+              <option>Phone &amp; Text</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="card">
+      <div class="card-header-strip">
+        <div class="step-num">1</div>
+        <div class="step-title">Greeting &amp; Compliance</div>
+      </div>
+      <div class="card-body">
+        <div class="alert-block">Emergency disclaimer must be read before any other interaction.</div>
+        <div class="script-block">
+          <div class="script-label">Opening</div>
+          <div class="script-text">"Thank you for reaching out to Centene-Fidelis. I'm Cameron, your virtual assistant. If you are having a medical or psychiatric emergency, please hang up and call 911. Calls are recorded for quality assurance. How can I help you today?"</div>
+        </div>
+        <div class="member-block">
+          <div class="member-label">Member</div>
+          <div class="member-text">"I need help with a denied claim and a question about fitness benefits."</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">Acknowledge</div>
+          <div class="script-text">"Happy to help! Fitness benefit questions are handled by the American Fitness Company — I can connect you after we resolve your claim. First, I need to verify your identity."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="card">
+      <div class="card-header-strip">
+        <div class="step-num">2</div>
+        <div class="step-title">Identity Verification</div>
+      </div>
+      <div class="card-body">
+        <div class="script-block">
+          <div class="script-label">Caller ID + DOB + Member ID</div>
+          <div class="script-text">"I see you're calling from 847-877-7819. Is this Rick Sanchez?" … "Can you provide your date of birth?" … "And the last four of your SSN or member ID?"</div>
+        </div>
+        <div class="member-block">
+          <div class="member-label">Member</div>
+          <div class="member-text">"Yes." / "March 15, 1982" / "1076"</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">Confirm</div>
+          <div class="script-text">"Great — that matches our records. You're verified."</div>
+        </div>
+        <div class="system-block">
+          <div class="system-label">System</div>
+          <div class="system-text">Salesforce: Authentication Flag = <strong>Authenticated</strong>. Member demographics now visible on screen.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="card">
+      <div class="card-header-strip">
+        <div class="step-num">3</div>
+        <div class="step-title">Appeal Initiation</div>
+      </div>
+      <div class="card-body">
+        <div class="script-block">
+          <div class="script-label">Offer Appeal</div>
+          <div class="script-text">"Would you like me to start an appeal? I can connect you with a claims specialist who can move this forward."</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">Confirm Contact Details</div>
+          <div class="script-text">"Is 847-877-7819 still the best number for our team to reach you?" … "Do we have your permission to contact you about this appeal via text or automated calls?" … "Is Rick.Sanchez@icloud.com still the best email?"</div>
+        </div>
+        <div class="system-block">
+          <div class="system-label">System</div>
+          <div class="system-text">Log appeal in Salesforce. Attach EOB, demographics, consent. Flag for claims specialist. Note: network adequacy exception basis.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="card">
+      <div class="card-header-strip">
+        <div class="step-num">4</div>
+        <div class="step-title">Callback &amp; Transfer</div>
+      </div>
+      <div class="card-body">
+        <div class="script-block">
+          <div class="script-label">Offer Callback</div>
+          <div class="script-text">"There's a brief wait for the specialist. Would you like a callback? We'll preserve your place in line."</div>
+        </div>
+        <div class="system-block">
+          <div class="system-label">System — Outbound Call</div>
+          <div class="system-text">Automated outbound placed to 847-877-7819 when specialist is ready. Queue position preserved.</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">Outbound Re-authentication</div>
+          <div class="script-text">"Hello, this is Cameron from Centene-Fidelis — I have a claims specialist ready. I just need to re-confirm: date of birth?" … "And the last four of your SSN or member ID?"</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">Transfer</div>
+          <div class="script-text">"Let me connect you now. I'll share your authentication status and all claim details with the specialist."</div>
+        </div>
+        <div class="system-block">
+          <div class="system-label">System — Transfer Package</div>
+          <div class="system-text">Auth flag · Member demographics · EOB · Network adequacy SOP · In/OON co-pays &amp; coinsurance · YTD deductible &amp; max OOP</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div>
+
+    <div class="section-label">Member Demographics</div>
+    <div class="card" style="margin-bottom:12px;">
+      <div style="padding:14px 16px 12px;">
+        <div class="member-avatar">RS</div>
+        <div class="member-name-lg">Rick Sanchez</div>
+        <div class="member-sub-text">Male &nbsp;|&nbsp; DOB: 03/15/1982</div>
+        <div class="auth-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="5" fill="#00857C"/><path d="M2.8 5.2L4.2 6.6L7.2 3.4" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Authenticated
+        </div>
+        <table class="info-table">
+          <tr><td>Member ID</td><td>••••1076</td></tr>
+          <tr><td>Plan</td><td>Medicaid Managed</td></tr>
+          <tr><td>Address</td><td style="font-size:11px;">412 Elm St, Portland, OR 97201</td></tr>
+          <tr><td>Callback #</td><td>847-877-7819</td></tr>
+          <tr><td>Gender</td><td>Male</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-label">EOB &amp; Claim on File</div>
+    <div class="card" style="margin-bottom:12px;">
+      <div style="padding:12px 16px 6px;">
+        <div class="claim-box">
+          <div class="claim-amount">$450.00</div>
+          <div class="claim-desc">Endocrinology — Portland Medical Group</div>
+          <div class="claim-denied">Denied — Out of Network</div>
+        </div>
+      </div>
+      <div class="sidebar-section-header">Plan Cost Details</div>
+      <div class="cost-grid">
+        <div class="cost-cell"><div class="cost-cell-label">In-Network</div><div class="cost-cell-value">$30</div><div class="cost-cell-sub">Co-pay / visit</div></div>
+        <div class="cost-cell"><div class="cost-cell-label">Out-of-Network</div><div class="cost-cell-value">40%</div><div class="cost-cell-sub">Coinsurance</div></div>
+        <div class="cost-cell"><div class="cost-cell-label">YTD Deductible</div><div class="cost-cell-value">$820</div><div class="cost-cell-sub">of $1,500</div></div>
+        <div class="cost-cell"><div class="cost-cell-label">YTD Max OOP</div><div class="cost-cell-value">$1,240</div><div class="cost-cell-sub">of $4,000</div></div>
+      </div>
+      <div style="padding:0 16px 12px;">
+        <button class="action-btn">View Full EOB Document ↗</button>
+        <button class="action-btn">Network Adequacy SOP ↗</button>
+      </div>
+    </div>
+
+    <div class="section-label">Response Expectations</div>
+    <div class="card" style="margin-bottom:12px;">
+      <div class="expectation-box">
+        <div class="exp-title">Set with Member Before Transfer</div>
+        <div class="exp-row"><div class="exp-dot"></div>Status update provided within 48 hours</div>
+        <div class="exp-row"><div class="exp-dot"></div>Final closure timeline may vary based on provider response times</div>
+      </div>
+    </div>
+
+    <div class="section-label">Quick Links</div>
+    <div class="card">
+      <div style="padding:10px 14px;">
+        <button class="action-btn">Find In-Network Provider ↗</button>
+        <button class="action-btn">Open Salesforce Record ↗</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer-bar">
+  <span>Centene-Fidelis — Claims &amp; Member Services</span>
+  <span>Transforming the health of the communities we serve, one person at a time.</span>
+</div>
+
+<script>
+function toggleAppeal() {
+  var body = document.getElementById('appealBody');
+  var trigger = document.getElementById('appealTrigger');
+  var chevron = document.getElementById('appealChevron');
+  var isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  trigger.classList.toggle('open', !isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+</script>
+
+</body>
+</html>
