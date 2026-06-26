@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallagher Bassett - Your Partner for Claims and Risk Management Solutions</title>
+  <meta name="description" content="A leading claims and risk management solutions provider, we partner with you to mitigate risk and achieve outcomes that matter most to your ongoing success." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; background: #fff; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── TOP UTILITY BAR ── */
+    .util-bar {
+      background: #1a1a2e;
+      color: #ccc;
+      font-size: 12px;
+      padding: 6px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .util-bar .region-switcher { display: flex; gap: 16px; }
+    .util-bar .region-switcher a { color: #aaa; transition: color .2s; }
+    .util-bar .region-switcher a:hover,
+    .util-bar .region-switcher a.active { color: #fff; font-weight: 600; }
+    .util-bar .util-links { display: flex; gap: 20px; }
+    .util-bar .util-links a { color: #ccc; transition: color .2s; }
+    .util-bar .util-links a:hover { color: #fff; }
+
+    /* ── HEADER / NAV ── */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo img { height: 36px; width: auto; }
+    .logo-text {
+      font-size: 22px;
+      font-weight: 800;
+      color: #003087;
+      letter-spacing: -0.5px;
+      cursor: pointer;
+    }
+    .logo-text span { color: #e8380d; }
+
+    nav { display: flex; gap: 0; align-items: stretch; height: 72px; }
+    .nav-item { position: relative; display: flex; align-items: center; }
+    .nav-item > a, .nav-item > button {
+      padding: 0 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+      border: none;
+      background: none;
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color .2s, background .2s;
+      white-space: nowrap;
+    }
+    .nav-item > a:hover, .nav-item > button:hover,
+    .nav-item:hover > a, .nav-item:hover > button { color: #003087; background: #f0f4ff; }
+    .nav-item > button::after { content: '▾'; font-size: 10px; margin-left: 2px; }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      border: 1px solid #e0e6f0;
+      border-top: 3px solid #003087;
+      box-shadow: 0 8px 32px rgba(0,0,50,.12);
+      min-width: 240px;
+      z-index: 200;
+      border-radius: 0 0 6px 6px;
+    }
+    .nav-item:hover .dropdown { display: block; }
+    .dropdown a {
+      display: block;
+      padding: 11px 20px;
+      font-size: 13.5px;
+      color: #1a1a2e;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background .15s, color .15s;
+    }
+    .dropdown a:last-child { border-bottom: none; }
+    .dropdown a:hover { background: #f0f4ff; color: #003087; padding-left: 26px; }
+    .dropdown .see-all {
+      background: #f7f9ff;
+      font-weight: 700;
+      color: #003087;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .dropdown .see-all:hover { background: #e8eeff; }
+
+    .dropdown-cols { display: flex; gap: 0; }
+    .dropdown-col { min-width: 200px; border-right: 1px solid #f0f0f0; }
+    .dropdown-col:last-child { border-right: none; }
+    .dropdown-col-title {
+      display: block;
+      padding: 12px 20px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: #003087;
+      border-bottom: 1px solid #e8eeff;
+      background: #f7f9ff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      background: linear-gradient(120deg, #001a4d 0%, #003087 50%, #0057b7 100%);
+      color: #fff;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://www.gallagherbassett.com/-/media/images/gallagher-bassett/us/heroes/gallagher_bassett_home_desktop.jpg') center/cover no-repeat;
+      opacity: .35;
+    }
+    .hero-content {
+      position: relative;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 80px 32px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 680px;
+      margin-bottom: 28px;
+      letter-spacing: -1px;
+    }
+    .hero h1 span { color: #7ec8f7; }
+    .btn-primary {
+      display: inline-block;
+      background: #e8380d;
+      color: #fff;
+      padding: 15px 36px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: .3px;
+      transition: background .2s, transform .15s;
+      border: 2px solid transparent;
+    }
+    .btn-primary:hover { background: #c42d09; transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: #fff;
+      padding: 13px 34px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 15px;
+      border: 2px solid rgba(255,255,255,.6);
+      transition: border-color .2s, background .2s;
+      margin-left: 12px;
+    }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 72px 32px; }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #003087;
+      margin-bottom: 12px;
+    }
+    .section-heading {
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 800;
+      color: #0d1a36;
+      line-height: 1.2;
+      margin-bottom: 48px;
+      max-width: 800px;
+    }
+    .divider {
+      width: 56px; height: 4px;
+      background: #e8380d;
+      margin: 16px 0 40px;
+      border-radius: 2px;
+    }
+
+    /* ── SOLUTIONS CARDS ── */
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+    .solution-card {
+      border: 1px solid #e0e6f0;
+      border-radius: 8px;
+      padding: 32px 28px;
+      transition: box-shadow .2s, transform .2s, border-color .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .solution-card:hover {
+      box-shadow: 0 8px 32px rgba(0,48,135,.12);
+      transform: translateY(-3px);
+      border-color: #003087;
+    }
+    .solution-icon {
+      width: 48px; height: 48px;
+      background: #e8f0ff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .solution-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #003087;
+      margin-bottom: 12px;
+    }
+    .solution-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #4a5568;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .card-link {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #003087;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap .2s;
+    }
+    .card-link:hover { gap: 10px; }
+    .card-link::after { content: '→'; }
+
+    /* ── EXPERTISE STRIP ── */
+    .expertise-strip {
+      background: #f7f9ff;
+      border-top: 1px solid #e0e6f0;
+      border-bottom: 1px solid #e0e6f0;
+    }
+    .expertise-strip .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .expertise-strip h2 {
+      font-size: clamp(22px, 2.5vw, 34px);
+      font-weight: 800;
+      color: #0d1a36;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .expertise-strip p { font-size: 15px; line-height: 1.75; color: #4a5568; }
+    .featured-cards { display: flex; flex-direction: column; gap: 20px; }
+    .featured-card {
+      background: #fff;
+      border: 1px solid #e0e6f0;
+      border-left: 4px solid #003087;
+      border-radius: 6px;
+      padding: 20px 22px;
+      transition: box-shadow .2s;
+    }
+    .featured-card:hover { box-shadow: 0 4px 16px rgba(0,48,135,.1); }
+    .featured-card h4 { font-size: 15px; font-weight: 700; color: #0d1a36; margin-bottom: 8px; }
+    .featured-card p { font-size: 13px; color: #4a5568; line-height: 1.6; margin-bottom: 10px; }
+    .featured-card a { font-size: 13px; font-weight: 700; color: #003087; }
+    .featured-card a:hover { text-decoration: underline; }
+
+    /* ── NEWS GRID ── */
+    .news-section { background: #fff; }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+    .news-card {
+      border: 1px solid #e0e6f0;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .news-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .news-card-img {
+      height: 180px;
+      background: linear-gradient(135deg, #003087 0%, #0057b7 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px;
+    }
+    .news-card-body { padding: 24px; }
+    .news-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .news-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      background: #e8f0ff;
+      color: #003087;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .news-card h3 { font-size: 16px; font-weight: 700; color: #0d1a36; margin-bottom: 14px; line-height: 1.4; }
+    .news-card a.learn-more { font-size: 13.5px; font-weight: 700; color: #003087; }
+    .news-card a.learn-more:hover { text-decoration: underline; }
+    .center { text-align: center; }
+    .btn-secondary {
+      display: inline-block;
+      background: #003087;
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: background .2s;
+    }
+    .btn-secondary:hover { background: #001a4d; }
+
+    /* ── DYNAMIC SUBPAGE STYLING ── */
+    .dynamic-view {
+      animation: fadeIn 0.4s ease-out;
+      background: #fff;
+    }
+    .subpage-hero {
+      background: linear-gradient(135deg, #0d1a36 0%, #003087 100%);
+      color: #fff;
+      padding: 60px 32px;
+    }
+    .subpage-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 32px;
+    }
+    .subpage-container h2 { color: #003087; margin-bottom: 18px; font-size: 28px; }
+    .subpage-container p { line-height: 1.8; color: #4a5568; margin-bottom: 24px; font-size: 16px; }
+    .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d1a36;
+      color: #b8c4d8;
+      padding: 56px 32px 0;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-logo { margin-bottom: 32px; }
+    .footer-logo .logo-text { color: #fff; font-size: 20px; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #fff;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e8380d;
+      display: inline-block;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 13.5px;
+      color: #b8c4d8;
+      margin-bottom: 10px;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: #7ec8f7; }
+    .footer-bottom {
+      border-top: 1px solid #1e3460;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p { font-size: 12.5px; }
+    .footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-legal a { font-size: 12px; color: #8a9ab5; transition: color .2s; }
+    .footer-legal a:hover { color: #fff; }
+    .footer-social { display: flex; gap: 12px; }
+    .footer-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px;
+      background: #1e3460;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 14px;
+      transition: background .2s;
+    }
+    .footer-social a:hover { background: #003087; }
+
+    /* ── MOBILE HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #1a1a2e;
+      border-radius: 2px;
+      transition: all .3s;
+    }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      background: #1e3460;
+      color: #b8c4d8;
+      font-size: 13px;
+      transition: background .2s, color .2s;
+    }
+    .back-to-top:hover { background: #003087; color: #fff; }
+
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .expertise-strip .section-inner { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 48px 16px; }
+      .util-bar { font-size: 11px; padding: 6px 16px; }
+      .header-inner { padding: 0 16px; }
+      footer { padding: 40px 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── UTILITY BAR ── -->
+<div class="util-bar">
+  <div class="region-switcher">
+    <a href="https://www.gallagherbassett.com/au/">Australia</a>
+    <a href="https://www.gallagherbassett.com/home/" class="active">North America</a>
+    <a href="https://www.gallagherbassett.com/uk/">United Kingdom</a>
+  </div>
+  <div class="util-links">
+    <a href="https://jobs.gallagherbassett.com/gb-home/">Join Our Team</a>
+    <a href="https://www.gallagherbassett.com/information-for-clients/">Information for Clients</a>
+    <a href="https://www.gallagherbassett.com/information-for-claimants/">Information for Claimants</a>
+    <a href="https://www.gallagherbassett.com/contact-us/">Contact Us</a>
+  </div>
+</div>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo" id="logo-home">
+      <span class="logo-text">Gallagher <span>Bassett</span></span>
+    </a>
+
+    <nav id="main-nav">
+      <!-- Solutions -->
+      <div class="nav-item">
+        <button>Solutions</button>
+        <div class="dropdown dropdown-cols">
+          <div class="dropdown-col">
+            <span class="dropdown-col-title">Claims Management</span>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/" class="see-all">See All Claims Management →</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/workers-compensation/">Workers' Compensation</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/gbcare/">GBCARE™</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/auto-liability/">Auto Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/general-liability/">General Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/property/">Property</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/specialty-liability/">Specialty Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/professional-and-executive-liability/">Professional & Executive Liability</a>
+            <a href="https://links.gallagherbassett.com/gb-specialty-healthcare-0-2">Healthcare/Medical Professional Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/product-liability/">Product Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/employment-practices-liability/">Employment Practices Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/cyber-tech-eo-liability/">Cyber and Tech E&O Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/litigation-management/">Litigation Management</a>
+          </div>
+          <div class="dropdown-col">
+            <span class="dropdown-col-title">Risk Control</span>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/" class="see-all">See All Risk Control →</a>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/claims-investigations/">Claims Investigations</a>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/environmental-health-safety/">Environmental Health and Safety</a>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/loss-control/">Loss Control</a>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/safety-training-and-education/">Safety Training and Education</a>
+            <span class="dropdown-col-title" style="margin-top:8px">Technology</span>
+            <a href="https://www.gallagherbassett.com/solutions/technology/" class="see-all">See All Technology →</a>
+            <a href="https://www.gallagherbassett.com/solutions/technology/luminos-rmis/">Luminos RMIS</a>
+            <a href="https://www.gallagherbassett.com/solutions/technology/gbgo/">GBGO®</a>
+            <a href="https://www.gallagherbassett.com/solutions/technology/genai/">Generative AI Tools</a>
+            <a href="https://www.gallagherbassett.com/solutions/technology/decision-support-tools/">Decision-Support Tools</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Industries -->
+      <div class="nav-item">
+        <button>Industries</button>
+        <div class="dropdown">
+          <a href="https://www.gallagherbassett.com/industries/" class="see-all">See All Industries →</a>
+          <a href="https://www.gallagherbassett.com/industries/hospitality-and-restaurant/">Hospitality and Restaurant</a>
+          <a href="https://www.gallagherbassett.com/industries/manufacturing/">Manufacturing</a>
+          <a href="https://www.gallagherbassett.com/industries/construction/">Construction</a>
+          <a href="https://www.gallagherbassett.com/industries/retail/">Retail</a>
+          <a href="https://www.gallagherbassett.com/industries/transportation/">Transportation</a>
+          <a href="https://www.gallagherbassett.com/industries/healthcare/">Healthcare</a>
+          <a href="https://www.gallagherbassett.com/industries/public-entity/">Public Entity</a>
+          <a href="https://www.gallagherbassett.com/industries/religious/">Religious</a>
+        </div>
+      </div>
+
+      <!-- Carriers & Captives -->
+      <div class="nav-item">
+        <button>Carriers &amp; Captives</button>
+        <div class="dropdown">
+          <a href="https://insurers.gallagherbassett.com/">Carriers</a>
+          <a href="https://www.gallagherbassett.com/group-captives/">Group Captives</a>
+        </div>
+      </div>
+
+      <!-- Brokers -->
+      <div class="nav-item">
+        <a href="https://www.gallagherbassett.com/brokers/">Brokers</a>
+      </div>
+
+      <!-- Insights -->
+      <div class="nav-item">
+        <a href="https://www.gallagherbassett.com/news-and-insights/">Insights</a>
+      </div>
+
+      <!-- About Us -->
+      <div class="nav-item">
+        <button>About Us</button>
+        <div class="dropdown">
+          <a href="https://www.gallagherbassett.com/about-us/">About Us</a>
+          <a href="https://www.gallagherbassett.com/about-us/meet-our-team/">Meet Our Team</a>
+          <a href="https://www.gallagherbassett.com/about-us/our-values/">Our Values</a>
+          <a href="https://www.gallagherbassett.com/about-us/inclusion-diversity/">Inclusion and Diversity</a>
+          <a href="https://www.gallagherbassett.com/about-us/recognition-and-awards/">Recognition and Awards</a>
+        </div>
+      </div>
+    </nav>
+
+    <button class="hamburger" onclick="document.getElementById('main-nav').style.display = document.getElementById('main-nav').style.display === 'flex' ? 'none' : 'flex'" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ── MAIN WRAPPER FOR HOMEPAGE CONTENT ── -->
+<div id="page-routing-wrapper">
+  
+  <!-- ── HERO ── -->
+  <section class="hero" id="main">
+    <div class="hero-content">
+      <h1>Your Partner for Claims and <span>Risk Management</span> Solutions</h1>
+      <a href="https://www.gallagherbassett.com/contact-us/" class="btn-primary">Connect with Us</a>
+    </div>
+  </section>
+
+  <!-- ── OUR SOLUTIONS ── -->
+  <section>
+    <div class="section-inner">
+      <p class="section-title">Our Solutions</p>
+      <div class="divider"></div>
+      <div class="solutions-grid">
+        <div class="solution-card">
+          <div class="solution-icon">⚖️</div>
+          <h3>Claims Management</h3>
+          <p>Expertise, quality, innovation, and service make up our winning formula for superior claims outcomes. Our Resolution Managers are the best in the industry, with specialized capabilities in complex liabilities across industries.</p>
+          <a href="https://www.gallagherbassett.com/solutions/claims-management/" class="card-link">Learn More</a>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon">🛡️</div>
+          <h3>Risk Control</h3>
+          <p>We advise organizations in diverse industries to understand their risk exposures and partner with them to develop and maintain successful risk control and environmental health programs to reduce losses.</p>
+          <a href="https://www.gallagherbassett.com/solutions/risk-control/" class="card-link">Learn More</a>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon">🏢</div>
+          <h3>Carrier Practice</h3>
+          <p>Our dedicated Carrier Practice team is focused on the unique goals and objectives of insurance carriers, MGAs/MGUs, and alternative risk managers. Our global network of trusted experts helps unlock strategic business growth opportunities.</p>
+          <a href="https://insurers.gallagherbassett.com/" class="card-link">Learn More</a>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon">💡</div>
+          <h3>Technology &amp; Innovation</h3>
+          <p>From Luminos, our award-winning RMIS, to our advanced analytics and decision-support tools, we continue to invest in technologies and innovations that empower our clients to meet their goals today and tomorrow.</p>
+          <a href="https://www.gallagherbassett.com/solutions/technology/" class="card-link">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERTISE STRIP ── -->
+  <section class="expertise-strip">
+    <div class="section-inner">
+      <div>
+        <p class="section-title">Expertise to Serve Your Evolving Needs</p>
+        <div class="divider"></div>
+        <h2>Always ready to adjust, refine, and enhance your programs.</h2>
+        <p>Over time, your business will evolve, and factors like changing regulations and industry trends will alter your organization's risk management needs. At Gallagher Bassett, we strive to stay on the cutting edge — always ready to adjust, refine, and enhance your programs so they remain in sync with the evolving needs of your organization.</p>
+      </div>
+      <div class="featured-cards">
+        <div class="featured-card">
+          <h4>The Carrier Perspective: 2026 Claims Insights</h4>
+          <p>Explore the top priorities and strategies shaping the insurance industry in 2026. Our global survey of 250 insurance leaders reveals key insights on emerging challenges, market trends, and the actions carriers are taking to stay ahead.</p>
+          <a href="https://www.gallagherbassett.com/the-carrier-perspective-claims-insights">Learn More →</a>
+        </div>
+        <div class="featured-card">
+          <h4>Reduce total cost of risk with comprehensive client solutions</h4>
+          <p>Find out how Gallagher Bassett delivers superior claims outcomes and helps reduce total cost of risk for your organization.</p>
+          <a href="https://links.gallagherbassett.com/find-out-how-0">Learn More →</a>
+        </div>
+        <div class="featured-card">
+          <h4>Effectively resolve legacy claims with tailored carrier solutions</h4>
+          <p>Carriers can unlock capital from older claims associated with discontinued programs and revitalize legacy claims management with our Legacy practice group.</p>
+          <a href="https://insurers.gallagherbassett.com/solutions/legacy-claims-management-empowering-progress-and-growth/">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEWS & INSIGHTS ── -->
+  <section class="news-section">
+    <div class="section-inner">
+      <p class="section-title">Related News &amp; Insights</p>
+      <div class="divider"></div>
+      <p style="color:#4a5568;font-size:15px;max-width:640px;margin-bottom:40px;">Hear from our industry experts on the trends and issues influencing claims and risk management.</p>
+      <div class="news-grid">
+        <div class="news-card">
+          <div class="news-card-img">📊</div>
+          <div class="news-card-body">
+            <div class="news-tags">
+              <span class="news-tag">Industry Insights</span>
+              <span class="news-tag">Interview</span>
+            </div>
+            <h3>Evaluating 2026's Leading Trends With Claims and Risk Management Experts</h3>
+            <p style="font-size:13px;color:#4a5568;margin-bottom:14px;">Gallagher Bassett experts tackle 2026's top risk trends to reduce total cost of risk and improve outcomes.</p>
+            <a href="https://www.gallagherbassett.com/news-and-insights/evaluating-2026-leading-trends-with-gb-claims-and-risk-management-experts/" class="learn-more">Learn More →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-card-img">🏥</div>
+          <div class="news-card-body">
+            <div class="news-tags">
+              <span class="news-tag">Healthcare</span>
+              <span class="news-tag">Whitepaper</span>
+            </div>
+            <h3>Healthcare Market Outlook 2026</h3>
+            <p style="font-size:13px;color:#4a5568;margin-bottom:14px;">Get insights into the 2026 healthcare market outlook, from AI and telemedicine to workforce wellbeing and evolving care models.</p>
+            <a href="https://www.gallagherbassett.com/news-and-insights/healthcare-market-outlook-2026/" class="learn-more">Learn More →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-card-img">🏗️</div>
+          <div class="news-card-body">
+            <div class="news-tags">
+              <span class="news-tag">Construction</span>
+              <span class="news-tag">Whitepaper</span>
+            </div>
+            <h3>Construction Market Outlook 2026</h3>
+            <p style="font-size:13px;color:#4a5568;margin-bottom:14px;">Explore the US construction market outlook for 2026, including growth drivers, labor challenges, policy impacts, and emerging trends shaping the industry.</p>
+            <a href="https://www.gallagherbassett.com/news-and-insights/construction-market-outlook-2026/" class="learn-more">Learn More →</a>
+          </div>
+        </div>
+      </div>
+      <div class="center">
+        <a href="https://www.gallagherbassett.com/news-and-insights/" class="btn-secondary">Explore News &amp; Insights</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span class="logo-text" id="footer-home-trigger">Gallagher <span style="color:#e8380d">Bassett</span></span>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <a href="https://www.gallagherbassett.com/solutions/">Solutions Overview</a>
+        <a href="https://www.gallagherbassett.com/solutions/claims-management/">Claims Management</a>
+        <a href="https://www.gallagherbassett.com/solutions/risk-control/">Risk Control</a>
+        <a href="https://www.gallagherbassett.com/solutions/technology/">Technology</a>
+      </div>
+      <div class="footer-col">
+        <h4>Who We Work With</h4>
+        <a href="https://www.gallagherbassett.com/information-for-clients/">Information for Clients</a>
+        <a href="https://www.gallagherbassett.com/brokers/">Brokers</a>
+        <a href="https://insurers.gallagherbassett.com/">Carriers</a>
+        <a href="https://insurers.gallagherbassett.com/solutions/strategic-growth-for-program-administrators-and-mgas/">Programs (MGA/MGU)</a>
+        <a href="https://www.gallagherbassett.com/industries/">Employers</a>
+      </div>
+      <div class="footer-col">
+        <h4>More About Us</h4>
+        <a href="https://www.gallagherbassett.com/about-us/">About Us</a>
+        <a href="https://investor.ajg.com/home/default.aspx">Investor Relations</a>
+        <a href="https://jobs.gallagherbassett.com/gb-home/">Join Our Team</a>
+        <a href="https://www.gallagherbassett.com/about-us/meet-our-team/">Meet Our Team</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <a href="https://www.gallagherbassett.com/contact-us/">Contact Us</a>
+        <a href="https://www.gallagherbassett.com/information-for-claimants/">Information for Claimants</a>
+        <a href="https://www.gallagherbassett.com/information-for-clients/">Information for Clients</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Gallagher Bassett. All Rights Reserved.</p>
+      <div class="footer-legal">
+        <a href="https://www.gallagherbassett.com/client-disclosure-statement/">Client Disclosure Statement</a>
+        <a href="https://www.gallagherbassett.com/copyright-and-disclaimer/">Copyright and Disclaimer</a>
+        <a href="https://www.gallagherbassett.com/privacy-policy/">Privacy Policy</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/company/gallagher-bassett" title="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+  <a href="#" class="back-to-top">↑ Back to Top</a>
+</footer>
+
+<!-- ── INTERACTIVE APP CORE ROUTING ENGINE ── -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.getElementById('page-routing-wrapper');
+    const originalHomepageHtml = wrapper.innerHTML;
+
+    // Intercepts all click configurations across the site
+    document.body.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      
+      if (!link) return;
+
+      const href = link.getAttribute('href');
+
+      // Allow default behaviors for empty anchors or standard top triggers
+      if (!href || href === '#' || href === '') {
+        if (link.classList.contains('back-to-top') || link.id === 'logo-home') {
+          e.preventDefault();
+          loadHomepage();
+        }
+        return;
+      }
+
+      // Block outbound tab spawning and process internal simulation
+      e.preventDefault();
+      
+      // Parse semantic page names from the destination URL paths
+      let displayTitle = link.textContent.replace('→', '').trim();
+      if (displayTitle.toLowerCase() === 'learn more' || displayTitle === 'in') {
+        try {
+          const urlObj = new URL(href);
+          const segments = urlObj.pathname.split('/').filter(Boolean);
+          displayTitle = segments.length ? segments[segments.length - 1].replace(/-/g, ' ') : urlObj.hostname;
+        } catch {
+          displayTitle = "View Details";
+        }
+      }
+      
+      loadSubpage(displayTitle, href);
+    });
+
+    // Handle return-to-home from footer asset
+    document.getElementById('footer-home-trigger').addEventListener('click', () => {
+      loadHomepage();
+    });
+
+    function loadHomepage() {
+      wrapper.innerHTML = originalHomepageHtml;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function loadSubpage(title, simulationUrl) {
+      // Clean up textual casing
+      const formattedTitle = title.charAt(0).toUpperCase() + title.slice(1);
+      
+      wrapper.innerHTML = `
+        <div class="dynamic-view">
+          <div class="subpage-hero">
+            <div class="section-inner">
+              <div class="breadcrumb">Gallagher Bassett Portal &gt; Dynamic Experience Simulation</div>
+              <h1 style="font-size: clamp(24px, 4vw, 42px); font-weight: 800; color: #fff;">${formattedTitle}</h1>
+            </div>
+          </div>
+          <div class="subpage-container">
+            <h2>Welcome to the ${formattedTitle} Center</h2>
+            <div style="width: 40px; height: 3px; background: #e8380d; margin-bottom: 24px;"></div>
+            <p>You are viewing a fully encapsulated, secure workspace prototype of the requested destination page environment: <strong>${simulationUrl}</strong></p>
+            <p>This prototype demonstrates a cohesive layout workflow, preserving context while navigating across the core platform profile. All downstream components, responsive breakpoints, and dropdown actions will remain completely functional on this test node.</p>
+            <p>To continue testing navigation streams, access options from the sticky global header above, or click the main logo profile at any time to return safely to the home index layer.</p>
+            <br>
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="btn-primary" style="border:none; cursor:pointer;">Return to Top</button>
+          </div>
+        </div>
+      `;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+</script>
+
+</body>
+</html>
