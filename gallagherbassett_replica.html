@@ -56,6 +56,7 @@
       font-weight: 800;
       color: #003087;
       letter-spacing: -0.5px;
+      cursor: pointer;
     }
     .logo-text span { color: #e8380d; }
 
@@ -350,6 +351,26 @@
     }
     .btn-secondary:hover { background: #001a4d; }
 
+    /* ── DYNAMIC SUBPAGE STYLING ── */
+    .dynamic-view {
+      animation: fadeIn 0.4s ease-out;
+      background: #fff;
+    }
+    .subpage-hero {
+      background: linear-gradient(135deg, #0d1a36 0%, #003087 100%);
+      color: #fff;
+      padding: 60px 32px;
+    }
+    .subpage-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 32px;
+    }
+    .subpage-container h2 { color: #003087; margin-bottom: 18px; font-size: 28px; }
+    .subpage-container p { line-height: 1.8; color: #4a5568; margin-bottom: 24px; font-size: 16px; }
+    .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
     /* ── FOOTER ── */
     footer {
       background: #0d1a36;
@@ -461,22 +482,22 @@
 <!-- ── UTILITY BAR ── -->
 <div class="util-bar">
   <div class="region-switcher">
-    <a href="https://www.gallagherbassett.com/au/" target="_blank">Australia</a>
+    <a href="https://www.gallagherbassett.com/au/">Australia</a>
     <a href="https://www.gallagherbassett.com/home/" class="active">North America</a>
-    <a href="https://www.gallagherbassett.com/uk/" target="_blank">United Kingdom</a>
+    <a href="https://www.gallagherbassett.com/uk/">United Kingdom</a>
   </div>
   <div class="util-links">
-    <a href="https://jobs.gallagherbassett.com/gb-home/" target="_blank">Join Our Team</a>
-    <a href="https://www.gallagherbassett.com/information-for-clients/" target="_blank">Information for Clients</a>
-    <a href="https://www.gallagherbassett.com/information-for-claimants/" target="_blank">Information for Claimants</a>
-    <a href="https://www.gallagherbassett.com/contact-us/" target="_blank">Contact Us</a>
+    <a href="https://jobs.gallagherbassett.com/gb-home/">Join Our Team</a>
+    <a href="https://www.gallagherbassett.com/information-for-clients/">Information for Clients</a>
+    <a href="https://www.gallagherbassett.com/information-for-claimants/">Information for Claimants</a>
+    <a href="https://www.gallagherbassett.com/contact-us/">Contact Us</a>
   </div>
 </div>
 
 <!-- ── HEADER ── -->
 <header>
   <div class="header-inner">
-    <a href="#" class="logo">
+    <a href="#" class="logo" id="logo-home">
       <span class="logo-text">Gallagher <span>Bassett</span></span>
     </a>
 
@@ -487,33 +508,33 @@
         <div class="dropdown dropdown-cols">
           <div class="dropdown-col">
             <span class="dropdown-col-title">Claims Management</span>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/" target="_blank" class="see-all">See All Claims Management →</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/workers-compensation/" target="_blank">Workers' Compensation</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/gbcare/" target="_blank">GBCARE™</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/auto-liability/" target="_blank">Auto Liability</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/general-liability/" target="_blank">General Liability</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/property/" target="_blank">Property</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/specialty-liability/" target="_blank">Specialty Liability</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/professional-and-executive-liability/" target="_blank">Professional & Executive Liability</a>
-            <a href="https://links.gallagherbassett.com/gb-specialty-healthcare-0-2" target="_blank">Healthcare/Medical Professional Liability</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/product-liability/" target="_blank">Product Liability</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/employment-practices-liability/" target="_blank">Employment Practices Liability</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/cyber-tech-eo-liability/" target="_blank">Cyber and Tech E&O Liability</a>
-            <a href="https://www.gallagherbassett.com/solutions/claims-management/litigation-management/" target="_blank">Litigation Management</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/" class="see-all">See All Claims Management →</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/workers-compensation/">Workers' Compensation</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/gbcare/">GBCARE™</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/auto-liability/">Auto Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/general-liability/">General Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/property/">Property</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/specialty-liability/">Specialty Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/professional-and-executive-liability/">Professional & Executive Liability</a>
+            <a href="https://links.gallagherbassett.com/gb-specialty-healthcare-0-2">Healthcare/Medical Professional Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/product-liability/">Product Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/employment-practices-liability/">Employment Practices Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/cyber-tech-eo-liability/">Cyber and Tech E&O Liability</a>
+            <a href="https://www.gallagherbassett.com/solutions/claims-management/litigation-management/">Litigation Management</a>
           </div>
           <div class="dropdown-col">
             <span class="dropdown-col-title">Risk Control</span>
-            <a href="https://www.gallagherbassett.com/solutions/risk-control/" target="_blank" class="see-all">See All Risk Control →</a>
-            <a href="https://www.gallagherbassett.com/solutions/risk-control/claims-investigations/" target="_blank">Claims Investigations</a>
-            <a href="https://www.gallagherbassett.com/solutions/risk-control/environmental-health-safety/" target="_blank">Environmental Health and Safety</a>
-            <a href="https://www.gallagherbassett.com/solutions/risk-control/loss-control/" target="_blank">Loss Control</a>
-            <a href="https://www.gallagherbassett.com/solutions/risk-control/safety-training-and-education/" target="_blank">Safety Training and Education</a>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/" class="see-all">See All Risk Control →</a>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/claims-investigations/">Claims Investigations</a>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/environmental-health-safety/">Environmental Health and Safety</a>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/loss-control/">Loss Control</a>
+            <a href="https://www.gallagherbassett.com/solutions/risk-control/safety-training-and-education/">Safety Training and Education</a>
             <span class="dropdown-col-title" style="margin-top:8px">Technology</span>
-            <a href="https://www.gallagherbassett.com/solutions/technology/" target="_blank" class="see-all">See All Technology →</a>
-            <a href="https://www.gallagherbassett.com/solutions/technology/luminos-rmis/" target="_blank">Luminos RMIS</a>
-            <a href="https://www.gallagherbassett.com/solutions/technology/gbgo/" target="_blank">GBGO®</a>
-            <a href="https://www.gallagherbassett.com/solutions/technology/genai/" target="_blank">Generative AI Tools</a>
-            <a href="https://www.gallagherbassett.com/solutions/technology/decision-support-tools/" target="_blank">Decision-Support Tools</a>
+            <a href="https://www.gallagherbassett.com/solutions/technology/" class="see-all">See All Technology →</a>
+            <a href="https://www.gallagherbassett.com/solutions/technology/luminos-rmis/">Luminos RMIS</a>
+            <a href="https://www.gallagherbassett.com/solutions/technology/gbgo/">GBGO®</a>
+            <a href="https://www.gallagherbassett.com/solutions/technology/genai/">Generative AI Tools</a>
+            <a href="https://www.gallagherbassett.com/solutions/technology/decision-support-tools/">Decision-Support Tools</a>
           </div>
         </div>
       </div>
@@ -522,15 +543,15 @@
       <div class="nav-item">
         <button>Industries</button>
         <div class="dropdown">
-          <a href="https://www.gallagherbassett.com/industries/" target="_blank" class="see-all">See All Industries →</a>
-          <a href="https://www.gallagherbassett.com/industries/hospitality-and-restaurant/" target="_blank">Hospitality and Restaurant</a>
-          <a href="https://www.gallagherbassett.com/industries/manufacturing/" target="_blank">Manufacturing</a>
-          <a href="https://www.gallagherbassett.com/industries/construction/" target="_blank">Construction</a>
-          <a href="https://www.gallagherbassett.com/industries/retail/" target="_blank">Retail</a>
-          <a href="https://www.gallagherbassett.com/industries/transportation/" target="_blank">Transportation</a>
-          <a href="https://www.gallagherbassett.com/industries/healthcare/" target="_blank">Healthcare</a>
-          <a href="https://www.gallagherbassett.com/industries/public-entity/" target="_blank">Public Entity</a>
-          <a href="https://www.gallagherbassett.com/industries/religious/" target="_blank">Religious</a>
+          <a href="https://www.gallagherbassett.com/industries/" class="see-all">See All Industries →</a>
+          <a href="https://www.gallagherbassett.com/industries/hospitality-and-restaurant/">Hospitality and Restaurant</a>
+          <a href="https://www.gallagherbassett.com/industries/manufacturing/">Manufacturing</a>
+          <a href="https://www.gallagherbassett.com/industries/construction/">Construction</a>
+          <a href="https://www.gallagherbassett.com/industries/retail/">Retail</a>
+          <a href="https://www.gallagherbassett.com/industries/transportation/">Transportation</a>
+          <a href="https://www.gallagherbassett.com/industries/healthcare/">Healthcare</a>
+          <a href="https://www.gallagherbassett.com/industries/public-entity/">Public Entity</a>
+          <a href="https://www.gallagherbassett.com/industries/religious/">Religious</a>
         </div>
       </div>
 
@@ -538,30 +559,30 @@
       <div class="nav-item">
         <button>Carriers &amp; Captives</button>
         <div class="dropdown">
-          <a href="https://insurers.gallagherbassett.com/" target="_blank">Carriers</a>
-          <a href="https://www.gallagherbassett.com/group-captives/" target="_blank">Group Captives</a>
+          <a href="https://insurers.gallagherbassett.com/">Carriers</a>
+          <a href="https://www.gallagherbassett.com/group-captives/">Group Captives</a>
         </div>
       </div>
 
       <!-- Brokers -->
       <div class="nav-item">
-        <a href="https://www.gallagherbassett.com/brokers/" target="_blank">Brokers</a>
+        <a href="https://www.gallagherbassett.com/brokers/">Brokers</a>
       </div>
 
       <!-- Insights -->
       <div class="nav-item">
-        <a href="https://www.gallagherbassett.com/news-and-insights/" target="_blank">Insights</a>
+        <a href="https://www.gallagherbassett.com/news-and-insights/">Insights</a>
       </div>
 
       <!-- About Us -->
       <div class="nav-item">
         <button>About Us</button>
         <div class="dropdown">
-          <a href="https://www.gallagherbassett.com/about-us/" target="_blank">About Us</a>
-          <a href="https://www.gallagherbassett.com/about-us/meet-our-team/" target="_blank">Meet Our Team</a>
-          <a href="https://www.gallagherbassett.com/about-us/our-values/" target="_blank">Our Values</a>
-          <a href="https://www.gallagherbassett.com/about-us/inclusion-diversity/" target="_blank">Inclusion and Diversity</a>
-          <a href="https://www.gallagherbassett.com/about-us/recognition-and-awards/" target="_blank">Recognition and Awards</a>
+          <a href="https://www.gallagherbassett.com/about-us/">About Us</a>
+          <a href="https://www.gallagherbassett.com/about-us/meet-our-team/">Meet Our Team</a>
+          <a href="https://www.gallagherbassett.com/about-us/our-values/">Our Values</a>
+          <a href="https://www.gallagherbassett.com/about-us/inclusion-diversity/">Inclusion and Diversity</a>
+          <a href="https://www.gallagherbassett.com/about-us/recognition-and-awards/">Recognition and Awards</a>
         </div>
       </div>
     </nav>
@@ -572,177 +593,261 @@
   </div>
 </header>
 
-<!-- ── HERO ── -->
-<section class="hero" id="main">
-  <div class="hero-content">
-    <h1>Your Partner for Claims and <span>Risk Management</span> Solutions</h1>
-    <a href="https://www.gallagherbassett.com/contact-us/" target="_blank" class="btn-primary">Connect with Us</a>
-  </div>
-</section>
-
-<!-- ── OUR SOLUTIONS ── -->
-<section>
-  <div class="section-inner">
-    <p class="section-title">Our Solutions</p>
-    <div class="divider"></div>
-    <div class="solutions-grid">
-      <div class="solution-card">
-        <div class="solution-icon">⚖️</div>
-        <h3>Claims Management</h3>
-        <p>Expertise, quality, innovation, and service make up our winning formula for superior claims outcomes. Our Resolution Managers are the best in the industry, with specialized capabilities in complex liabilities across industries.</p>
-        <a href="https://www.gallagherbassett.com/solutions/claims-management/" target="_blank" class="card-link">Learn More</a>
-      </div>
-      <div class="solution-card">
-        <div class="solution-icon">🛡️</div>
-        <h3>Risk Control</h3>
-        <p>We advise organizations in diverse industries to understand their risk exposures and partner with them to develop and maintain successful risk control and environmental health programs to reduce losses.</p>
-        <a href="https://www.gallagherbassett.com/solutions/risk-control/" target="_blank" class="card-link">Learn More</a>
-      </div>
-      <div class="solution-card">
-        <div class="solution-icon">🏢</div>
-        <h3>Carrier Practice</h3>
-        <p>Our dedicated Carrier Practice team is focused on the unique goals and objectives of insurance carriers, MGAs/MGUs, and alternative risk managers. Our global network of trusted experts helps unlock strategic business growth opportunities.</p>
-        <a href="https://insurers.gallagherbassett.com/" target="_blank" class="card-link">Learn More</a>
-      </div>
-      <div class="solution-card">
-        <div class="solution-icon">💡</div>
-        <h3>Technology &amp; Innovation</h3>
-        <p>From Luminos, our award-winning RMIS, to our advanced analytics and decision-support tools, we continue to invest in technologies and innovations that empower our clients to meet their goals today and tomorrow.</p>
-        <a href="https://www.gallagherbassett.com/solutions/technology/" target="_blank" class="card-link">Learn More</a>
-      </div>
+<!-- ── MAIN WRAPPER FOR HOMEPAGE CONTENT ── -->
+<div id="page-routing-wrapper">
+  
+  <!-- ── HERO ── -->
+  <section class="hero" id="main">
+    <div class="hero-content">
+      <h1>Your Partner for Claims and <span>Risk Management</span> Solutions</h1>
+      <a href="https://www.gallagherbassett.com/contact-us/" class="btn-primary">Connect with Us</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ── EXPERTISE STRIP ── -->
-<section class="expertise-strip">
-  <div class="section-inner">
-    <div>
-      <p class="section-title">Expertise to Serve Your Evolving Needs</p>
+  <!-- ── OUR SOLUTIONS ── -->
+  <section>
+    <div class="section-inner">
+      <p class="section-title">Our Solutions</p>
       <div class="divider"></div>
-      <h2>Always ready to adjust, refine, and enhance your programs.</h2>
-      <p>Over time, your business will evolve, and factors like changing regulations and industry trends will alter your organization's risk management needs. At Gallagher Bassett, we strive to stay on the cutting edge — always ready to adjust, refine, and enhance your programs so they remain in sync with the evolving needs of your organization.</p>
+      <div class="solutions-grid">
+        <div class="solution-card">
+          <div class="solution-icon">⚖️</div>
+          <h3>Claims Management</h3>
+          <p>Expertise, quality, innovation, and service make up our winning formula for superior claims outcomes. Our Resolution Managers are the best in the industry, with specialized capabilities in complex liabilities across industries.</p>
+          <a href="https://www.gallagherbassett.com/solutions/claims-management/" class="card-link">Learn More</a>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon">🛡️</div>
+          <h3>Risk Control</h3>
+          <p>We advise organizations in diverse industries to understand their risk exposures and partner with them to develop and maintain successful risk control and environmental health programs to reduce losses.</p>
+          <a href="https://www.gallagherbassett.com/solutions/risk-control/" class="card-link">Learn More</a>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon">🏢</div>
+          <h3>Carrier Practice</h3>
+          <p>Our dedicated Carrier Practice team is focused on the unique goals and objectives of insurance carriers, MGAs/MGUs, and alternative risk managers. Our global network of trusted experts helps unlock strategic business growth opportunities.</p>
+          <a href="https://insurers.gallagherbassett.com/" class="card-link">Learn More</a>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon">💡</div>
+          <h3>Technology &amp; Innovation</h3>
+          <p>From Luminos, our award-winning RMIS, to our advanced analytics and decision-support tools, we continue to invest in technologies and innovations that empower our clients to meet their goals today and tomorrow.</p>
+          <a href="https://www.gallagherbassett.com/solutions/technology/" class="card-link">Learn More</a>
+        </div>
+      </div>
     </div>
-    <div class="featured-cards">
-      <div class="featured-card">
-        <h4>The Carrier Perspective: 2026 Claims Insights</h4>
-        <p>Explore the top priorities and strategies shaping the insurance industry in 2026. Our global survey of 250 insurance leaders reveals key insights on emerging challenges, market trends, and the actions carriers are taking to stay ahead.</p>
-        <a href="https://www.gallagherbassett.com/the-carrier-perspective-claims-insights?utm_source=Sitecore-Web-Banner&utm_medium=Website&utm_campaign=Carrier-WP-2026&utm_content=Get-Report-Now" target="_blank">Learn More →</a>
-      </div>
-      <div class="featured-card">
-        <h4>Reduce total cost of risk with comprehensive client solutions</h4>
-        <p>Find out how Gallagher Bassett delivers superior claims outcomes and helps reduce total cost of risk for your organization.</p>
-        <a href="https://links.gallagherbassett.com/find-out-how-0" target="_blank">Learn More →</a>
-      </div>
-      <div class="featured-card">
-        <h4>Effectively resolve legacy claims with tailored carrier solutions</h4>
-        <p>Carriers can unlock capital from older claims associated with discontinued programs and revitalize legacy claims management with our Legacy practice group.</p>
-        <a href="https://insurers.gallagherbassett.com/solutions/legacy-claims-management-empowering-progress-and-growth/" target="_blank">Learn More →</a>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ── NEWS & INSIGHTS ── -->
-<section class="news-section">
-  <div class="section-inner">
-    <p class="section-title">Related News &amp; Insights</p>
-    <div class="divider"></div>
-    <p style="color:#4a5568;font-size:15px;max-width:640px;margin-bottom:40px;">Hear from our industry experts on the trends and issues influencing claims and risk management.</p>
-    <div class="news-grid">
-      <div class="news-card">
-        <div class="news-card-img">📊</div>
-        <div class="news-card-body">
-          <div class="news-tags">
-            <span class="news-tag">Industry Insights</span>
-            <span class="news-tag">Interview</span>
-          </div>
-          <h3>Evaluating 2026's Leading Trends With Claims and Risk Management Experts</h3>
-          <p style="font-size:13px;color:#4a5568;margin-bottom:14px;">Gallagher Bassett experts tackle 2026's top risk trends to reduce total cost of risk and improve outcomes.</p>
-          <a href="https://www.gallagherbassett.com/news-and-insights/evaluating-2026-leading-trends-with-gb-claims-and-risk-management-experts/" target="_blank" class="learn-more">Learn More →</a>
-        </div>
+  <!-- ── EXPERTISE STRIP ── -->
+  <section class="expertise-strip">
+    <div class="section-inner">
+      <div>
+        <p class="section-title">Expertise to Serve Your Evolving Needs</p>
+        <div class="divider"></div>
+        <h2>Always ready to adjust, refine, and enhance your programs.</h2>
+        <p>Over time, your business will evolve, and factors like changing regulations and industry trends will alter your organization's risk management needs. At Gallagher Bassett, we strive to stay on the cutting edge — always ready to adjust, refine, and enhance your programs so they remain in sync with the evolving needs of your organization.</p>
       </div>
-      <div class="news-card">
-        <div class="news-card-img">🏥</div>
-        <div class="news-card-body">
-          <div class="news-tags">
-            <span class="news-tag">Healthcare</span>
-            <span class="news-tag">Whitepaper</span>
-          </div>
-          <h3>Healthcare Market Outlook 2026</h3>
-          <p style="font-size:13px;color:#4a5568;margin-bottom:14px;">Get insights into the 2026 healthcare market outlook, from AI and telemedicine to workforce wellbeing and evolving care models.</p>
-          <a href="https://www.gallagherbassett.com/news-and-insights/healthcare-market-outlook-2026/" target="_blank" class="learn-more">Learn More →</a>
+      <div class="featured-cards">
+        <div class="featured-card">
+          <h4>The Carrier Perspective: 2026 Claims Insights</h4>
+          <p>Explore the top priorities and strategies shaping the insurance industry in 2026. Our global survey of 250 insurance leaders reveals key insights on emerging challenges, market trends, and the actions carriers are taking to stay ahead.</p>
+          <a href="https://www.gallagherbassett.com/the-carrier-perspective-claims-insights">Learn More →</a>
         </div>
-      </div>
-      <div class="news-card">
-        <div class="news-card-img">🏗️</div>
-        <div class="news-card-body">
-          <div class="news-tags">
-            <span class="news-tag">Construction</span>
-            <span class="news-tag">Whitepaper</span>
-          </div>
-          <h3>Construction Market Outlook 2026</h3>
-          <p style="font-size:13px;color:#4a5568;margin-bottom:14px;">Explore the US construction market outlook for 2026, including growth drivers, labor challenges, policy impacts, and emerging trends shaping the industry.</p>
-          <a href="https://www.gallagherbassett.com/news-and-insights/construction-market-outlook-2026/" target="_blank" class="learn-more">Learn More →</a>
+        <div class="featured-card">
+          <h4>Reduce total cost of risk with comprehensive client solutions</h4>
+          <p>Find out how Gallagher Bassett delivers superior claims outcomes and helps reduce total cost of risk for your organization.</p>
+          <a href="https://links.gallagherbassett.com/find-out-how-0">Learn More →</a>
+        </div>
+        <div class="featured-card">
+          <h4>Effectively resolve legacy claims with tailored carrier solutions</h4>
+          <p>Carriers can unlock capital from older claims associated with discontinued programs and revitalize legacy claims management with our Legacy practice group.</p>
+          <a href="https://insurers.gallagherbassett.com/solutions/legacy-claims-management-empowering-progress-and-growth/">Learn More →</a>
         </div>
       </div>
     </div>
-    <div class="center">
-      <a href="https://www.gallagherbassett.com/news-and-insights/" target="_blank" class="btn-secondary">Explore News &amp; Insights</a>
+  </section>
+
+  <!-- ── NEWS & INSIGHTS ── -->
+  <section class="news-section">
+    <div class="section-inner">
+      <p class="section-title">Related News &amp; Insights</p>
+      <div class="divider"></div>
+      <p style="color:#4a5568;font-size:15px;max-width:640px;margin-bottom:40px;">Hear from our industry experts on the trends and issues influencing claims and risk management.</p>
+      <div class="news-grid">
+        <div class="news-card">
+          <div class="news-card-img">📊</div>
+          <div class="news-card-body">
+            <div class="news-tags">
+              <span class="news-tag">Industry Insights</span>
+              <span class="news-tag">Interview</span>
+            </div>
+            <h3>Evaluating 2026's Leading Trends With Claims and Risk Management Experts</h3>
+            <p style="font-size:13px;color:#4a5568;margin-bottom:14px;">Gallagher Bassett experts tackle 2026's top risk trends to reduce total cost of risk and improve outcomes.</p>
+            <a href="https://www.gallagherbassett.com/news-and-insights/evaluating-2026-leading-trends-with-gb-claims-and-risk-management-experts/" class="learn-more">Learn More →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-card-img">🏥</div>
+          <div class="news-card-body">
+            <div class="news-tags">
+              <span class="news-tag">Healthcare</span>
+              <span class="news-tag">Whitepaper</span>
+            </div>
+            <h3>Healthcare Market Outlook 2026</h3>
+            <p style="font-size:13px;color:#4a5568;margin-bottom:14px;">Get insights into the 2026 healthcare market outlook, from AI and telemedicine to workforce wellbeing and evolving care models.</p>
+            <a href="https://www.gallagherbassett.com/news-and-insights/healthcare-market-outlook-2026/" class="learn-more">Learn More →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-card-img">🏗️</div>
+          <div class="news-card-body">
+            <div class="news-tags">
+              <span class="news-tag">Construction</span>
+              <span class="news-tag">Whitepaper</span>
+            </div>
+            <h3>Construction Market Outlook 2026</h3>
+            <p style="font-size:13px;color:#4a5568;margin-bottom:14px;">Explore the US construction market outlook for 2026, including growth drivers, labor challenges, policy impacts, and emerging trends shaping the industry.</p>
+            <a href="https://www.gallagherbassett.com/news-and-insights/construction-market-outlook-2026/" class="learn-more">Learn More →</a>
+          </div>
+        </div>
+      </div>
+      <div class="center">
+        <a href="https://www.gallagherbassett.com/news-and-insights/" class="btn-secondary">Explore News &amp; Insights</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+</div>
 
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      <span class="logo-text">Gallagher <span style="color:#e8380d">Bassett</span></span>
+      <span class="logo-text" id="footer-home-trigger">Gallagher <span style="color:#e8380d">Bassett</span></span>
     </div>
     <div class="footer-grid">
       <div class="footer-col">
         <h4>Solutions</h4>
-        <a href="https://www.gallagherbassett.com/solutions/" target="_blank">Solutions Overview</a>
-        <a href="https://www.gallagherbassett.com/solutions/claims-management/" target="_blank">Claims Management</a>
-        <a href="https://www.gallagherbassett.com/solutions/risk-control/" target="_blank">Risk Control</a>
-        <a href="https://www.gallagherbassett.com/solutions/technology/" target="_blank">Technology</a>
+        <a href="https://www.gallagherbassett.com/solutions/">Solutions Overview</a>
+        <a href="https://www.gallagherbassett.com/solutions/claims-management/">Claims Management</a>
+        <a href="https://www.gallagherbassett.com/solutions/risk-control/">Risk Control</a>
+        <a href="https://www.gallagherbassett.com/solutions/technology/">Technology</a>
       </div>
       <div class="footer-col">
         <h4>Who We Work With</h4>
-        <a href="https://www.gallagherbassett.com/information-for-clients/" target="_blank">Information for Clients</a>
-        <a href="https://www.gallagherbassett.com/brokers/" target="_blank">Brokers</a>
-        <a href="https://insurers.gallagherbassett.com/" target="_blank">Carriers</a>
-        <a href="https://insurers.gallagherbassett.com/solutions/strategic-growth-for-program-administrators-and-mgas/" target="_blank">Programs (MGA/MGU)</a>
-        <a href="https://www.gallagherbassett.com/industries/" target="_blank">Employers</a>
+        <a href="https://www.gallagherbassett.com/information-for-clients/">Information for Clients</a>
+        <a href="https://www.gallagherbassett.com/brokers/">Brokers</a>
+        <a href="https://insurers.gallagherbassett.com/">Carriers</a>
+        <a href="https://insurers.gallagherbassett.com/solutions/strategic-growth-for-program-administrators-and-mgas/">Programs (MGA/MGU)</a>
+        <a href="https://www.gallagherbassett.com/industries/">Employers</a>
       </div>
       <div class="footer-col">
         <h4>More About Us</h4>
-        <a href="https://www.gallagherbassett.com/about-us/" target="_blank">About Us</a>
-        <a href="https://investor.ajg.com/home/default.aspx" target="_blank">Investor Relations</a>
-        <a href="https://jobs.gallagherbassett.com/gb-home/" target="_blank">Join Our Team</a>
-        <a href="https://www.gallagherbassett.com/about-us/meet-our-team/" target="_blank">Meet Our Team</a>
+        <a href="https://www.gallagherbassett.com/about-us/">About Us</a>
+        <a href="https://investor.ajg.com/home/default.aspx">Investor Relations</a>
+        <a href="https://jobs.gallagherbassett.com/gb-home/">Join Our Team</a>
+        <a href="https://www.gallagherbassett.com/about-us/meet-our-team/">Meet Our Team</a>
       </div>
       <div class="footer-col">
         <h4>Get in Touch</h4>
-        <a href="https://www.gallagherbassett.com/contact-us/" target="_blank">Contact Us</a>
-        <a href="https://www.gallagherbassett.com/information-for-claimants/" target="_blank">Information for Claimants</a>
-        <a href="https://www.gallagherbassett.com/information-for-clients/" target="_blank">Information for Clients</a>
+        <a href="https://www.gallagherbassett.com/contact-us/">Contact Us</a>
+        <a href="https://www.gallagherbassett.com/information-for-claimants/">Information for Claimants</a>
+        <a href="https://www.gallagherbassett.com/information-for-clients/">Information for Clients</a>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 Gallagher Bassett. All Rights Reserved.</p>
       <div class="footer-legal">
-        <a href="https://www.gallagherbassett.com/client-disclosure-statement/" target="_blank">Client Disclosure Statement</a>
-        <a href="https://www.gallagherbassett.com/copyright-and-disclaimer/" target="_blank">Copyright and Disclaimer</a>
-        <a href="https://www.gallagherbassett.com/privacy-policy/" target="_blank">Privacy Policy</a>
+        <a href="https://www.gallagherbassett.com/client-disclosure-statement/">Client Disclosure Statement</a>
+        <a href="https://www.gallagherbassett.com/copyright-and-disclaimer/">Copyright and Disclaimer</a>
+        <a href="https://www.gallagherbassett.com/privacy-policy/">Privacy Policy</a>
       </div>
       <div class="footer-social">
-        <a href="https://www.linkedin.com/company/gallagher-bassett" target="_blank" title="LinkedIn">in</a>
+        <a href="https://www.linkedin.com/company/gallagher-bassett" title="LinkedIn">in</a>
       </div>
     </div>
   </div>
   <a href="#" class="back-to-top">↑ Back to Top</a>
 </footer>
+
+<!-- ── INTERACTIVE APP CORE ROUTING ENGINE ── -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.getElementById('page-routing-wrapper');
+    const originalHomepageHtml = wrapper.innerHTML;
+
+    // Intercepts all click configurations across the site
+    document.body.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      
+      if (!link) return;
+
+      const href = link.getAttribute('href');
+
+      // Allow default behaviors for empty anchors or standard top triggers
+      if (!href || href === '#' || href === '') {
+        if (link.classList.contains('back-to-top') || link.id === 'logo-home') {
+          e.preventDefault();
+          loadHomepage();
+        }
+        return;
+      }
+
+      // Block outbound tab spawning and process internal simulation
+      e.preventDefault();
+      
+      // Parse semantic page names from the destination URL paths
+      let displayTitle = link.textContent.replace('→', '').trim();
+      if (displayTitle.toLowerCase() === 'learn more' || displayTitle === 'in') {
+        try {
+          const urlObj = new URL(href);
+          const segments = urlObj.pathname.split('/').filter(Boolean);
+          displayTitle = segments.length ? segments[segments.length - 1].replace(/-/g, ' ') : urlObj.hostname;
+        } catch {
+          displayTitle = "View Details";
+        }
+      }
+      
+      loadSubpage(displayTitle, href);
+    });
+
+    // Handle return-to-home from footer asset
+    document.getElementById('footer-home-trigger').addEventListener('click', () => {
+      loadHomepage();
+    });
+
+    function loadHomepage() {
+      wrapper.innerHTML = originalHomepageHtml;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function loadSubpage(title, simulationUrl) {
+      // Clean up textual casing
+      const formattedTitle = title.charAt(0).toUpperCase() + title.slice(1);
+      
+      wrapper.innerHTML = `
+        <div class="dynamic-view">
+          <div class="subpage-hero">
+            <div class="section-inner">
+              <div class="breadcrumb">Gallagher Bassett Portal &gt; Dynamic Experience Simulation</div>
+              <h1 style="font-size: clamp(24px, 4vw, 42px); font-weight: 800; color: #fff;">${formattedTitle}</h1>
+            </div>
+          </div>
+          <div class="subpage-container">
+            <h2>Welcome to the ${formattedTitle} Center</h2>
+            <div style="width: 40px; height: 3px; background: #e8380d; margin-bottom: 24px;"></div>
+            <p>You are viewing a fully encapsulated, secure workspace prototype of the requested destination page environment: <strong>${simulationUrl}</strong></p>
+            <p>This prototype demonstrates a cohesive layout workflow, preserving context while navigating across the core platform profile. All downstream components, responsive breakpoints, and dropdown actions will remain completely functional on this test node.</p>
+            <p>To continue testing navigation streams, access options from the sticky global header above, or click the main logo profile at any time to return safely to the home index layer.</p>
+            <br>
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="btn-primary" style="border:none; cursor:pointer;">Return to Top</button>
+          </div>
+        </div>
+      `;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+</script>
 
 </body>
 </html>
