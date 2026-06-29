@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Gallagher Bassett – Claims & Risk Management Solutions</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;color:#1a1a1a;background:#fff;min-height:100vh;display:flex;flex-direction:column}
+a{text-decoration:none;color:inherit;cursor:pointer}
+img{max-width:100%;display:block}
+
+/* ── UTILITY BAR ── */
+.util-bar{background:#0d1a36;color:#ccc;font-size:12px;padding:7px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.util-bar .region a{color:#aaa;margin-right:14px;transition:color .2s}
+.util-bar .region a:hover,.util-bar .region a.active{color:#fff;font-weight:600}
+.util-bar .util-links a{color:#ccc;margin-left:18px;transition:color .2s}
+.util-bar .util-links a:hover{color:#fff}
+
+/* ── HEADER ── */
+header{background:#fff;border-bottom:1px solid #e0e6f0;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.hdr{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-icon{width:38px;height:38px;background:#003087;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:15px;letter-spacing:-1px;flex-shrink:0}
+.logo-text{font-size:19px;font-weight:800;color:#003087;letter-spacing:-.5px;line-height:1}
+.logo-text span{color:#e8380d}
+
+/* NAV */
+nav{display:flex;align-items:stretch;height:70px}
+.nav-item{position:relative;display:flex;align-items:center}
+.nav-btn{padding:0 15px;font-size:13.5px;font-weight:600;color:#1a1a2e;border:none;background:none;cursor:pointer;height:100%;display:flex;align-items:center;gap:4px;transition:color .2s,background .2s;white-space:nowrap}
+.nav-btn:hover,.nav-item:hover>.nav-btn{color:#003087;background:#f0f4ff}
+.nav-btn.has-dd::after{content:'▾';font-size:9px;margin-left:2px;opacity:.7}
+
+/* DROPDOWN */
+.dd{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #dce5f5;border-top:3px solid #003087;box-shadow:0 10px 40px rgba(0,30,100,.13);z-index:300;border-radius:0 0 8px 8px;min-width:220px}
+.nav-item:hover .dd{display:flex}
+.dd-col{display:flex;flex-direction:column;min-width:210px;border-right:1px solid #eef2fa}
+.dd-col:last-child{border-right:none}
+.dd-head{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#003087;padding:11px 18px 8px;background:#f5f8ff;border-bottom:1px solid #e8eeff}
+.dd a{display:block;padding:9px 18px;font-size:13px;color:#2d3748;border-bottom:1px solid #f5f5f5;transition:background .15s,color .15s,padding-left .15s}
+.dd a:last-child{border-bottom:none}
+.dd a:hover{background:#f0f4ff;color:#003087;padding-left:24px}
+.dd .dd-all{font-weight:700;color:#003087;font-size:11.5px;background:#eef3ff;text-transform:uppercase;letter-spacing:.4px}
+.dd .dd-all:hover{background:#dbe6ff}
+
+/* hamburger */
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
+.ham span{display:block;width:23px;height:2px;background:#1a1a2e;border-radius:2px}
+
+/* ── PAGE CONTENT ── */
+#page{flex:1}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(115deg,#001a4d 0%,#003087 55%,#0057b7 100%);color:#fff;position:relative;overflow:hidden;min-height:440px;display:flex;align-items:center}
+.hero::before{content:'';position:absolute;inset:0;background:url('https://www.gallagherbassett.com/-/media/images/gallagher-bassett/us/heroes/gallagher_bassett_home_desktop.jpg') center/cover no-repeat;opacity:.28}
+.hero-body{position:relative;max-width:1280px;margin:0 auto;padding:80px 32px}
+.hero h1{font-size:clamp(26px,3.8vw,50px);font-weight:800;line-height:1.14;max-width:660px;margin-bottom:28px;letter-spacing:-1px}
+.hero h1 em{color:#7ec8f7;font-style:normal}
+.btn-red{display:inline-block;background:#e8380d;color:#fff;padding:14px 34px;border-radius:4px;font-weight:700;font-size:14.5px;transition:background .2s,transform .15s;cursor:pointer;border:none}
+.btn-red:hover{background:#c42d09;transform:translateY(-1px)}
+.btn-blue{display:inline-block;background:#003087;color:#fff;padding:13px 32px;border-radius:4px;font-weight:700;font-size:14px;transition:background .2s;cursor:pointer;border:none}
+.btn-blue:hover{background:#001d5c}
+
+/* ── COMMON SECTIONS ── */
+.sec{padding:68px 32px}
+.sec-inner{max-width:1280px;margin:0 auto}
+.sec-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;color:#003087;margin-bottom:10px}
+.sec-title{font-size:clamp(22px,2.8vw,36px);font-weight:800;color:#0d1a36;line-height:1.2;margin-bottom:40px;max-width:760px}
+.divider{width:52px;height:4px;background:#e8380d;border-radius:2px;margin:12px 0 36px}
+
+/* CARD GRID */
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:26px}
+.card{border:1px solid #e0e8f5;border-radius:8px;padding:30px 26px;transition:box-shadow .2s,transform .2s,border-color .2s;display:flex;flex-direction:column;cursor:pointer}
+.card:hover{box-shadow:0 8px 32px rgba(0,48,135,.12);transform:translateY(-3px);border-color:#003087}
+.card-icon{width:46px;height:46px;background:#e8f0ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px}
+.card h3{font-size:17px;font-weight:700;color:#003087;margin-bottom:10px}
+.card p{font-size:13.5px;line-height:1.72;color:#4a5568;flex:1;margin-bottom:18px}
+.card-link{font-size:13px;font-weight:700;color:#003087;display:flex;align-items:center;gap:5px;transition:gap .2s}
+.card-link::after{content:'→'}
+.card:hover .card-link{gap:9px}
+
+/* SPLIT */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split-alt{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.split h2{font-size:clamp(20px,2.4vw,32px);font-weight:800;color:#0d1a36;line-height:1.25;margin-bottom:14px}
+.split p,.split-alt p{font-size:14.5px;line-height:1.78;color:#4a5568;margin-bottom:14px}
+
+/* FEATURED CARDS */
+.feat-cards{display:flex;flex-direction:column;gap:18px}
+.feat-card{background:#fff;border:1px solid #dde6f5;border-left:4px solid #003087;border-radius:6px;padding:19px 20px;transition:box-shadow .2s;cursor:pointer}
+.feat-card:hover{box-shadow:0 4px 18px rgba(0,48,135,.1)}
+.feat-card h4{font-size:14.5px;font-weight:700;color:#0d1a36;margin-bottom:7px}
+.feat-card p{font-size:12.5px;color:#4a5568;line-height:1.6;margin-bottom:9px}
+.feat-card .fc-link{font-size:12.5px;font-weight:700;color:#003087}
+
+/* NEWS */
+.news-card{border:1px solid #e0e8f5;border-radius:8px;overflow:hidden;transition:box-shadow .2s,transform .2s;cursor:pointer}
+.news-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.1);transform:translateY(-2px)}
+.news-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:38px}
+.news-body{padding:22px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+.tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;background:#e8f0ff;color:#003087;padding:3px 9px;border-radius:20px}
+.news-card h3{font-size:15px;font-weight:700;color:#0d1a36;margin-bottom:12px;line-height:1.4}
+.lm{font-size:13px;font-weight:700;color:#003087}
+
+/* BG alts */
+.bg-light{background:#f7f9ff}
+.bg-dark{background:#0d1a36;color:#fff}
+.bg-dark .sec-title,.bg-dark h2,.bg-dark h3{color:#fff}
+.bg-dark p{color:#b8c4d8}
+.bg-dark .card{background:#1a2d5a;border-color:#1e3460;color:#fff}
+.bg-dark .card h3{color:#7ec8f7}
+.bg-dark .card p{color:#b8c4d8}
+.bg-dark .card-link{color:#7ec8f7}
+
+/* PAGE HERO (inner pages) */
+.page-hero{background:linear-gradient(110deg,#001a4d 0%,#003087 60%,#0057b7 100%);color:#fff;padding:56px 32px}
+.page-hero-inner{max-width:1280px;margin:0 auto}
+.breadcrumb{font-size:12px;color:#7ec8f7;margin-bottom:14px;display:flex;gap:6px;align-items:center}
+.breadcrumb span{opacity:.6}
+.page-hero h1{font-size:clamp(24px,3vw,42px);font-weight:800;line-height:1.2;max-width:700px}
+.page-hero p{font-size:15px;line-height:1.75;max-width:660px;margin-top:16px;color:#c8d8f0}
+
+/* SUB-LIST */
+.sub-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:28px}
+.sub-item{background:#fff;border:1px solid #e0e8f5;border-radius:6px;padding:16px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}
+.sub-item:hover{background:#f0f4ff;border-color:#003087;box-shadow:0 3px 12px rgba(0,48,135,.1)}
+.sub-item .si-icon{font-size:18px;width:32px;text-align:center}
+.sub-item .si-text{font-size:13.5px;font-weight:600;color:#003087}
+
+/* CONTACT FORM */
+.form-wrap{max-width:640px;margin:0 auto}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+label{font-size:12.5px;font-weight:600;color:#374151;text-transform:uppercase;letter-spacing:.5px}
+input,select,textarea{width:100%;padding:11px 14px;border:1px solid #d1d9e6;border-radius:5px;font-size:14px;font-family:inherit;transition:border-color .2s,box-shadow .2s;background:#fff}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#003087;box-shadow:0 0 0 3px rgba(0,48,135,.1)}
+textarea{resize:vertical;min-height:120px}
+.form-success{background:#f0fff4;border:1px solid #68d391;border-radius:6px;padding:20px;text-align:center;color:#276749;font-weight:600;display:none}
+
+/* STATS ROW */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;margin:40px 0}
+.stat{text-align:center;padding:24px 16px;background:#fff;border-radius:8px;border:1px solid #e0e8f5}
+.stat-num{font-size:36px;font-weight:800;color:#003087;line-height:1}
+.stat-label{font-size:12.5px;color:#4a5568;margin-top:6px;line-height:1.4}
+
+/* ── FOOTER ── */
+footer{background:#0d1a36;color:#b8c4d8;padding:52px 32px 0}
+.ftr{max-width:1280px;margin:0 auto}
+.ftr-logo{margin-bottom:30px}
+.ftr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:36px;margin-bottom:44px}
+.ftr-col h4{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#fff;margin-bottom:14px;padding-bottom:7px;border-bottom:2px solid #e8380d;display:inline-block}
+.ftr-col a{display:block;font-size:13px;color:#b8c4d8;margin-bottom:9px;cursor:pointer;transition:color .2s}
+.ftr-col a:hover{color:#7ec8f7}
+.ftr-bottom{border-top:1px solid #1e3460;padding:18px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.ftr-bottom p{font-size:12px}
+.ftr-legal{display:flex;gap:18px;flex-wrap:wrap}
+.ftr-legal a{font-size:11.5px;color:#6a7d9a;cursor:pointer;transition:color .2s}
+.ftr-legal a:hover{color:#fff}
+.ftr-social a{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:#1e3460;border-radius:50%;color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
+.ftr-social a:hover{background:#003087}
+.back-top{display:block;text-align:center;padding:13px;background:#1a2d5a;color:#b8c4d8;font-size:12.5px;cursor:pointer;transition:background .2s,color .2s}
+.back-top:hover{background:#003087;color:#fff}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{display:none}
+  .ham{display:flex}
+  nav.open{display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:#fff;border-top:1px solid #e0e6f0;z-index:400;height:calc(100vh - 70px);overflow-y:auto;padding:16px 0}
+  nav.open .nav-item{flex-direction:column;align-items:flex-start;border-bottom:1px solid #f0f0f0}
+  nav.open .nav-btn{width:100%;padding:13px 24px;height:auto}
+  nav.open .dd{position:static;display:none;flex-direction:column;box-shadow:none;border:none;border-top:1px solid #f0f0f0;background:#f7f9ff}
+  nav.open .nav-item.open-sub .dd{display:flex}
+  .split,.split-alt{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .hdr{padding:0 16px}
+  .sec{padding:48px 16px}
+}
+@media(max-width:600px){
+  .util-bar{font-size:11px;padding:6px 14px}
+  footer{padding:36px 16px 0}
+}
+</style>
+
+<!-- Genesys Chat Widget -->
+<script type="text/javascript" charset="utf-8">
+  (function (g, e, n, es, ys) {
+    g['_genesysJs'] = e;
+    g[e] = g[e] || function () {
+      (g[e].q = g[e].q || []).push(arguments)
+    };
+    g[e].t = 1 * new Date();
+    g[e].c = es;
+    ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+  })(window, 'Genesys', 'https://apps.usw2.pure.cloud/genesys-bootstrap/genesys.min.js', {
+    environment: 'prod-usw2',
+    deploymentId: '3faaba2f-61e6-4a22-bd52-f9283fbd9131'
+  });
+</script>
+
+</head>
+<body>
+
+<!-- UTILITY BAR -->
+<div class="util-bar">
+  <div class="region">
+    <a href="#" onclick="navigate('home');return false">Australia</a>
+    <a href="#" onclick="navigate('home');return false" class="active">North America</a>
+    <a href="#" onclick="navigate('home');return false">United Kingdom</a>
+  </div>
+  <div class="util-links">
+    <a href="#" onclick="navigate('careers');return false">Join Our Team</a>
+    <a href="#" onclick="navigate('info-clients');return false">Information for Clients</a>
+    <a href="#" onclick="navigate('info-claimants');return false">Information for Claimants</a>
+    <a href="#" onclick="navigate('contact');return false">Contact Us</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr">
+    <div class="logo-wrap" onclick="navigate('home')">
+      <div class="logo-icon">GB</div>
+      <div class="logo-text">Gallagher <span>Bassett</span></div>
+    </div>
+
+    <nav id="main-nav">
+      <!-- Solutions -->
+      <div class="nav-item">
+        <button class="nav-btn has-dd">Solutions</button>
+        <div class="dd">
+          <div class="dd-col">
+            <div class="dd-head">Claims Management</div>
+            <a onclick="navigate('claims-management')">See All Claims Management →</a>
+            <a onclick="navigate('workers-comp')">Workers' Compensation</a>
+            <a onclick="navigate('gbcare')">GBCARE™</a>
+            <a onclick="navigate('auto-liability')">Auto Liability</a>
+            <a onclick="navigate('general-liability')">General Liability</a>
+            <a onclick="navigate('property')">Property</a>
+            <a onclick="navigate('specialty-liability')">Specialty Liability</a>
+            <a onclick="navigate('professional-liability')">Professional & Executive Liability</a>
+            <a onclick="navigate('healthcare-liability')">Healthcare / Medical Professional Liability</a>
+            <a onclick="navigate('product-liability')">Product Liability</a>
+            <a onclick="navigate('employment-liability')">Employment Practices Liability</a>
+            <a onclick="navigate('cyber-liability')">Cyber and Tech E&O Liability</a>
+            <a onclick="navigate('litigation-mgmt')">Litigation Management</a>
+          </div>
+          <div class="dd-col">
+            <div class="dd-head">Risk Control</div>
+            <a onclick="navigate('risk-control')">See All Risk Control →</a>
+            <a onclick="navigate('claims-investigations')">Claims Investigations</a>
+            <a onclick="navigate('env-health-safety')">Environmental Health and Safety</a>
+            <a onclick="navigate('loss-control')">Loss Control</a>
+            <a onclick="navigate('safety-training')">Safety Training and Education</a>
+            <div class="dd-head" style="margin-top:4px">Technology</div>
+            <a onclick="navigate('technology')">See All Technology →</a>
+            <a onclick="navigate('luminos-rmis')">Luminos RMIS</a>
+            <a onclick="navigate('gbgo')">GBGO®</a>
+            <a onclick="navigate('genai')">Generative AI Tools</a>
+            <a onclick="navigate('decision-tools')">Decision-Support Tools</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Industries -->
+      <div class="nav-item">
+        <button class="nav-btn has-dd">Industries</button>
+        <div class="dd">
+          <div class="dd-col">
+            <a class="dd-all" onclick="navigate('industries')">See All Industries →</a>
+            <a onclick="navigate('industry-hospitality')">Hospitality and Restaurant</a>
+            <a onclick="navigate('industry-manufacturing')">Manufacturing</a>
+            <a onclick="navigate('industry-construction')">Construction</a>
+            <a onclick="navigate('industry-retail')">Retail</a>
+            <a onclick="navigate('industry-transportation')">Transportation</a>
+            <a onclick="navigate('industry-healthcare')">Healthcare</a>
+            <a onclick="navigate('industry-public-entity')">Public Entity</a>
+            <a onclick="navigate('industry-religious')">Religious</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carriers -->
+      <div class="nav-item">
+        <button class="nav-btn has-dd">Carriers &amp; Captives</button>
+        <div class="dd">
+          <div class="dd-col">
+            <a onclick="navigate('carriers')">Carriers</a>
+            <a onclick="navigate('group-captives')">Group Captives</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item"><button class="nav-btn" onclick="navigate('brokers')">Brokers</button></div>
+      <div class="nav-item"><button class="nav-btn" onclick="navigate('insights')">Insights</button></div>
+
+      <!-- About -->
+      <div class="nav-item">
+        <button class="nav-btn has-dd">About Us</button>
+        <div class="dd">
+          <div class="dd-col">
+            <a onclick="navigate('about')">About Us</a>
+            <a onclick="navigate('meet-team')">Meet Our Team</a>
+            <a onclick="navigate('our-values')">Our Values</a>
+            <a onclick="navigate('inclusion-diversity')">Inclusion and Diversity</a>
+            <a onclick="navigate('recognition-awards')">Recognition and Awards</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <button class="ham" id="ham-btn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- PAGE OUTPUT -->
+<div id="page"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftr">
+    <div class="ftr-logo">
+      <span style="font-size:19px;font-weight:800;color:#fff">Gallagher <span style="color:#e8380d">Bassett</span></span>
+    </div>
+    <div class="ftr-grid">
+      <div class="ftr-col">
+        <h4>Solutions</h4>
+        <a onclick="navigate('claims-management')">Claims Management</a>
+        <a onclick="navigate('risk-control')">Risk Control</a>
+        <a onclick="navigate('technology')">Technology</a>
+      </div>
+      <div class="ftr-col">
+        <h4>Who We Work With</h4>
+        <a onclick="navigate('brokers')">Brokers</a>
+        <a onclick="navigate('carriers')">Carriers</a>
+        <a onclick="navigate('industries')">Employers / Industries</a>
+        <a onclick="navigate('info-clients')">Information for Clients</a>
+      </div>
+      <div class="ftr-col">
+        <h4>About Us</h4>
+        <a onclick="navigate('about')">About Us</a>
+        <a onclick="navigate('meet-team')">Meet Our Team</a>
+        <a onclick="navigate('our-values')">Our Values</a>
+        <a onclick="navigate('careers')">Join Our Team</a>
+      </div>
+      <div class="ftr-col">
+        <h4>Get in Touch</h4>
+        <a onclick="navigate('contact')">Contact Us</a>
+        <a onclick="navigate('info-claimants')">Information for Claimants</a>
+        <a onclick="navigate('info-clients')">Information for Clients</a>
+      </div>
+    </div>
+    <div class="ftr-bottom">
+      <p>© 2026 Gallagher Bassett. All Rights Reserved.</p>
+      <div class="ftr-legal">
+        <a onclick="navigate('privacy-policy')">Privacy Policy</a>
+        <a onclick="navigate('copyright-disclaimer')">Copyright &amp; Disclaimer</a>
+        <a onclick="navigate('client-disclosure')">Client Disclosure Statement</a>
+      </div>
+      <div class="ftr-social"><a title="LinkedIn">in</a></div>
+    </div>
+  </div>
+  <div class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to Top</div>
+</footer>
+
+<script>
+// ─────────────────────────────────────────
+// PAGE DEFINITIONS
+// ─────────────────────────────────────────
+const pages = {
+
+  home: () => `
+    <div class="hero">
+      <div class="hero-body">
+        <h1>Your Partner for Claims and <em>Risk Management</em> Solutions</h1>
+        <button class="btn-red" onclick="navigate('contact')">Connect with Us</button>
+      </div>
+    </div>
+
+    <section class="sec">
+      <div class="sec-inner">
+        <p class="sec-label">Our Solutions</p>
+        <div class="divider"></div>
+        <div class="grid-4">
+          ${solutionCard('⚖️','Claims Management','Expertise, quality, innovation, and service make up our winning formula for superior claims outcomes. Our Resolution Managers are the best in the industry, with specialized capabilities in complex liabilities across industries.','claims-management')}
+          ${solutionCard('🛡️','Risk Control','We advise organizations in diverse industries to understand their risk exposures and partner with them to develop and maintain successful risk control programs to reduce losses.','risk-control')}
+          ${solutionCard('🏢','Carrier Practice','Our dedicated Carrier Practice team is focused on the unique goals and objectives of insurance carriers, MGAs/MGUs, and alternative risk managers helping unlock strategic business growth.','carriers')}
+          ${solutionCard('💡','Technology & Innovation','From Luminos, our award-winning RMIS, to our advanced analytics and decision-support tools, we invest in technologies that empower our clients to meet their goals.','technology')}
+        </div>
+      </div>
+    </section>
+
+    <section class="sec bg-light">
+      <div class="sec-inner">
+        <div class="split">
+          <div>
+            <p class="sec-label">Expertise to Serve Your Evolving Needs</p>
+            <div class="divider"></div>
+            <h2>Always ready to adjust, refine, and enhance your programs.</h2>
+            <p>Over time, your business will evolve, and factors like changing regulations and industry trends will alter your organization's risk management needs. At Gallagher Bassett, we strive to stay on the cutting edge — always ready to adjust, refine, and enhance your programs so they remain in sync with the evolving needs of your organization.</p>
+          </div>
+          <div class="feat-cards">
+            ${featCard('The Carrier Perspective: 2026 Claims Insights','Explore the top priorities and strategies shaping the insurance industry in 2026. Our global survey of 250 insurance leaders reveals key insights on emerging challenges.','insights')}
+            ${featCard('Reduce Total Cost of Risk','Find out how Gallagher Bassett delivers superior claims outcomes and helps reduce total cost of risk for your organization.','claims-management')}
+            ${featCard('Effectively Resolve Legacy Claims','Carriers can unlock capital from older claims associated with discontinued programs and revitalize legacy claims management with our Legacy practice group.','carriers')}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-inner">
+        <p class="sec-label">Related News &amp; Insights</p>
+        <div class="divider"></div>
+        <p style="font-size:14.5px;color:#4a5568;max-width:600px;margin-bottom:36px">Hear from our industry experts on the trends and issues influencing claims and risk management.</p>
+        <div class="grid-3">
+          ${newsCard('📊','Industry Insights,Interview','Evaluating 2026\'s Leading Trends With Claims and Risk Management Experts','Gallagher Bassett experts tackle 2026\'s top risk trends to reduce total cost of risk and improve outcomes.','insights')}
+          ${newsCard('🏥','Healthcare,Whitepaper','Healthcare Market Outlook 2026','Get insights into the 2026 healthcare market outlook, from AI and telemedicine to workforce wellbeing and evolving care models.','insights')}
+          ${newsCard('🏗️','Construction,Whitepaper','Construction Market Outlook 2026','Explore the US construction market outlook for 2026, including growth drivers, labor challenges, policy impacts, and emerging trends.','insights')}
+        </div>
+        <div style="text-align:center;margin-top:36px"><button class="btn-blue" onclick="navigate('insights')">Explore News &amp; Insights</button></div>
+      </div>
+    </section>`,
+
+  // ── CLAIMS MANAGEMENT ──
+  'claims-management': () => `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>›</span><span>Solutions</span><span>›</span><span>Claims Management</span></div>
+        <h1>Claims Management</h1>
+        <p>Gallagher Bassett offers specialized claims management for workers' compensation as well as common types of liability insurance. Our Resolution Managers deliver superior outcomes across every line of business.</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner">
+        <p class="sec-label">Our Claims Solutions</p>
+        <div class="divider"></div>
+        <div class="sub-list">
+          ${subItem('👷','Workers\' Compensation','workers-comp')}
+          ${subItem('💊','GBCARE™','gbcare')}
+          ${subItem('🚗','Auto Liability','auto-liability')}
+          ${subItem('⚖️','General Liability','general-liability')}
+          ${subItem('🏠','Property','property')}
+          ${subItem('🔒','Specialty Liability','specialty-liability')}
+          ${subItem('💼','Professional & Executive Liability','professional-liability')}
+          ${subItem('🏥','Healthcare / Medical Professional Liability','healthcare-liability')}
+          ${subItem('📦','Product Liability','product-liability')}
+          ${subItem('📋','Employment Practices Liability','employment-liability')}
+          ${subItem('💻','Cyber and Tech E&O Liability','cyber-liability')}
+          ${subItem('⚖️','Litigation Management','litigation-mgmt')}
+        </div>
+      </div>
+    </section>
+    <section class="sec bg-light">
+      <div class="sec-inner">
+        <div class="split">
+          <div>
+            <p class="sec-label">Why Gallagher Bassett</p>
+            <div class="divider"></div>
+            <h2>Industry-leading expertise across every claim type.</h2>
+            <p>Our experienced Resolution Managers bring specialized knowledge and a commitment to delivering outcomes that matter. We combine deep expertise with advanced technology to close claims faster and more effectively.</p>
+            <p>With a global network and local expertise, we handle everything from routine claims to complex, high-exposure cases with precision and care.</p>
+            <button class="btn-red" onclick="navigate('contact')" style="margin-top:10px">Get in Touch</button>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="stat-num">5,800+</div><div class="stat-label">Claims Professionals Worldwide</div></div>
+            <div class="stat"><div class="stat-num">60+</div><div class="stat-label">Years of Industry Experience</div></div>
+            <div class="stat"><div class="stat-num">500K+</div><div class="stat-label">Claims Managed Annually</div></div>
+            <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Countries Served</div></div>
+          </div>
+        </div>
+      </div>
+    </section>`,
+
+  // ── RISK CONTROL ──
+  'risk-control': () => `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>›</span><span>Solutions</span><span>›</span><span>Risk Control</span></div>
+        <h1>Risk Control</h1>
+        <p>We advise organizations in diverse industries to understand their risk exposures and partner with them to develop successful risk control and environmental health programs to reduce losses.</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner">
+        <p class="sec-label">Risk Control Services</p>
+        <div class="divider"></div>
+        <div class="grid-4">
+          ${solutionCard('🔍','Claims Investigations','Our investigators deliver thorough, objective claim investigations with speed and accuracy to support strong outcomes.','claims-investigations')}
+          ${solutionCard('🌿','Environmental Health & Safety','We partner with organizations to build robust EHS programs that protect employees and reduce regulatory exposure.','env-health-safety')}
+          ${solutionCard('📉','Loss Control','Proactive loss control consulting to identify hazards, reduce incidents, and control costs before they escalate.','loss-control')}
+          ${solutionCard('📚','Safety Training & Education','Comprehensive training programs tailored to your industry to build a culture of safety from the ground up.','safety-training')}
+        </div>
+      </div>
+    </section>`,
+
+  // ── TECHNOLOGY ──
+  'technology': () => `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>›</span><span>Solutions</span><span>›</span><span>Technology</span></div>
+        <h1>Technology &amp; Innovation</h1>
+        <p>From Luminos, our award-winning RMIS, to our advanced analytics and decision-support tools, we continue to invest in technologies and innovations that empower our clients.</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner">
+        <div class="grid-4">
+          ${solutionCard('📊','Luminos RMIS','Our award-winning Risk Management Information System gives you complete visibility into your claims portfolio with powerful analytics and reporting.','luminos-rmis')}
+          ${solutionCard('📱','GBGO®','A mobile-first platform providing claimants and employers real-time access to claim status, documents, and communication tools.','gbgo')}
+          ${solutionCard('🤖','Generative AI Tools','Purpose-built AI tools that accelerate claims resolution, improve accuracy, and free our professionals to focus on complex judgment calls.','genai')}
+          ${solutionCard('🧠','Decision-Support Tools','Data-driven tools that guide claim decisions with predictive analytics, benchmarking, and outcome modeling.','decision-tools')}
+        </div>
+      </div>
+    </section>`,
+
+  // ── INDUSTRIES ──
+  'industries': () => `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>›</span><span>Industries</span></div>
+        <h1>Industries We Serve</h1>
+        <p>We bring deep industry expertise to every client relationship, understanding the unique risks and regulatory environments that shape your business.</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner">
+        <div class="grid-4">
+          ${solutionCard('🍽️','Hospitality & Restaurant','Protecting guest experience while managing complex slip-and-fall, workers\' comp, and liquor liability claims.','industry-hospitality')}
+          ${solutionCard('🏭','Manufacturing','Managing high-frequency workers\' comp and product liability claims in fast-paced production environments.','industry-manufacturing')}
+          ${solutionCard('🏗️','Construction','Navigating complex multi-party liability and workers\' comp claims across job sites of every scale.','industry-construction')}
+          ${solutionCard('🛍️','Retail','Reducing total cost of risk for retailers with specialized claims handling and loss control programs.','industry-retail')}
+          ${solutionCard('🚛','Transportation','Fleet, cargo, and auto liability expertise for carriers, logistics providers, and rideshare companies.','industry-transportation')}
+          ${solutionCard('🏥','Healthcare','Protecting healthcare organizations with specialized medical professional liability and workers\' comp solutions.','industry-healthcare')}
+          ${solutionCard('🏛️','Public Entity','Serving cities, counties, and public institutions with tailored risk management programs.','industry-public-entity')}
+          ${solutionCard('⛪','Religious Organizations','Providing sensitive, compassionate claims handling for churches, schools, and faith-based nonprofits.','industry-religious')}
+        </div>
+      </div>
+    </section>`,
+
+  // ── ABOUT ──
+  'about': () => `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>›</span><span>About Us</span></div>
+        <h1>About Gallagher Bassett</h1>
+        <p>Gallagher Bassett is the global risk and claims partner for clients who seek comprehensive solutions to limit the impact of risk.</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner">
+        <div class="split">
+          <div>
+            <p class="sec-label">Who We Are</p>
+            <div class="divider"></div>
+            <h2>The world's premier claims and risk management solutions provider.</h2>
+            <p>Since 1962, Gallagher Bassett has grown from a small Midwestern TPA to the world's leading claims management organization, serving clients across 30+ countries with more than 9,000 professionals worldwide.</p>
+            <p>As a subsidiary of Arthur J. Gallagher & Co. (NYSE: AJG), we combine the resources of a global organization with the responsiveness of a dedicated partner.</p>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="stat-num">1962</div><div class="stat-label">Year Founded</div></div>
+            <div class="stat"><div class="stat-num">9,000+</div><div class="stat-label">Professionals Worldwide</div></div>
+            <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Countries Served</div></div>
+            <div class="stat"><div class="stat-num">#1</div><div class="stat-label">Global Claims TPA</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec bg-light">
+      <div class="sec-inner">
+        <p class="sec-label">Explore More</p>
+        <div class="divider"></div>
+        <div class="grid-4">
+          ${solutionCard('👥','Meet Our Team','Get to know the experienced leaders driving our mission forward every day.','meet-team')}
+          ${solutionCard('💎','Our Values','Discover the core principles that guide every decision we make.','our-values')}
+          ${solutionCard('🌍','Inclusion & Diversity','Learn how we build a workforce that reflects the communities we serve.','inclusion-diversity')}
+          ${solutionCard('🏆','Recognition & Awards','See the industry recognition that validates our commitment to excellence.','recognition-awards')}
+        </div>
+      </div>
+    </section>`,
+
+  // ── INSIGHTS ──
+  'insights': () => `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>›</span><span>News &amp; Insights</span></div>
+        <h1>News &amp; Insights</h1>
+        <p>Hear from our industry experts on the trends and issues influencing claims and risk management.</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner">
+        <div class="grid-3">
+          ${newsCard('📊','Industry Insights,Interview','Evaluating 2026\'s Leading Trends With Claims and Risk Management Experts','Gallagher Bassett experts tackle 2026\'s top risk trends to reduce total cost of risk and improve outcomes.','insights')}
+          ${newsCard('🏥','Healthcare,Whitepaper','Healthcare Market Outlook 2026','Get insights into the 2026 healthcare market outlook, from AI and telemedicine to workforce wellbeing and evolving care models.','insights')}
+          ${newsCard('🏗️','Construction,Whitepaper','Construction Market Outlook 2026','Explore the US construction market for 2026, including growth drivers, labor challenges, policy impacts, and emerging trends.','insights')}
+          ${newsCard('⚖️','Claims Management,Report','The Carrier Perspective: 2026 Claims Insights','Our global survey of 250 insurance leaders reveals key insights on emerging challenges and the actions carriers are taking to stay ahead.','insights')}
+          ${newsCard('🤖','Technology,Article','How Generative AI Is Transforming Claims Resolution','Explore how GB\'s purpose-built AI tools are accelerating outcomes and improving accuracy across all lines of business.','insights')}
+          ${newsCard('🌍','Workers\' Comp,Whitepaper','Workers\' Compensation Market Outlook 2026','Key trends, legislative shifts, and cost drivers shaping workers\' compensation programs across the United States in 2026.','insights')}
+        </div>
+      </div>
+    </section>`,
+
+  // ── CONTACT ──
+  'contact': () => `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>›</span><span>Contact Us</span></div>
+        <h1>Contact Us</h1>
+        <p>Ready to learn how Gallagher Bassett can help your organization? Fill out the form below and one of our experts will be in touch.</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner">
+        <div class="form-wrap">
+          <div class="form-success" id="form-success">✅ Thank you! Your message has been received. A Gallagher Bassett representative will contact you shortly.</div>
+          <div id="contact-form">
+            <div class="form-row">
+              <div class="form-group"><label>First Name *</label><input type="text" placeholder="Jane"/></div>
+              <div class="form-group"><label>Last Name *</label><input type="text" placeholder="Smith"/></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Company *</label><input type="text" placeholder="Acme Corporation"/></div>
+              <div class="form-group"><label>Job Title</label><input type="text" placeholder="Risk Manager"/></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Email Address *</label><input type="email" placeholder="jane.smith@company.com"/></div>
+              <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(555) 000-0000"/></div>
+            </div>
+            <div class="form-group">
+              <label>Area of Interest</label>
+              <select>
+                <option value="">-- Select One --</option>
+                <option>Claims Management</option>
+                <option>Risk Control</option>
+                <option>Technology / Luminos RMIS</option>
+                <option>Carrier Solutions</option>
+                <option>Broker Partnership</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your organization's needs…"></textarea></div>
+            <button class="btn-red" onclick="submitForm()" style="width:100%;padding:15px;font-size:15px">Submit</button>
+          </div>
+        </div>
+      </div>
+    </section>`,
+
+  // ── BROKERS ──
+  'brokers': () => `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>›</span><span>Brokers</span></div>
+        <h1>Broker Partners</h1>
+        <p>We collaborate with brokers to deliver exceptional claims and risk management solutions for your clients, strengthening your value proposition and deepening client relationships.</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner">
+        <div class="split">
+          <div>
+            <p class="sec-label">Partnership Benefits</p>
+            <div class="divider"></div>
+            <h2>A partnership built on performance and trust.</h2>
+            <p>When you partner with Gallagher Bassett, you gain access to a team of specialists dedicated to delivering superior outcomes for your clients. We provide transparent reporting, proactive communication, and the technology tools to demonstrate results.</p>
+            <p>Our broker-focused team understands the competitive pressures you face and works alongside you to retain and grow your book of business.</p>
+            <button class="btn-red" onclick="navigate('contact')" style="margin-top:12px">Connect with Our Broker Team</button>
+          </div>
+          <div class="feat-cards">
+            ${featCard('Dedicated Broker Relationship Managers','A single point of contact who understands your clients and your business goals.','contact')}
+            ${featCard('Transparent Performance Reporting','Real-time data and analytics through Luminos RMIS to demonstrate claim outcomes.','luminos-rmis')}
+            ${featCard('Co-Marketing Opportunities','Joint thought leadership, events, and resources to grow your client relationships.','insights')}
+          </div>
+        </div>
+      </div>
+    </section>`,
+
+  // ── CARRIERS ──
+  'carriers': () => `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>›</span><span>Carriers &amp; Captives</span><span>›</span><span>Carriers</span></div>
+        <h1>Carrier Practice</h1>
+        <p>Our dedicated Carrier Practice team is focused on the unique goals and objectives of insurance carriers, MGAs/MGUs, and alternative risk managers, helping unlock strategic business growth.</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner">
+        <div class="grid-4">
+          ${solutionCard('📋','Program Administration','End-to-end program management for carriers seeking specialized TPA expertise across lines of business.','carriers')}
+          ${solutionCard('🏛️','Legacy Claims Management','Unlock capital from discontinued programs with our proven legacy claims resolution approach.','carriers')}
+          ${solutionCard('🌐','Global Carrier Network','Access our worldwide network of claims professionals for seamless cross-border claim resolution.','carriers')}
+          ${solutionCard('📊','Carrier Analytics','Deep data and benchmarking insights to guide underwriting strategy and portfolio management.','carriers')}
+        </div>
+      </div>
+    </section>`,
+
+  // ── INFO PAGES ──
+  'info-clients': () => infoPage('Information for Clients','home,Information for Clients',
+    'As a Gallagher Bassett client, you have access to a full suite of tools, resources, and dedicated support to manage your program effectively.',
+    ['📞 Dedicated account management team','📊 Real-time reporting via Luminos RMIS','📄 Custom program documentation','🔔 Proactive claim status updates','💬 Direct access to your Resolution Manager','🎓 Risk education and training resources']),
+
+  'info-claimants': () => infoPage('Information for Claimants','home,Information for Claimants',
+    'If you have a claim being managed by Gallagher Bassett, here\'s how to connect with us and understand your rights throughout the process.',
+    ['📞 Call your assigned adjuster directly','📱 Use GBGO® app for 24/7 claim access','📄 Submit documents securely online','❓ Understand the claims process step by step','🏥 Medical provider information and referrals','⚖️ Know your rights as a claimant']),
+
+  'careers': () => infoPage('Join Our Team','home,Join Our Team',
+    'At Gallagher Bassett, we believe our people are our greatest asset. We offer a dynamic, inclusive environment where talented professionals can build meaningful careers.',
+    ['🌍 Positions in 30+ countries','💼 Claims, technology, analytics, and leadership roles','📈 Clear career progression paths','🎓 Continuous learning and development','🌿 Comprehensive benefits and wellness programs','🤝 Collaborative, inclusive culture']),
+
+  'group-captives': () => infoPage('Group Captives','home,Carriers & Captives,Group Captives',
+    'Group captive programs offer organizations an alternative risk financing mechanism that can reduce costs and provide greater control over their risk management programs.',
+    ['💰 Potential for premium savings','📊 Participation in underwriting profit','🔍 Greater transparency into loss data','🤝 Peer group risk sharing','⚖️ Customized coverage terms','📈 Long-term cost stability']),
+
+  // ── SIMPLE INNER PAGES (sub-solutions, industries, team, values, etc.) ──
+  ...makeSimplePages(),
+};
+
+// ─────────────────────────────────────────
+// HELPER BUILDERS
+// ─────────────────────────────────────────
+function solutionCard(icon, title, desc, page) {
+  return `<div class="card" onclick="navigate('${page}')">
+    <div class="card-icon">${icon}</div>
+    <h3>${title}</h3>
+    <p>${desc}</p>
+    <span class="card-link">Learn More</span>
+  </div>`;
+}
+function featCard(title, desc, page) {
+  return `<div class="feat-card" onclick="navigate('${page}')">
+    <h4>${title}</h4>
+    <p>${desc}</p>
+    <span class="fc-link">Learn More →</span>
+  </div>`;
+}
+function newsCard(icon, tagsStr, title, desc, page) {
+  const tags = tagsStr.split(',').map(t=>`<span class="tag">${t.trim()}</span>`).join('');
+  return `<div class="news-card" onclick="navigate('${page}')">
+    <div class="news-thumb">${icon}</div>
+    <div class="news-body">
+      <div class="tags">${tags}</div>
+      <h3>${title}</h3>
+      <p style="font-size:13px;color:#4a5568;margin-bottom:12px">${desc}</p>
+      <span class="lm">Learn More →</span>
+    </div>
+  </div>`;
+}
+function subItem(icon, label, page) {
+  return `<div class="sub-item" onclick="navigate('${page}')">
+    <div class="si-icon">${icon}</div>
+    <div class="si-text">${label}</div>
+  </div>`;
+}
+function infoPage(title, breadcrumbStr, intro, bullets) {
+  const crumbs = breadcrumbStr.split(',').map((c,i,a)=>
+    i<a.length-1 ? `<a onclick="navigate('home')">${c.trim()}</a><span>›</span>` : `<span>${c.trim()}</span>`
+  ).join('');
+  const items = bullets.map(b=>`<li style="padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:14.5px;color:#374151">${b}</li>`).join('');
+  return `
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb">${crumbs}</div>
+        <h1>${title}</h1>
+        <p>${intro}</p>
+      </div>
+    </div>
+    <section class="sec">
+      <div class="sec-inner" style="max-width:760px">
+        <ul style="list-style:none">${items}</ul>
+        <div style="margin-top:32px"><button class="btn-red" onclick="navigate('contact')">Contact Us</button></div>
+      </div>
+    </section>`;
+}
+
+function makeSimplePages() {
+  const defs = [
+    ['workers-comp','Workers\' Compensation','claims-management','Workers\' Compensation Claims Management','We deliver comprehensive workers\' compensation claims management with a focus on rapid return-to-work outcomes, medical cost containment, and proactive claimant communication.'],
+    ['gbcare','GBCARE™','claims-management','GBCARE™','GBCARE™ is our integrated medical management program that coordinates all aspects of occupational injury care, from initial treatment through recovery, to achieve optimal medical and return-to-work outcomes.'],
+    ['auto-liability','Auto Liability','claims-management','Auto Liability Claims Management','Our auto liability specialists manage first- and third-party auto claims efficiently, combining field investigation, litigation management, and advanced analytics to reduce cycle time and total costs.'],
+    ['general-liability','General Liability','claims-management','General Liability Claims Management','From slip-and-falls to complex premises liability, our General Liability team applies proven protocols and experienced judgment to resolve claims fairly and efficiently.'],
+    ['property','Property','claims-management','Property Claims Management','Our property claims professionals handle commercial and residential property losses with speed and accuracy, leveraging a national network of adjusters and contractors.'],
+    ['specialty-liability','Specialty Liability','claims-management','Specialty Liability Claims Management','Tailored claims solutions for complex and unusual risk exposures that require specialized knowledge, litigation expertise, and creative resolution strategies.'],
+    ['professional-liability','Professional & Executive Liability','claims-management','Professional & Executive Liability','We manage directors & officers, errors & omissions, and other professional liability claims with the discretion and sophistication these high-stakes matters demand.'],
+    ['healthcare-liability','Healthcare / Medical Professional Liability','claims-management','Healthcare Liability','Our healthcare liability specialists understand the unique sensitivities of medical professional liability claims and deliver outcomes that protect both providers and patients.'],
+    ['product-liability','Product Liability','claims-management','Product Liability Claims Management','From single-incident product claims to mass-tort litigation, our product liability team has the experience and resources to manage exposures of any scale.'],
+    ['employment-liability','Employment Practices Liability','claims-management','Employment Practices Liability','We manage EPL claims including wrongful termination, harassment, and discrimination with sensitivity and strategic focus on early resolution.'],
+    ['cyber-liability','Cyber and Tech E&O Liability','claims-management','Cyber & Tech E&O Liability','As cyber threats evolve, our specialists manage breach response, regulatory defense, and third-party liability claims with the speed these incidents demand.'],
+    ['litigation-mgmt','Litigation Management','claims-management','Litigation Management','Our litigation management team works alongside defense counsel to control legal spend, drive case strategy, and achieve favorable resolutions across all lines of business.'],
+    ['claims-investigations','Claims Investigations','risk-control','Claims Investigations','Our investigators deliver thorough, objective, and timely investigations that give adjusters the information they need to make confident coverage and liability decisions.'],
+    ['env-health-safety','Environmental Health & Safety','risk-control','Environmental Health & Safety','We partner with organizations to build and maintain EHS programs that protect employees, reduce regulatory exposure, and create safer workplaces.'],
+    ['loss-control','Loss Control','risk-control','Loss Control Consulting','Our loss control consultants identify exposures before they become claims, developing practical solutions to reduce incident frequency and severity.'],
+    ['safety-training','Safety Training & Education','risk-control','Safety Training & Education','Customized safety training programs — online, on-site, or blended — designed to build safety culture and reduce workplace injuries.'],
+    ['luminos-rmis','Luminos RMIS','technology','Luminos RMIS','Luminos is our award-winning Risk Management Information System providing real-time analytics, customizable dashboards, and powerful reporting to give you complete portfolio visibility.'],
+    ['gbgo','GBGO®','technology','GBGO®','GBGO® is our mobile-first platform giving claimants, employers, and medical providers real-time access to claim information, documents, and communication tools — 24/7.'],
+    ['genai','Generative AI Tools','technology','Generative AI Tools','Our purpose-built generative AI tools accelerate claims workflows, draft communications, surface insights from unstructured data, and help Resolution Managers focus on what matters most.'],
+    ['decision-tools','Decision-Support Tools','technology','Decision-Support Tools','Predictive analytics and outcome modeling tools that guide reserving decisions, litigation strategy, and settlement authority with data-driven confidence.'],
+    ['industry-hospitality','Hospitality & Restaurant','industries','Hospitality & Restaurant Industry','We understand the unique risk profile of hospitality businesses — from slip-and-falls to liquor liability to workers\' comp — and deliver tailored solutions to protect your brand and bottom line.'],
+    ['industry-manufacturing','Manufacturing','industries','Manufacturing Industry','Managing high-frequency workers\' comp and product liability claims for manufacturers requires speed, expertise, and a focus on return-to-work. We deliver all three.'],
+    ['industry-construction','Construction','industries','Construction Industry','From complex multi-party liability disputes to serious workers\' comp injuries, our construction specialists navigate the toughest claims environments with skill and experience.'],
+    ['industry-retail','Retail','industries','Retail Industry','Retail environments generate diverse liability exposures. Our retail specialists reduce total cost of risk with specialized claims handling, loss control, and analytics.'],
+    ['industry-transportation','Transportation','industries','Transportation Industry','Fleet auto, cargo, and transportation workers\' comp expertise for carriers, logistics providers, and the broader transportation sector.'],
+    ['industry-healthcare','Healthcare','industries','Healthcare Industry','Healthcare organizations face unique liability exposures. Our healthcare team combines medical expertise with claims sophistication to protect providers and institutions.'],
+    ['industry-public-entity','Public Entity','industries','Public Entity','Cities, counties, school districts, and public institutions trust Gallagher Bassett to manage their complex risk programs with accountability and transparency.'],
+    ['industry-religious','Religious Organizations','industries','Religious Organizations','We provide sensitive, compassionate, and expert claims handling for churches, schools, and faith-based organizations of all sizes and denominations.'],
+    ['meet-team','Meet Our Team','about','Meet Our Team','Our leadership team brings decades of experience in claims, risk management, technology, and operations — united by a shared commitment to delivering outcomes that matter.'],
+    ['our-values','Our Values','about','Our Values','Our core values — Integrity, Accountability, Collaboration, Innovation, and Empathy — guide every interaction with clients, claimants, and colleagues.'],
+    ['inclusion-diversity','Inclusion & Diversity','about','Inclusion & Diversity','We are committed to building a workforce that reflects the diverse communities we serve, where every voice is heard and every perspective valued.'],
+    ['recognition-awards','Recognition & Awards','about','Recognition & Awards','Gallagher Bassett has been recognized by industry organizations worldwide for excellence in claims management, technology, and workplace culture.'],
+    ['privacy-policy','Privacy Policy','home','Privacy Policy','This Privacy Policy describes how Gallagher Bassett collects, uses, and protects personal information in connection with our services and website.'],
+    ['copyright-disclaimer','Copyright & Disclaimer','home','Copyright & Disclaimer','All content on this website is © 2026 Gallagher Bassett. All rights reserved. Reproduction without express written permission is prohibited.'],
+    ['client-disclosure','Client Disclosure Statement','home','Client Disclosure Statement','This Client Disclosure Statement provides important information about Gallagher Bassett\'s services, fees, and obligations to our clients.'],
+  ];
+
+  const result = {};
+  defs.forEach(([key, label, parentKey, heading, body]) => {
+    result[key] = () => {
+      const parentLabel = {
+        'claims-management':'Claims Management','risk-control':'Risk Control','technology':'Technology',
+        'industries':'Industries','about':'About Us','home':'Home'
+      }[parentKey] || 'Home';
+      return `
+        <div class="page-hero">
+          <div class="page-hero-inner">
+            <div class="breadcrumb">
+              <a onclick="navigate('home')">Home</a><span>›</span>
+              <a onclick="navigate('${parentKey}')">${parentLabel}</a><span>›</span>
+              <span>${label}</span>
+            </div>
+            <h1>${heading}</h1>
+          </div>
+        </div>
+        <section class="sec">
+          <div class="sec-inner" style="max-width:840px">
+            <p class="sec-label">${parentLabel}</p>
+            <div class="divider"></div>
+            <p style="font-size:15.5px;line-height:1.8;color:#374151;margin-bottom:28px">${body}</p>
+            <p style="font-size:14px;line-height:1.75;color:#4a5568;margin-bottom:28px">At Gallagher Bassett, we bring specialized expertise, proven processes, and cutting-edge technology to every engagement. Our professionals are committed to delivering outcomes that matter most to your organization — from faster claim resolution to reduced total cost of risk.</p>
+            <p style="font-size:14px;line-height:1.75;color:#4a5568;margin-bottom:32px">Contact us to learn how we can tailor a program specifically for your needs and objectives.</p>
+            <button class="btn-red" onclick="navigate('contact')">Get in Touch</button>
+            &nbsp;&nbsp;
+            <button class="btn-blue" onclick="navigate('${parentKey}')" style="margin-left:8px">Back to ${parentLabel}</button>
+          </div>
+        </section>`;
+    };
+  });
+  return result;
+}
+
+// ─────────────────────────────────────────
+// HASH-BASED ROUTER
+// ─────────────────────────────────────────
+
+// Page titles for each route (improves analytics & browser history readability)
+const pageTitles = {
+  'home': 'Gallagher Bassett – Claims & Risk Management Solutions',
+  'claims-management': 'Claims Management | Gallagher Bassett',
+  'risk-control': 'Risk Control | Gallagher Bassett',
+  'technology': 'Technology & Innovation | Gallagher Bassett',
+  'industries': 'Industries | Gallagher Bassett',
+  'about': 'About Us | Gallagher Bassett',
+  'insights': 'News & Insights | Gallagher Bassett',
+  'contact': 'Contact Us | Gallagher Bassett',
+  'brokers': 'Brokers | Gallagher Bassett',
+  'carriers': 'Carrier Practice | Gallagher Bassett',
+  'group-captives': 'Group Captives | Gallagher Bassett',
+  'info-clients': 'Information for Clients | Gallagher Bassett',
+  'info-claimants': 'Information for Claimants | Gallagher Bassett',
+  'careers': 'Join Our Team | Gallagher Bassett',
+};
+
+// navigate() — updates the hash, which triggers hashchange to render
+function navigate(key) {
+  const target = key || 'home';
+  // If already on this hash just re-render (handles logo click on same page)
+  if (window.location.hash === '#' + target) {
+    renderPage(target);
+  } else {
+    window.location.hash = target;   // triggers hashchange → renderPage
+  }
+  // Close mobile nav
+  document.getElementById('main-nav').classList.remove('open');
+}
+
+// renderPage() — does the actual DOM update
+function renderPage(key) {
+  const fn = pages[key];
+  const el = document.getElementById('page');
+  if (fn) {
+    el.innerHTML = fn();
+  } else {
+    el.innerHTML = `<section class="sec"><div class="sec-inner">
+      <p class="sec-label">404</p><div class="divider"></div>
+      <h2 style="color:#0d1a36;margin-bottom:16px">Page Not Found</h2>
+      <p>Sorry, that page doesn't exist yet.</p><br>
+      <button class="btn-red" onclick="navigate('home')">Go Home</button>
+    </div></section>`;
+  }
+  // Update document title
+  document.title = pageTitles[key] || 'Gallagher Bassett';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Listen for hash changes (back/forward buttons, direct hash links)
+window.addEventListener('hashchange', () => {
+  const key = window.location.hash.replace('#', '') || 'home';
+  renderPage(key);
+});
+
+function submitForm() {
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+
+// Hamburger
+document.getElementById('ham-btn').addEventListener('click', () => {
+  document.getElementById('main-nav').classList.toggle('open');
+});
+
+// Mobile sub-menu toggle
+document.querySelectorAll('.nav-btn.has-dd').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const nav = document.getElementById('main-nav');
+    if (!nav.classList.contains('open')) return;
+    const item = btn.closest('.nav-item');
+    item.classList.toggle('open-sub');
+    e.stopPropagation();
+  });
+});
+
+// Boot — read hash from URL on load (supports deep linking & page refresh)
+(function boot() {
+  const key = window.location.hash.replace('#', '') || 'home';
+  renderPage(key);
+})();
+</script>
+</body>
+</html>
