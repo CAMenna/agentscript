@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G Insurance — Business, Risk &amp; Employee Benefits Solutions</title>
+<meta name="description" content="G Insurance is a fictional demonstration insurance brokerage site. Not a real company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0F2A44;
+    --navy-deep:#091A2C;
+    --steel:#22506F;
+    --gold:#C79A46;
+    --gold-light:#E4C077;
+    --paper:#F6F4EE;
+    --paper-dim:#EDEAE1;
+    --slate:#5B6570;
+    --ink:#14202B;
+    --white:#FFFFFF;
+    --line: rgba(15,42,68,0.12);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter', -apple-system, sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:600;
+    margin:0;
+    color:var(--navy-deep);
+    letter-spacing:-0.01em;
+  }
+  p{line-height:1.65; color:var(--slate); margin:0 0 1em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .demo-banner{
+    background:var(--navy-deep);
+    color:var(--paper-dim);
+    text-align:center;
+    font-size:12.5px;
+    letter-spacing:0.04em;
+    padding:8px 16px;
+    font-family:'Inter',sans-serif;
+  }
+  .demo-banner strong{color:var(--gold-light);}
+
+  /* ---------- HEADER ---------- */
+  header.site-header{
+    background:var(--white);
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:100;
+  }
+  .header-inner{
+    max-width:1200px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-weight:700; font-size:22px;
+    color:var(--navy-deep); cursor:pointer;
+  }
+  .logo-mark{
+    width:34px; height:34px; border-radius:50%;
+    background:conic-gradient(from 220deg, var(--navy) 0deg, var(--steel) 140deg, var(--gold) 260deg, var(--navy) 360deg);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .logo-mark::after{
+    content:"G"; color:var(--white); font-family:'Fraunces',serif; font-weight:700; font-size:17px;
+  }
+  nav.main-nav{display:flex; gap:34px; align-items:center;}
+  nav.main-nav a{
+    font-size:14.5px; font-weight:600; color:var(--navy);
+    padding:6px 2px; border-bottom:2px solid transparent;
+    transition:border-color .15s ease, color .15s ease;
+    cursor:pointer;
+  }
+  nav.main-nav a:hover, nav.main-nav a.active{border-bottom-color:var(--gold); color:var(--navy-deep);}
+  .header-cta{
+    background:var(--navy-deep); color:var(--white);
+    padding:10px 20px; font-size:13.5px; font-weight:600;
+    border-radius:var(--radius); cursor:pointer;
+    letter-spacing:0.02em;
+  }
+  .header-cta:hover{background:var(--navy);}
+  .mobile-toggle{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:6px;}
+  .mobile-toggle span{width:22px; height:2px; background:var(--navy-deep);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 62%, var(--steel) 100%);
+    color:var(--white);
+    padding:96px 32px 110px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:linear-gradient(180deg, rgba(0,0,0,0.9), transparent 85%);
+  }
+  .hero-inner{max-width:1200px; margin:0 auto; position:relative; z-index:2;}
+  .hero-eyebrow{
+    display:inline-block; font-size:13px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--gold-light); font-weight:600; margin-bottom:22px;
+    border:1px solid rgba(228,192,119,0.4); padding:6px 14px; border-radius:20px;
+  }
+  .hero h1{
+    color:var(--white); font-size:56px; line-height:1.06; max-width:820px; font-weight:600;
+  }
+  .hero h1 em{font-style:italic; color:var(--gold-light);}
+  .hero p.lead{
+    color:rgba(246,244,238,0.82); font-size:19px; max-width:600px; margin-top:24px; line-height:1.6;
+  }
+  .hero-actions{display:flex; gap:16px; margin-top:38px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold); color:var(--navy-deep); font-weight:700; font-size:14.5px;
+    padding:15px 28px; border-radius:var(--radius); cursor:pointer; border:none;
+    letter-spacing:0.01em;
+  }
+  .btn-primary:hover{background:var(--gold-light);}
+  .btn-ghost{
+    border:1px solid rgba(255,255,255,0.35); color:var(--white); font-weight:600; font-size:14.5px;
+    padding:14px 27px; border-radius:var(--radius); cursor:pointer; background:transparent;
+  }
+  .btn-ghost:hover{border-color:var(--gold-light); color:var(--gold-light);}
+  .hero-stats{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    margin-top:70px; border-top:1px solid rgba(255,255,255,0.15); padding-top:34px;
+    max-width:940px;
+  }
+  .hero-stats .stat{padding-right:24px;}
+  .hero-stats .stat .num{font-family:'Fraunces',serif; font-size:32px; color:var(--gold-light); font-weight:600;}
+  .hero-stats .stat .label{font-size:13px; color:rgba(246,244,238,0.7); margin-top:6px;}
+
+  /* ---------- SECTION SHARED ---------- */
+  .section{max-width:1200px; margin:0 auto; padding:88px 32px;}
+  .section-narrow{max-width:820px;}
+  .eyebrow{
+    font-size:12.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold);
+    font-weight:700; margin-bottom:14px; display:block;
+  }
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:36px; line-height:1.15;}
+  .section-head p{margin-top:16px; font-size:16.5px;}
+
+  /* ---------- SERVICES GRID (home + overview) ---------- */
+  .service-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  .service-card{
+    background:var(--white); padding:38px 32px; cursor:pointer;
+    transition:background .18s ease;
+    display:flex; flex-direction:column; min-height:220px;
+  }
+  .service-card:hover{background:var(--paper-dim);}
+  .service-card .icon{
+    width:44px; height:44px; border-radius:50%; background:var(--paper-dim);
+    display:flex; align-items:center; justify-content:center; margin-bottom:22px;
+    color:var(--steel); font-size:19px; font-weight:700; font-family:'Fraunces',serif;
+  }
+  .service-card h3{font-size:19px; margin-bottom:10px; font-weight:600;}
+  .service-card p{font-size:14.5px; margin-bottom:16px; flex-grow:1;}
+  .service-card .link{
+    font-size:13.5px; font-weight:700; color:var(--navy); letter-spacing:0.02em;
+    display:flex; align-items:center; gap:6px;
+  }
+  .service-card:hover .link{color:var(--gold);}
+
+  /* ---------- SPLIT / STORY BLOCKS ---------- */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;}
+  .split img, .split .imgblock{
+    aspect-ratio:4/3; background:linear-gradient(135deg,var(--steel),var(--navy)); border-radius:var(--radius);
+    display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.3);
+    font-family:'Fraunces',serif; font-size:15px;
+  }
+  .split h2{font-size:32px; margin-bottom:18px;}
+  .checklist{list-style:none; padding:0; margin:22px 0 0;}
+  .checklist li{
+    display:flex; gap:12px; font-size:15px; color:var(--ink); padding:10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .checklist li::before{content:"—"; color:var(--gold); font-weight:700;}
+
+  /* ---------- LOGO / TRUST STRIP ---------- */
+  .trust-strip{background:var(--paper-dim); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .trust-strip .section{padding:44px 32px; display:flex; align-items:center; gap:48px; flex-wrap:wrap; justify-content:space-between;}
+  .trust-strip .trust-label{font-size:13px; color:var(--slate); font-weight:600; letter-spacing:0.03em; white-space:nowrap;}
+  .trust-logos{display:flex; gap:40px; flex-wrap:wrap; opacity:0.55;}
+  .trust-logos span{font-family:'Fraunces',serif; font-weight:600; font-size:17px; color:var(--navy);}
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band{
+    background:var(--navy-deep); color:var(--white); text-align:center;
+    padding:80px 32px;
+  }
+  .cta-band h2{color:var(--white); font-size:34px; max-width:600px; margin:0 auto 18px;}
+  .cta-band p{color:rgba(246,244,238,0.75); max-width:520px; margin:0 auto 32px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy-deep); color:rgba(246,244,238,0.65); padding:64px 32px 28px;}
+  .footer-inner{max-width:1200px; margin:0 auto;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1fr; gap:32px; padding-bottom:44px; border-bottom:1px solid rgba(255,255,255,0.12);}
+  .footer-grid h4{color:var(--gold-light); font-family:'Inter',sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:18px; font-weight:700;}
+  .footer-grid ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:11px;}
+  .footer-grid a{font-size:14px; color:rgba(246,244,238,0.7); cursor:pointer;}
+  .footer-grid a:hover{color:var(--gold-light);}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:24px; flex-wrap:wrap; gap:12px; font-size:12.5px; color:rgba(246,244,238,0.45);}
+
+  /* ---------- BREADCRUMB / SUBPAGE HERO ---------- */
+  .subhero{
+    background:var(--paper-dim); border-bottom:1px solid var(--line);
+    padding:44px 32px 40px;
+  }
+  .subhero-inner{max-width:1200px; margin:0 auto;}
+  .breadcrumb{font-size:13px; color:var(--slate); margin-bottom:16px;}
+  .breadcrumb a{color:var(--steel); font-weight:600; cursor:pointer;}
+  .breadcrumb a:hover{color:var(--navy-deep);}
+  .subhero h1{font-size:38px;}
+  .subhero p.lead{font-size:16.5px; max-width:640px; margin-top:14px; color:var(--slate);}
+
+  .two-col{display:grid; grid-template-columns:2fr 1fr; gap:60px;}
+  .sidebar-box{background:var(--white); border:1px solid var(--line); padding:28px; border-radius:var(--radius);}
+  .sidebar-box h4{font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold); margin-bottom:16px;}
+  .sidebar-box ul{list-style:none; padding:0; margin:0;}
+  .sidebar-box li{padding:11px 0; border-bottom:1px solid var(--line); font-size:14.5px;}
+  .sidebar-box li a{color:var(--navy); font-weight:600; cursor:pointer;}
+  .sidebar-box li a:hover{color:var(--gold);}
+  .sidebar-box li:last-child{border-bottom:none;}
+
+  .content-block h3{font-size:22px; margin:36px 0 14px;}
+  .content-block h3:first-child{margin-top:0;}
+  .content-block p{font-size:15.5px;}
+
+  /* ---------- PAGE SWITCHING ---------- */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* ---------- CONTACT FORM ---------- */
+  .contact-form{background:var(--white); border:1px solid var(--line); padding:36px; border-radius:var(--radius);}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
+  .form-field{display:flex; flex-direction:column; gap:6px;}
+  .form-field label{font-size:13px; font-weight:600; color:var(--navy);}
+  .form-field input, .form-field select, .form-field textarea{
+    border:1px solid var(--line); padding:12px 14px; font-family:'Inter',sans-serif; font-size:14.5px;
+    border-radius:var(--radius); background:var(--paper);
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{
+    outline:2px solid var(--gold); outline-offset:1px;
+  }
+  .form-note{font-size:12.5px; color:var(--slate); margin-top:14px;}
+
+  /* ---------- CHAT WIDGET (placeholder, demo only) ---------- */
+  .chat-launcher{
+    position:fixed; bottom:24px; right:24px; z-index:200;
+    background:var(--navy-deep); color:var(--white); border:none;
+    padding:15px 20px; border-radius:30px; font-family:'Inter',sans-serif; font-weight:700;
+    font-size:14px; cursor:pointer; display:flex; align-items:center; gap:10px;
+    box-shadow:0 8px 24px rgba(9,26,44,0.35);
+  }
+  .chat-launcher:hover{background:var(--navy);}
+  .chat-dot{width:8px; height:8px; border-radius:50%; background:var(--gold-light);}
+  .chat-panel{
+    position:fixed; bottom:88px; right:24px; z-index:200;
+    width:320px; background:var(--white); border-radius:var(--radius);
+    box-shadow:0 20px 50px rgba(9,26,44,0.25); border:1px solid var(--line);
+    display:none; overflow:hidden;
+  }
+  .chat-panel.open{display:block;}
+  .chat-panel-header{background:var(--navy-deep); color:var(--white); padding:16px 18px; font-size:14px; font-weight:700;}
+  .chat-panel-body{padding:18px; font-size:13.5px; color:var(--slate); line-height:1.6;}
+  .chat-panel-body strong{color:var(--navy-deep);}
+
+  @media (max-width:900px){
+    nav.main-nav{display:none;}
+    .mobile-toggle{display:flex;}
+    .hero h1{font-size:38px;}
+    .hero-stats{grid-template-columns:repeat(2,1fr); row-gap:24px;}
+    .service-grid{grid-template-columns:1fr;}
+    .split{grid-template-columns:1fr; gap:32px;}
+    .two-col{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .form-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">This is a <strong>fictional demonstration website</strong> for "G Insurance." It is not a real company and does not offer real insurance products.</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo" onclick="go('home')">
+      <span class="logo-mark"></span>
+      <span>G Insurance</span>
+    </div>
+    <nav class="main-nav" id="mainNav">
+      <a onclick="go('home')" data-page="home">Home</a>
+      <a onclick="go('services')" data-page="services">Services</a>
+      <a onclick="go('industries')" data-page="industries">Industries</a>
+      <a onclick="go('about')" data-page="about">About Us</a>
+      <a onclick="go('contact')" data-page="contact">Contact</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div class="header-cta" onclick="go('contact')">Get a Consultation</div>
+      <button class="mobile-toggle" onclick="document.getElementById('mainNav').classList.toggle('mobile-open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HOME ================= -->
+<main id="page-home" class="page">
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Insurance · Risk Management · Employee Benefits</span>
+      <h1>Clarity for the risks that keep you <em>up at night.</em></h1>
+      <p class="lead">G Insurance brings together brokers, underwriters, and risk consultants to help businesses and individuals see around corners — and build coverage that actually holds up when it matters.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="go('services')">Explore our services</button>
+        <button class="btn-ghost" onclick="go('contact')">Talk to an advisor</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">120+</div><div class="label">Specialty practice teams</div></div>
+        <div class="stat"><div class="num">40</div><div class="label">Countries served</div></div>
+        <div class="stat"><div class="num">1,900</div><div class="label">Risk advisors</div></div>
+        <div class="stat"><div class="num">98%</div><div class="label">Client retention rate</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="section">
+      <span class="trust-label">Trusted across industries including</span>
+      <div class="trust-logos">
+        <span>Construction</span><span>Healthcare</span><span>Manufacturing</span><span>Real Estate</span><span>Nonprofit</span><span>Technology</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">What we do</span>
+      <h2>Services built around your risk, not our org chart</h2>
+      <p>From a single policy to a multinational risk program, our teams work as one — so you get a coordinated strategy instead of a stack of separate vendors.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card" onclick="go('service-business')">
+        <div class="icon">B</div>
+        <h3>Business Insurance</h3>
+        <p>Property, casualty, and liability coverage tailored to the way your business actually operates.</p>
+        <span class="link">Learn more →</span>
+      </div>
+      <div class="service-card" onclick="go('service-benefits')">
+        <div class="icon">E</div>
+        <h3>Employee Benefits</h3>
+        <p>Health, retirement, and wellbeing programs that help you attract and keep great people.</p>
+        <span class="link">Learn more →</span>
+      </div>
+      <div class="service-card" onclick="go('service-risk')">
+        <div class="icon">R</div>
+        <h3>Risk Management</h3>
+        <p>Proactive analysis and mitigation strategy so fewer problems ever reach a claims desk.</p>
+        <span class="link">Learn more →</span>
+      </div>
+      <div class="service-card" onclick="go('service-personal')">
+        <div class="icon">P</div>
+        <h3>Personal Insurance</h3>
+        <p>Home, auto, and umbrella coverage for individuals and families with complex needs.</p>
+        <span class="link">Learn more →</span>
+      </div>
+      <div class="service-card" onclick="go('service-claims')">
+        <div class="icon">C</div>
+        <h3>Claims Advocacy</h3>
+        <p>An advocate in your corner from first notice of loss through final settlement.</p>
+        <span class="link">Learn more →</span>
+      </div>
+      <div class="service-card" onclick="go('service-specialty')">
+        <div class="icon">S</div>
+        <h3>Specialty Practices</h3>
+        <p>Cyber, executive lines, marine, and other niche coverages that need niche expertise.</p>
+        <span class="link">Learn more →</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="split">
+      <div>
+        <span class="eyebrow">Why G Insurance</span>
+        <h2>A broker that stays after the policy is bound</h2>
+        <p>Coverage is the starting point, not the finish line. We track your risk exposure as your business changes, flag gaps before renewal, and stand beside you when a claim gets complicated.</p>
+        <ul class="checklist">
+          <li>Dedicated advisory team, not a rotating call center</li>
+          <li>Independent access to the broader insurance marketplace</li>
+          <li>Claims advocates who work for you, not the carrier</li>
+          <li>Risk consulting built into every client relationship</li>
+        </ul>
+        <div style="margin-top:28px;">
+          <button class="btn-primary" style="background:var(--navy-deep); color:var(--white);" onclick="go('about')">Meet the firm</button>
+        </div>
+      </div>
+      <div class="imgblock">Client &amp; Advisor Meeting</div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Not sure where your exposure sits?</h2>
+    <p>Our advisors can walk through your current coverage in under thirty minutes and flag where the gaps are.</p>
+    <button class="btn-primary" onclick="go('contact')">Schedule a risk review</button>
+  </section>
+</main>
+
+<!-- ================= SERVICES OVERVIEW ================= -->
+<main id="page-services" class="page">
+  <div class="subhero">
+    <div class="subhero-inner">
+      <div class="breadcrumb"><a onclick="go('home')">Home</a> / Services</div>
+      <h1>Services</h1>
+      <p class="lead">Six practice areas, one coordinated strategy. Explore each to see how our teams approach it.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="service-grid">
+      <div class="service-card" onclick="go('service-business')">
+        <div class="icon">B</div><h3>Business Insurance</h3>
+        <p>Property, general liability, commercial auto, and umbrella programs sized to your operation.</p>
+        <span class="link">View service →</span>
+      </div>
+      <div class="service-card" onclick="go('service-benefits')">
+        <div class="icon">E</div><h3>Employee Benefits</h3>
+        <p>Group health, retirement plans, and wellbeing strategy for organizations of every size.</p>
+        <span class="link">View service →</span>
+      </div>
+      <div class="service-card" onclick="go('service-risk')">
+        <div class="icon">R</div><h3>Risk Management</h3>
+        <p>Exposure analysis, loss control, and safety program design to reduce risk before it becomes a claim.</p>
+        <span class="link">View service →</span>
+      </div>
+      <div class="service-card" onclick="go('service-personal')">
+        <div class="icon">P</div><h3>Personal Insurance</h3>
+        <p>High-value home, auto, and liability protection for individuals and families.</p>
+        <span class="link">View service →</span>
+      </div>
+      <div class="service-card" onclick="go('service-claims')">
+        <div class="icon">C</div><h3>Claims Advocacy</h3>
+        <p>Hands-on support managing claims from first report through resolution.</p>
+        <span class="link">View service →</span>
+      </div>
+      <div class="service-card" onclick="go('service-specialty')">
+        <div class="icon">S</div><h3>Specialty Practices</h3>
+        <p>Cyber liability, executive &amp; professional lines, marine, and other focused coverages.</p>
+        <span class="link">View service →</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ TEMPLATE: individual service pages ============ -->
+<main id="page-service-business" class="page">
+  <div class="subhero"><div class="subhero-inner">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a> / <a onclick="go('services')">Services</a> / Business Insurance</div>
+    <h1>Business Insurance</h1>
+    <p class="lead">Coverage designed around how your business actually runs — not a generic policy template.</p>
+  </div></div>
+  <section class="section">
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Coverage that follows your operations</h3>
+        <p>Every business carries a different shape of risk depending on what it builds, sells, or serves. Our commercial lines team starts by mapping your operations — locations, equipment, contracts, and vendors — before recommending a single policy limit.</p>
+        <p>We place property, general liability, commercial auto, umbrella, and inland marine coverage through a broad panel of carriers, which means we're negotiating on your behalf rather than steering you toward a single insurer's product line.</p>
+        <h3>What's typically included</h3>
+        <p>Programs are built policy by policy, but most business insurance clients combine several of the following depending on size and industry.</p>
+        <ul class="checklist">
+          <li>Commercial property and business interruption coverage</li>
+          <li>General and product liability</li>
+          <li>Commercial auto and fleet programs</li>
+          <li>Umbrella and excess liability layers</li>
+          <li>Equipment breakdown and inland marine</li>
+        </ul>
+        <h3>How we work with you</h3>
+        <p>Renewals aren't a once-a-year fire drill. Your advisory team checks in throughout the policy period, flags exposure changes as your business grows, and prepares a full marketing strategy well ahead of renewal so you're never negotiating from a deadline.</p>
+      </div>
+      <aside>
+        <div class="sidebar-box">
+          <h4>Related services</h4>
+          <ul>
+            <li><a onclick="go('service-risk')">Risk Management</a></li>
+            <li><a onclick="go('service-claims')">Claims Advocacy</a></li>
+            <li><a onclick="go('service-specialty')">Specialty Practices</a></li>
+            <li><a onclick="go('industries')">Industries We Serve</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-box" style="margin-top:20px;">
+          <h4>Talk to a broker</h4>
+          <p style="font-size:14px; margin-bottom:16px;">Get a no-obligation review of your current commercial coverage.</p>
+          <button class="btn-primary" style="width:100%; background:var(--navy-deep); color:var(--white);" onclick="go('contact')">Request a review</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<main id="page-service-benefits" class="page">
+  <div class="subhero"><div class="subhero-inner">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a> / <a onclick="go('services')">Services</a> / Employee Benefits</div>
+    <h1>Employee Benefits</h1>
+    <p class="lead">Benefits strategy that helps you compete for talent without losing control of cost.</p>
+  </div></div>
+  <section class="section">
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Plans built around your workforce</h3>
+        <p>Benefits are one of the largest line items on your budget and one of the biggest reasons people stay. We help you strike the balance — building health, retirement, and wellbeing programs that fit your workforce and your margins.</p>
+        <h3>Core offerings</h3>
+        <ul class="checklist">
+          <li>Group medical, dental, and vision plan design</li>
+          <li>Retirement and 401(k) plan consulting</li>
+          <li>Voluntary and supplemental benefits</li>
+          <li>Wellbeing and mental health program design</li>
+          <li>Compliance support for ACA, ERISA, and state mandates</li>
+        </ul>
+        <h3>Data-driven plan design</h3>
+        <p>We benchmark your plan against others in your industry and region, model cost scenarios before renewal, and help HR teams communicate changes clearly to employees.</p>
+      </div>
+      <aside>
+        <div class="sidebar-box">
+          <h4>Related services</h4>
+          <ul>
+            <li><a onclick="go('service-business')">Business Insurance</a></li>
+            <li><a onclick="go('service-risk')">Risk Management</a></li>
+            <li><a onclick="go('industries')">Industries We Serve</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-box" style="margin-top:20px;">
+          <h4>Talk to a consultant</h4>
+          <p style="font-size:14px; margin-bottom:16px;">Benchmark your current benefits plan against your industry peers.</p>
+          <button class="btn-primary" style="width:100%; background:var(--navy-deep); color:var(--white);" onclick="go('contact')">Request a benchmark</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<main id="page-service-risk" class="page">
+  <div class="subhero"><div class="subhero-inner">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a> / <a onclick="go('services')">Services</a> / Risk Management</div>
+    <h1>Risk Management</h1>
+    <p class="lead">The goal isn't a bigger policy. It's fewer claims in the first place.</p>
+  </div></div>
+  <section class="section">
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Prevention before transfer</h3>
+        <p>Insurance transfers risk you couldn't prevent. Our risk consultants work upstream of that — identifying exposure in your operations, facilities, and supply chain before it turns into a loss.</p>
+        <h3>What our consultants do</h3>
+        <ul class="checklist">
+          <li>On-site safety and exposure assessments</li>
+          <li>Loss history analysis and trend reporting</li>
+          <li>Safety program and training design</li>
+          <li>Business continuity and disaster recovery planning</li>
+          <li>Contractual risk transfer review</li>
+        </ul>
+        <h3>Measured, not assumed</h3>
+        <p>Every engagement ends with a report your leadership team can actually act on: prioritized findings, estimated cost of inaction, and a realistic timeline for fixing what matters most.</p>
+      </div>
+      <aside>
+        <div class="sidebar-box">
+          <h4>Related services</h4>
+          <ul>
+            <li><a onclick="go('service-business')">Business Insurance</a></li>
+            <li><a onclick="go('service-claims')">Claims Advocacy</a></li>
+            <li><a onclick="go('service-specialty')">Specialty Practices</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-box" style="margin-top:20px;">
+          <h4>Request an assessment</h4>
+          <p style="font-size:14px; margin-bottom:16px;">Start with a walkthrough of your current risk exposure.</p>
+          <button class="btn-primary" style="width:100%; background:var(--navy-deep); color:var(--white);" onclick="go('contact')">Book an assessment</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<main id="page-service-personal" class="page">
+  <div class="subhero"><div class="subhero-inner">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a> / <a onclick="go('services')">Services</a> / Personal Insurance</div>
+    <h1>Personal Insurance</h1>
+    <p class="lead">Home, auto, and liability coverage for people whose lives don't fit a standard policy.</p>
+  </div></div>
+  <section class="section">
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Beyond the standard policy</h3>
+        <p>Multiple properties, valuable collections, watercraft, or a high public profile all change what "adequate coverage" means. Our personal lines advisors specialize in exactly this kind of complexity.</p>
+        <h3>Coverage areas</h3>
+        <ul class="checklist">
+          <li>Homeowners and high-value dwelling coverage</li>
+          <li>Auto, watercraft, and recreational vehicle policies</li>
+          <li>Valuables, art, and collections coverage</li>
+          <li>Personal excess liability (umbrella)</li>
+          <li>Domestic staff and household liability</li>
+        </ul>
+        <h3>One advisor, one relationship</h3>
+        <p>You get a single point of contact who understands your full picture — not a different call center for every policy you own.</p>
+      </div>
+      <aside>
+        <div class="sidebar-box">
+          <h4>Related services</h4>
+          <ul>
+            <li><a onclick="go('service-claims')">Claims Advocacy</a></li>
+            <li><a onclick="go('service-risk')">Risk Management</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-box" style="margin-top:20px;">
+          <h4>Get a coverage review</h4>
+          <p style="font-size:14px; margin-bottom:16px;">Find out where your personal coverage may fall short.</p>
+          <button class="btn-primary" style="width:100%; background:var(--navy-deep); color:var(--white);" onclick="go('contact')">Request a review</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<main id="page-service-claims" class="page">
+  <div class="subhero"><div class="subhero-inner">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a> / <a onclick="go('services')">Services</a> / Claims Advocacy</div>
+    <h1>Claims Advocacy</h1>
+    <p class="lead">When something goes wrong, you shouldn't have to fight your insurer alone.</p>
+  </div></div>
+  <section class="section">
+    <div class="two-col">
+      <div class="content-block">
+        <h3>An advocate, not a go-between</h3>
+        <p>A claim is the moment your policy actually gets tested. Our claims advocates manage the process on your behalf — documentation, adjuster communication, and negotiation — so a stressful situation doesn't also become a confusing one.</p>
+        <h3>How we help</h3>
+        <ul class="checklist">
+          <li>First notice of loss filing and documentation support</li>
+          <li>Direct negotiation with carrier adjusters</li>
+          <li>Escalation for disputed or delayed claims</li>
+          <li>Post-claim policy review to close future gaps</li>
+        </ul>
+        <h3>Working for you, not the carrier</h3>
+        <p>Because we're your broker, our incentive is a fair outcome for you — not a fast close for the insurer.</p>
+      </div>
+      <aside>
+        <div class="sidebar-box">
+          <h4>Related services</h4>
+          <ul>
+            <li><a onclick="go('service-business')">Business Insurance</a></li>
+            <li><a onclick="go('service-risk')">Risk Management</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-box" style="margin-top:20px;">
+          <h4>Have an open claim?</h4>
+          <p style="font-size:14px; margin-bottom:16px;">Reach out and an advocate will follow up within one business day.</p>
+          <button class="btn-primary" style="width:100%; background:var(--navy-deep); color:var(--white);" onclick="go('contact')">Contact claims team</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<main id="page-service-specialty" class="page">
+  <div class="subhero"><div class="subhero-inner">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a> / <a onclick="go('services')">Services</a> / Specialty Practices</div>
+    <h1>Specialty Practices</h1>
+    <p class="lead">Niche exposures need brokers who work in that niche every day.</p>
+  </div></div>
+  <section class="section">
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Depth in the areas that need it</h3>
+        <p>Some risks are too specific for a generalist to place well. Our specialty practice teams focus entirely on one coverage area, which means deeper carrier relationships and sharper underwriting insight.</p>
+        <h3>Practice areas</h3>
+        <ul class="checklist">
+          <li>Cyber liability and data breach response</li>
+          <li>Executive &amp; professional lines (D&amp;O, E&amp;O)</li>
+          <li>Marine and inland transit</li>
+          <li>Environmental and pollution liability</li>
+          <li>Surety and fidelity bonds</li>
+        </ul>
+        <h3>Coordinated with your core program</h3>
+        <p>Specialty coverage doesn't sit in isolation — our practice leads coordinate with your core advisory team so nothing overlaps or falls through the cracks between policies.</p>
+      </div>
+      <aside>
+        <div class="sidebar-box">
+          <h4>Related services</h4>
+          <ul>
+            <li><a onclick="go('service-business')">Business Insurance</a></li>
+            <li><a onclick="go('service-risk')">Risk Management</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-box" style="margin-top:20px;">
+          <h4>Have a niche exposure?</h4>
+          <p style="font-size:14px; margin-bottom:16px;">Tell us about it and we'll route you to the right specialty team.</p>
+          <button class="btn-primary" style="width:100%; background:var(--navy-deep); color:var(--white);" onclick="go('contact')">Get connected</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<!-- ================= INDUSTRIES ================= -->
+<main id="page-industries" class="page">
+  <div class="subhero"><div class="subhero-inner">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a> / Industries</div>
+    <h1>Industries We Serve</h1>
+    <p class="lead">Different industries carry different risk profiles. Our advisors specialize by sector so recommendations reflect how your business actually works.</p>
+  </div></div>
+  <section class="section">
+    <div class="service-grid">
+      <div class="service-card" onclick="go('services')"><div class="icon">1</div><h3>Construction</h3><p>Builder's risk, wrap-ups, and subcontractor liability programs.</p><span class="link">View services →</span></div>
+      <div class="service-card" onclick="go('services')"><div class="icon">2</div><h3>Healthcare</h3><p>Professional liability and regulatory-driven coverage for providers.</p><span class="link">View services →</span></div>
+      <div class="service-card" onclick="go('services')"><div class="icon">3</div><h3>Manufacturing</h3><p>Product liability, supply chain, and equipment breakdown coverage.</p><span class="link">View services →</span></div>
+      <div class="service-card" onclick="go('services')"><div class="icon">4</div><h3>Real Estate</h3><p>Property, environmental, and tenant liability programs for owners and managers.</p><span class="link">View services →</span></div>
+      <div class="service-card" onclick="go('services')"><div class="icon">5</div><h3>Nonprofit</h3><p>D&amp;O, volunteer accident, and event liability coverage on nonprofit budgets.</p><span class="link">View services →</span></div>
+      <div class="service-card" onclick="go('services')"><div class="icon">6</div><h3>Technology</h3><p>Cyber, tech E&amp;O, and IP liability for software and hardware companies.</p><span class="link">View services →</span></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= ABOUT ================= -->
+<main id="page-about" class="page">
+  <div class="subhero"><div class="subhero-inner">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a> / About Us</div>
+    <h1>About G Insurance</h1>
+    <p class="lead">An independent brokerage built on one idea: advice should outlast the sale.</p>
+  </div></div>
+  <section class="section">
+    <div class="split">
+      <div>
+        <span class="eyebrow">Our story</span>
+        <h2>Founded on independence</h2>
+        <p>G Insurance was built as an independent brokerage, which means we aren't tied to any one carrier's product line. That independence lets our advisors recommend what actually fits your risk — not whatever's easiest to sell.</p>
+        <p>Today our teams work across business insurance, employee benefits, personal lines, and specialty risk, coordinated so clients get one strategy instead of a pile of separate vendor relationships.</p>
+      </div>
+      <div class="imgblock">Advisory Team, Regional Office</div>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0;">
+    <div class="section-head">
+      <span class="eyebrow">What guides us</span>
+      <h2>Principles our advisors work by</h2>
+    </div>
+    <div class="service-grid">
+      <div class="service-card" style="cursor:default;"><div class="icon">I</div><h3>Independence</h3><p>We work for our clients, not for a carrier's sales quota.</p></div>
+      <div class="service-card" style="cursor:default;"><div class="icon">T</div><h3>Transparency</h3><p>Clear explanations of coverage, cost, and tradeoffs — no fine print surprises.</p></div>
+      <div class="service-card" style="cursor:default;"><div class="icon">A</div><h3>Advocacy</h3><p>We stay involved after the policy is bound, especially when a claim gets hard.</p></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= CONTACT ================= -->
+<main id="page-contact" class="page">
+  <div class="subhero"><div class="subhero-inner">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a> / Contact</div>
+    <h1>Get in touch</h1>
+    <p class="lead">Tell us a bit about what you need and an advisor will follow up — usually within one business day.</p>
+  </div></div>
+  <section class="section">
+    <div class="two-col">
+      <div class="contact-form">
+        <form onsubmit="handleFormSubmit(event)">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="fname">First name</label>
+              <input id="fname" type="text" placeholder="Jordan" required>
+            </div>
+            <div class="form-field">
+              <label for="lname">Last name</label>
+              <input id="lname" type="text" placeholder="Rivera" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="jordan@example.com" required>
+            </div>
+            <div class="form-field">
+              <label for="phone">Phone</label>
+              <input id="phone" type="tel" placeholder="(555) 555-5555">
+            </div>
+          </div>
+          <div class="form-field" style="margin-bottom:16px;">
+            <label for="topic">What can we help with?</label>
+            <select id="topic">
+              <option>Business Insurance</option>
+              <option>Employee Benefits</option>
+              <option>Risk Management</option>
+              <option>Personal Insurance</option>
+              <option>Claims Advocacy</option>
+              <option>Specialty Practices</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="form-field" style="margin-bottom:16px;">
+            <label for="msg">Message</label>
+            <textarea id="msg" rows="5" placeholder="Tell us a bit about your situation..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="background:var(--navy-deep); color:var(--white); width:100%;">Send message</button>
+          <p class="form-note">This is a demonstration form. No data is transmitted or stored anywhere.</p>
+        </form>
+      </div>
+      <aside>
+        <div class="sidebar-box">
+          <h4>Prefer to talk?</h4>
+          <ul>
+            <li>Main line: (555) 010-2200</li>
+            <li>Claims: (555) 010-2255</li>
+            <li>Email: hello@ginsurance.example</li>
+          </ul>
+        </div>
+        <div class="sidebar-box" style="margin-top:20px;">
+          <h4>Offices</h4>
+          <ul>
+            <li>Chicago, IL — Headquarters</li>
+            <li>Dallas, TX</li>
+            <li>Atlanta, GA</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="color:var(--white); margin-bottom:14px;" onclick="go('home')">
+          <span class="logo-mark"></span><span>G Insurance</span>
+        </div>
+        <p style="font-size:13.5px; color:rgba(246,244,238,0.6); max-width:220px;">Independent insurance brokerage and risk advisory. Fictional demonstration brand.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a onclick="go('service-business')">Business Insurance</a></li>
+          <li><a onclick="go('service-benefits')">Employee Benefits</a></li>
+          <li><a onclick="go('service-risk')">Risk Management</a></li>
+          <li><a onclick="go('service-personal')">Personal Insurance</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a onclick="go('about')">About Us</a></li>
+          <li><a onclick="go('industries')">Industries</a></li>
+          <li><a onclick="go('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Claims</h4>
+        <ul>
+          <li><a onclick="go('service-claims')">Claims Advocacy</a></li>
+          <li><a onclick="go('contact')">Report a claim</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a onclick="go('home')">Privacy (demo)</a></li>
+          <li><a onclick="go('home')">Terms (demo)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 G Insurance. Fictional company for demonstration purposes only.</span>
+      <span>Not a real brokerage. Not affiliated with any real insurer.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Placeholder chat widget (demo only — not a live/functional integration) -->
+<button class="chat-launcher" onclick="document.getElementById('chatPanel').classList.toggle('open')">
+  <span class="chat-dot"></span> Chat with us
+</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-panel-header">G Insurance — Live Chat (demo)</div>
+  <div class="chat-panel-body">
+    <p><strong>This is a placeholder.</strong> In a real deployment, this panel would connect to your own chat provider using your own account credentials — for example a Genesys Cloud, Intercom, or Zendesk widget with a deployment ID issued to your organization.</p>
+  </div>
+</div>
+
+<script>
+  function go(pageId){
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    var target = document.getElementById('page-' + pageId);
+    if(target){ target.classList.add('active'); }
+    document.querySelectorAll('nav.main-nav a').forEach(a => a.classList.remove('active'));
+    var navMatch = document.querySelector('nav.main-nav a[data-page="' + pageId + '"]');
+    if(navMatch){ navMatch.classList.add('active'); }
+    window.location.hash = pageId;
+    window.scrollTo({top:0, behavior:'instant'});
+    document.getElementById('mainNav').classList.remove('mobile-open');
+  }
+  function handleFormSubmit(e){
+    e.preventDefault();
+    alert('Demo form — no data was sent. In a real site this would submit to your CRM or email.');
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    var initial = window.location.hash ? window.location.hash.substring(1) : 'home';
+    if(!document.getElementById('page-' + initial)){ initial = 'home'; }
+    go(initial);
+  });
+</script>
+
+</body>
+</html>
